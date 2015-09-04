@@ -1,0 +1,33 @@
+<div layout="column" style="height:100%">
+	<md-toolbar layout="row">
+		<div class="md-toolbar-tools">
+			<md-button ng-click="vm.toggleSidenav('left')" hide-gt-sm class="md-icon-button">
+				<md-icon aria-label="Menu" md-svg-icon="https://s3-us-west-2.amazonaws.com/s.cdpn.io/68133/menu.svg"></md-icon>
+			</md-button>
+			<h1>App Name</h1>
+		</div>
+	</md-toolbar>
+
+	<div layout="row" flex>
+		<md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
+			<md-menu-content layout-padding>
+				<md-menu-item>
+					<md-button ng-click="vm.menu1()" class="md-primary">
+						Menu 1
+					</md-button>
+				</md-menu-item>
+				<md-menu-item>
+					<md-button ng-click="vm.menu2()" class="md-primary">
+						Menu 2
+					</md-button>
+				</md-menu-item>
+			</md-menu-content>
+		</md-sidenav>
+
+		<div layout="column" flex id="content">
+			<md-content layout="column" flex class="md-padding">
+				content
+			</md-content>
+		</div>
+	</div>
+</div>
