@@ -4,9 +4,9 @@
 	angular.module('login.module')
 		.directive('jdtLogin', directiveFn);
 
-	directiveFn.$inject = ['$location', '$log'];
+	directiveFn.$inject = ['$location', '$log', 'loginService'];
 
-	function directiveFn($location, $log) {
+	function directiveFn($location, $log, loginService) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -23,7 +23,7 @@
 			var vm = this;
 
 			vm.login = function() {
-				$log.debug('login');
+				loginService.login(vm.email, vm.password);
 			};
 			vm.forgot = function() {
 				$log.debug('forgot');
