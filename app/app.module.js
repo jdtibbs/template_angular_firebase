@@ -5,6 +5,8 @@
 		.module('app', [
 			'ngMaterial',
 			'templates',
-			'jdt.menu'
+			'components.module',
+			'home.module',
+			'login.module'
 		]);
 })();

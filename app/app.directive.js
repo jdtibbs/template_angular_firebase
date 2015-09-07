@@ -21,19 +21,19 @@
 			var vm = this;
 
 			vm.props = {};
-			vm.props.menu = {
-				items: []
-			};
 			vm.props.appTitle = 'App Name';
 			vm.props.auth = null;
 			vm.props.loggedIn = false;
 			vm.props.login = null;
 			vm.props.user = null;
 			vm.props.sidenav = {
-				id: 'sidenav'
-			};
-			vm.toggleSidenav = function() {
-				$mdSidenav(vm.props.sidenav.id).toggle();
+				id: 'sidenav',
+				toggle: function() {
+					$mdSidenav(this.id).toggle();
+				},
+				close: function() {
+					$mdSidenav(this.id).close();
+				}
 			};
 		}
 
