@@ -1,0 +1,16 @@
+<form name="form" role="form" novalidate>
+	<md-input-container>
+		<label>Email</label>
+		<input name="email" type="text" ng-model="vm.email" required>
+		<div ng-messages="form.email.$error">
+			<div ng-message="required">Required.</div>
+		</div>
+	</md-input-container>
+	<md-input-container>
+		<label>Password</label>
+		<input type="password" ng-model="vm.password" required>
+	</md-input-container>
+
+	<md-button class="md-primary md-raised" type="submit" ng-click="vm.login()">Login</md-button>
+	<md-button class="md-raised" type="button" ng-click="vm.forgot()">Forgot Password</md-button>
+</form>
