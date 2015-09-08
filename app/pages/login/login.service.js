@@ -5,13 +5,12 @@
     angular.module('login.module')
         .service('loginService', serviceFn);
 
-    serviceFn.$inject = ['$log'];
+    serviceFn.$inject = ['firebaseAuthService', '$log'];
 
-    function serviceFn($log) {
+    function serviceFn(firebaseAuthService, $log) {
 
-        this.login = function(email, password, props) {
-            $log.debug(email);
-            $log.debug(password);
+        this.login = function(email, password) {
+            return firebaseAuthService.login(email, password);
         };
     }
 })();

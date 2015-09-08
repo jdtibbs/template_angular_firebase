@@ -5,8 +5,11 @@
 		.module('app', [
 			'ngMaterial',
 			'templates',
+			'rx',
 			'components.module',
 			'home.module',
-			'login.module'
+			'login.module',
+			'services.firebase.module',
+			'services.util.module',
 		]);
 })();
