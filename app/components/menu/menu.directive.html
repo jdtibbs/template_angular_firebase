@@ -1,7 +1,25 @@
 <md-menu-content layout-padding>
+	<md-menu-item>
+		<md-button ng-click="vm.click('/home')" class="md-primary">
+			<span>Home</span>
+		</md-button>
+	</md-menu-item>
+
 	<md-menu-item ng-repeat="menu in vm.props.menu.items">
 		<md-button ng-click="vm.click(menu.path)" class="md-primary">
 			{{menu.title}}
+		</md-button>
+	</md-menu-item>
+
+	<md-menu-item>
+		<md-button ng-click="vm.click('/login')" class="md-primary">
+			<span>Login</span>
+		</md-button>
+	</md-menu-item>
+
+	<md-menu-item>
+		<md-button ng-click="vm.logout()" class="md-primary">
+			<span>Logout</span>
 		</md-button>
 	</md-menu-item>
 </md-menu-content>

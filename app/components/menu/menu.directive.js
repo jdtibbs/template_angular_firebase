@@ -4,9 +4,9 @@
 	angular.module('components.module')
 		.directive('jdtMenu', directiveFn);
 
-	directiveFn.$inject = ['$location', '$log', '$mdSidenav'];
+	directiveFn.$inject = ['loginService', '$location', '$log', '$mdSidenav'];
 
-	function directiveFn($location, $log, $mdSidenav) {
+	function directiveFn(loginService, $location, $log, $mdSidenav) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -25,12 +25,16 @@
 				items: []
 			};
 
-			vm.props.menu.items.push(new Menu('Home', '/home'));
-			vm.props.menu.items.push(new Menu('Login', '/login'));
+			vm.props.menu.items.push(new Menu('Test', '/Test'));
 
 			vm.click = function(path) {
 				vm.props.sidenav.close();
 				$location.path(path);
+			};
+
+			vm.logout = function(path) {
+				vm.props.sidenav.close();
+				loginService.logout();
 			};
 
 			function Menu(title, path) {
