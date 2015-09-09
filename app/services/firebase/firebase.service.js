@@ -11,16 +11,10 @@
 
         this.ref = ref;
 
-        function ref(path) {
-            if (typeof path === 'string') {
-                if (path.search(/\//) > -1) {
-                    return new Firebase(firebaseConstants.url() + path);
-                } else {
-                    throw new Error('Path must start with /. path: ' + path);
-                }
-            } else {
-                return new Firebase(firebaseConstants.url());
-            }
+        var _ref;
+
+        function ref() {
+            return _ref || (_ref = new Firebase(firebaseConstants.url()));
         }
     }
 })();

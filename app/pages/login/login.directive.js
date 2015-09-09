@@ -21,6 +21,7 @@
 
 		function controllerFn() {
 			var vm = this;
+			handleAuthObj();
 
 			vm.login = function() {
 				var source = rx.Observable.startAsync(function() {
@@ -28,8 +29,7 @@
 				});
 				var subscription = source.subscribe(
 					function(authData) {
-						vm.props.authData = authData;
-						$log.debug(vm.props.authData);
+						// see handleAuthObj()
 					},
 					function(error) {
 						$log.error('Email or password is invalid.');
@@ -43,6 +43,20 @@
 			vm.forgot = function() {
 				$log.debug('forgot');
 			};
+
+			function handleAuthObj() {
+				loginService.authObj().$onAuth(function(authData) {
+					vm.props.authData = authData;
+					$log.debug(vm.props.authData);
+					if (authData) {
+						$log.debug("Logged in:", authData.uid);
+						$location.path('/home');
+					} else {
+						$log.debug("Logged out.");
+						$location.path('/login');
+					}
+				});
+			}
 		}
 
 		function linkFn(scope, elem, attrs) {}

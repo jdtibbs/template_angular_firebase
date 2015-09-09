@@ -25,6 +25,7 @@
 				items: []
 			};
 
+			// TODO remove temp menu item.
 			vm.props.menu.items.push(new Menu('Test', '/Test'));
 
 			vm.click = function(path) {

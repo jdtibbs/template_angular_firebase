@@ -9,6 +9,10 @@
 
 	function serviceFn(firebaseAuthService, $log) {
 
+		this.authObj = function() {
+			return firebaseAuthService.authObj();
+		};
+
 		this.login = function(email, password) {
 			return firebaseAuthService.login(email, password);
 		};

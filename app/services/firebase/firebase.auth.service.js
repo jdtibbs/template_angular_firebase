@@ -5,43 +5,29 @@
     angular.module('services.firebase.module')
         .service('firebaseAuthService', serviceFn);
 
-    serviceFn.$inject = ['firebaseService', '$firebaseAuth', '$log', '$location'];
+    serviceFn.$inject = ['firebaseService', '$firebaseAuth', '$log'];
 
-    function serviceFn(firebaseService, $firebaseAuth, $log, $location) {
+    function serviceFn(firebaseService, $firebaseAuth, $log) {
 
-        var authObj;
-
+        this.authObj = authObj;
         this.login = login;
         this.logout = logout;
 
-        function getAuthObj() {
-            if (authObj) {
-                return authObj;
-            } else {
-                authObj = $firebaseAuth(firebaseService.ref());
-                // TODO: move $location.path somewhere better? 
-                authObj.$onAuth(function(authData) {
-                    if (authData) {
-                        $log.debug("Logged in:", authData.uid);
-                        $location.path('/home');
-                    } else {
-                        $log.debug("Logged out.");
-                        $location.path('/login');
-                    }
-                });
-                return authObj;
-            }
+        var _authObj;
+
+        function authObj() {
+            return _authObj || (_authObj = $firebaseAuth(firebaseService.ref()));
         }
 
         function login(email, password) {
-            return getAuthObj().$authWithPassword({
+            return authObj().$authWithPassword({
                 email: email,
                 password: password
             });
         }
 
         function logout() {
-            getAuthObj().$unauth();
+            authObj().$unauth();
         }
     }
 })();
