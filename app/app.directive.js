@@ -4,9 +4,9 @@
 	angular.module('app')
 		.directive('jdtApp', directiveFn);
 
-	directiveFn.$inject = ['$log', '$mdSidenav'];
+	directiveFn.$inject = ['$log'];
 
-	function directiveFn($log, $mdSidenav) {
+	function directiveFn($log) {
 		return {
 			restrict: 'E',
 			scope: {},
@@ -29,10 +29,10 @@
 			vm.props.sidenav = {
 				id: 'sidenav',
 				toggle: function() {
-					$mdSidenav(this.id).toggle();
+					// $mdSidenav(this.id).toggle();
 				},
 				close: function() {
-					$mdSidenav(this.id).close();
+					// $mdSidenav(this.id).close();
 				}
 			};
 		}

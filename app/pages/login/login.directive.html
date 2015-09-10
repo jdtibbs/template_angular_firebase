@@ -1,16 +1,21 @@
-<form name="form" role="form" novalidate>
-	<md-input-container>
-		<label>Email</label>
-		<input name="email" type="text" ng-model="vm.email" required>
-		<div ng-messages="form.email.$error">
-			<div ng-message="required">Required.</div>
+<div class="mdl-cell mdl-cell--12-col mdl-grid mdl-grid--no-spacing">
+	<form name="form" role="form" novalidate>
+		<div class="mdl-cell mdl-cell--8-col">
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				<input class="mdl-textfield__input" type="email" id="email" required />
+				<label class="mdl-textfield__label" for="email">Email</label>
+			</div>
 		</div>
-	</md-input-container>
-	<md-input-container>
-		<label>Password</label>
-		<input name="password" type="password" ng-model="vm.password" required>
-	</md-input-container>
-
-	<md-button class="md-primary md-raised" type="submit" ng-disabled="form.password.$error.required || form.email.$error.required" ng-click="vm.login()">Login</md-button>
-	<md-button class="md-raised" type="button" ng-disabled="form.email.$error.required" ng-click="vm.forgot()">Forgot Password</md-button>
-</form>
+		<div class="mdl-cell mdl-cell--8-col">
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				<input class="mdl-textfield__input" type="password" id="email" required/>
+				<label class="mdl-textfield__label" for="email">Password</label>
+			</div>
+		</div>
+		<div class="mdl-cell mdl-cell--8-col">
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" type="submit" ng-click="vm.login()">
+				Login
+			</button>
+		</div>
+	</form>
+</div>

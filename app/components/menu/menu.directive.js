@@ -4,9 +4,9 @@
 	angular.module('components.module')
 		.directive('jdtMenu', directiveFn);
 
-	directiveFn.$inject = ['loginService', '$location', '$log', '$mdSidenav'];
+	directiveFn.$inject = ['loginService', '$location', '$log'];
 
-	function directiveFn(loginService, $location, $log, $mdSidenav) {
+	function directiveFn(loginService, $location, $log) {
 		return {
 			restrict: 'E',
 			scope: {

@@ -1,4 +1,4 @@
-<md-menu-content layout-padding>
+<!-- <md-menu-content layout-padding>
 	<md-menu-item>
 		<md-button ng-click="vm.click('/home')" class="md-primary">
 			<span>Home</span>
@@ -24,4 +24,27 @@
 			<span>Logout</span>
 		</md-button>
 	</md-menu-item>
-</md-menu-content>
+</md-menu-content> -->
+
+<!-- <a class="mdl-navigation__link" href="#home">Home</a> -->
+<!-- <a class="mdl-navigation__link" href="#menu">Menu</a> -->
+<!-- <a class="mdl-navigation__link" href="#login">Login</a> -->
+<a class="mdl-navigation__link" href="#/home">Home</a>
+<a class="mdl-navigation__link" href="#/login">Login</a>
+<!-- 
+
+<div id="navbar" class="navbar-collapse" ng-class="{collapse: vm.collapse}">
+	<ul class="nav navbar-nav">
+		<li ng-repeat="value in vm.root.menu.items | orderBy : 'seq'">
+			<a ng-show="vm.root.loggedIn" ng-href="{{value.url}}" ng-click="vm.toggleCollapse()">
+				<span ng-bind="value.display">{{value}}</span>
+			</a>
+		</li>
+	</ul>
+	<ul class="nav navbar-nav pull-right">
+		<li ng-show="vm.root.loggedIn"><a href="" ng-click="vm.logout()">Logout</a>
+		</li>
+		<li ng-hide="vm.root.loggedIn"><a href="#/login" ng-click="vm.toggleCollapse()">Login</a>
+		</li>
+	</ul>
+</div> -->

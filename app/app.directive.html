@@ -1,23 +1,29 @@
-<div layout="column" style="height:100%;">
-	<md-toolbar layout="row">
-		<div class="md-toolbar-tools">
-			<md-button ng-click="vm.props.sidenav.toggle()" hide-gt-sm class="md-icon-button">
-				<md-icon aria-label="Menu" md-svg-icon="https://s3-us-west-2.amazonaws.com/s.cdpn.io/68133/menu.svg"></md-icon>
-			</md-button>
-			<h1 class="md-title" ng-bind="::vm.props.appTitle"></h1>
-		</div>
-	</md-toolbar>
+<!-- Always shows a header, even in smaller screens. -->
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+  <header class="mdl-layout__header">
+    <div class="mdl-layout__header-row">
+      <!-- Title -->
+      <span class="mdl-layout-title">App Name</span>
+      <!-- Add spacer, to align navigation to the right -->
+      <div class="mdl-layout-spacer"></div>
+      <!-- Navigation. We hide it in small screens. -->
+      <nav class="mdl-navigation mdl-layout--large-screen-only">
+        <jdt-menu props="vm.props"></jdt-menu>
+      </nav>
+    </div>
+  </header>
+  <div class="mdl-layout__drawer">
+    <span class="mdl-layout-title">Title</span>
+    <nav class="mdl-navigation">
+      <jdt-menu props="vm.props"></jdt-menu>
+    </nav>
+  </div>
+  <main class="mdl-layout__content">
+    <div class="page-content">
 
-	<div layout="row" flex>
-		<md-sidenav layout="column" flex class="md-sidenav-left md-whiteframe-z2" md-component-id="sidenav" md-is-locked-open="$mdMedia('gt-sm')">
-			<jdt-menu props="vm.props"></jdt-menu>
-		</md-sidenav>
+      <div ng-cloak ng-view></div>
 
-		<div layout="column" flex id="content ">
-			<div layout=" column " flex id="content ">
-				<md-content layout="column " flex class="md-padding">
-					<div ng-cloak ng-view></div>
-				</md-content>
-			</div>
-		</div>
-	</div>
+    </div>
+</div>
+</main>
+</div>
