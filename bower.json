@@ -1,7 +1,10 @@
 {
-	"name": "your-app",
-	"version": "0.0.1",
-	"main": "public/app.js",
-	"dependencies": {},
-	"overrides": {}
+  "name": "your-app",
+  "version": "0.0.1",
+  "main": "public/app.js",
+  "dependencies": {
+    "rx-angular": "angular-rx#~0.0.14",
+    "rxjs": "~3.1.2"
+  },
+  "overrides": {}
 }
