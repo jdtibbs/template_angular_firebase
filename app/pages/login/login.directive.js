@@ -21,7 +21,7 @@
 
 		function controllerFn() {
 			var vm = this;
-			handleAuthObj();
+			onAuth();
 
 			vm.login = function() {
 				var source = rx.Observable.startAsync(function() {
@@ -29,7 +29,7 @@
 				});
 				var subscription = source.subscribe(
 					function(authData) {
-						// see handleAuthObj()
+						// see onAuth()
 					},
 					function(error) {
 						$log.error('Email or password is invalid.');
@@ -44,7 +44,8 @@
 				$log.debug('forgot');
 			};
 
-			function handleAuthObj() {
+			function onAuth() {
+				// handle changes in authentication state.
 				loginService.authObj().$onAuth(function(authData) {
 					vm.props.authData = authData;
 					$log.debug(vm.props.authData);
