@@ -1,20 +1,29 @@
 <div class="mdl-cell mdl-cell--12-col mdl-grid mdl-grid--no-spacing">
+	<!-- to use html5 validation -->
 	<form name="form" role="form" novalidate>
-		<div class="mdl-cell mdl-cell--8-col">
+		<!-- <form name="form" role="form"> -->
+		<div class="mdl-cell mdl-cell--12-col">
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-				<input class="mdl-textfield__input" type="email" id="email" required />
+				<input class="mdl-textfield__input" type="email" id="email" name="email" ng-model="vm.email" required />
 				<label class="mdl-textfield__label" for="email">Email</label>
+				<div ng-show="form.$submitted || form.email.$touched">
+					<div class="mdl-textfield__error" ng-show="form.email.$error.required">Required</div>
+					<div class="mdl-textfield__error" ng-show="form.email.$error.email">Invalid Format</div>
+				</div>
 			</div>
 		</div>
-		<div class="mdl-cell mdl-cell--8-col">
+		<div class="mdl-cell mdl-cell--12-col">
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-				<input class="mdl-textfield__input" type="password" id="email" required/>
-				<label class="mdl-textfield__label" for="email">Password</label>
+				<input class="mdl-textfield__input" type="password" id="password" name="password" ng-model="vm.password" required/>
+				<label class="mdl-textfield__label" for="password">Password</label>
 			</div>
 		</div>
-		<div class="mdl-cell mdl-cell--8-col">
-			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" type="submit" ng-click="vm.login()">
+		<div class="mdl-cell mdl-cell--12-col ">
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored " type="submit " ng-click="vm.login() ">
 				Login
+			</button>
+			<button class="mdl-button mdl-js-button mdl-button--raised " ng-click="vm.forgot() ">
+				Forgot
 			</button>
 		</div>
 	</form>
