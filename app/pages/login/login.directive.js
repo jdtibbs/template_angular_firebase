@@ -48,7 +48,6 @@
 				// handle changes in authentication state.
 				loginService.authObj().$onAuth(function(authData) {
 					vm.props.authData = authData;
-					$log.debug(vm.props.authData);
 					if (authData) {
 						$log.debug("Logged in:", authData.uid);
 						$location.path('/home');

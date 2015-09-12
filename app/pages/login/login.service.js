@@ -9,16 +9,25 @@
 
 	function serviceFn(firebaseAuthService, $log) {
 
-		this.authObj = function() {
+		this.authData = authData;
+		this.authObj = authObj;
+		this.login = login;
+		this.logout = logout;
+
+		function authData() {
+			return firebaseAuthService.authData();
+		}
+
+		function authObj() {
 			return firebaseAuthService.authObj();
-		};
+		}
 
-		this.login = function(email, password) {
+		function login(email, password) {
 			return firebaseAuthService.login(email, password);
-		};
+		}
 
-		this.logout = function() {
+		function logout() {
 			return firebaseAuthService.logout();
-		};
+		}
 	}
 })();
