@@ -9,11 +9,16 @@
 
     function serviceFn(firebaseService, $firebaseAuth, $log) {
 
+        this.authData = authData;
         this.authObj = authObj;
         this.login = login;
         this.logout = logout;
 
         var _authObj;
+
+        function authData() {
+            return authObj().$getAuth();
+        }
 
         function authObj() {
             return _authObj || (_authObj = $firebaseAuth(firebaseService.ref()));
