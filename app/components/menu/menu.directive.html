@@ -1,50 +1,14 @@
-<!-- <md-menu-content layout-padding>
-	<md-menu-item>
-		<md-button ng-click="vm.click('/home')" class="md-primary">
-			<span>Home</span>
-		</md-button>
-	</md-menu-item>
+<nav class="mdl-navigation">
+	<a class="mdl-navigation__link" href="#/home">Home</a>
 
-	<span ng-show="vm.props.authData">
-		<md-menu-item ng-repeat="menu in vm.props.menu.items">
-			<md-button ng-click="vm.click(menu.path)" class="md-primary">
-				{{menu.title}}
-			</md-button>
-		</md-menu-item>
+	<span ng-show="vm.props.authData" ng-repeat="menu in vm.menu.items">
+		<a class="mdl-navigation__link" ng-href="{{menu.path}}">{{menu.title}}</a>
 	</span>
 
-	<md-menu-item ng-hide="vm.props.authData">
-		<md-button ng-click="vm.click('/login')" class="md-primary">
-			<span>Login</span>
-		</md-button>
-	</md-menu-item>
-
-	<md-menu-item ng-show="vm.props.authData">
-		<md-button ng-click="vm.logout()" class="md-primary">
-			<span>Logout</span>
-		</md-button>
-	</md-menu-item>
-</md-menu-content> -->
-
-<!-- <a class="mdl-navigation__link" href="#home">Home</a> -->
-<!-- <a class="mdl-navigation__link" href="#menu">Menu</a> -->
-<!-- <a class="mdl-navigation__link" href="#login">Login</a> -->
-<a class="mdl-navigation__link" href="#/home">Home</a>
-<a class="mdl-navigation__link" href="#/login">Login</a>
-<!-- 
-
-<div id="navbar" class="navbar-collapse" ng-class="{collapse: vm.collapse}">
-	<ul class="nav navbar-nav">
-		<li ng-repeat="value in vm.root.menu.items | orderBy : 'seq'">
-			<a ng-show="vm.root.loggedIn" ng-href="{{value.url}}" ng-click="vm.toggleCollapse()">
-				<span ng-bind="value.display">{{value}}</span>
-			</a>
-		</li>
-	</ul>
-	<ul class="nav navbar-nav pull-right">
-		<li ng-show="vm.root.loggedIn"><a href="" ng-click="vm.logout()">Logout</a>
-		</li>
-		<li ng-hide="vm.root.loggedIn"><a href="#/login" ng-click="vm.toggleCollapse()">Login</a>
-		</li>
-	</ul>
-</div> -->
+	<span ng-show="vm.props.authData">
+		<a class="mdl-navigation__link" href="" ng-click="vm.logout()">Logout</a>
+	</span>
+	<span ng-hide="vm.props.authData">
+		<a class="mdl-navigation__link" href="#/login">Login</a>
+	</span>
+</nav>

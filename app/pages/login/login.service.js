@@ -9,6 +9,10 @@
 
 	function serviceFn(firebaseAuthService, $log) {
 
+		this.authData = function() {
+			return firebaseAuthService.authData();
+		};
+
 		this.authObj = function() {
 			return firebaseAuthService.authObj();
 		};

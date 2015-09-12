@@ -21,20 +21,16 @@
 
 		function controllerFn() {
 			var vm = this;
-			vm.props.menu = {
+			vm.menu = {
 				items: []
 			};
 
 			// TODO remove temp menu item.
-			vm.props.menu.items.push(new Menu('Test', '/Test'));
+			vm.menu.items.push(new Menu('Test', '#/test'));
 
-			vm.click = function(path) {
-				vm.props.sidenav.close();
-				$location.path(path);
-			};
+			//  TODO load menu from datastore.
 
 			vm.logout = function(path) {
-				vm.props.sidenav.close();
 				loginService.logout();
 			};
 
@@ -44,6 +40,8 @@
 			}
 		}
 
-		function linkFn(scope, elem, attrs) {}
+		function linkFn(scope, elem, attrs) {
+			componentHandler.upgradeElement(elem[0]);
+		}
 	}
 })();
