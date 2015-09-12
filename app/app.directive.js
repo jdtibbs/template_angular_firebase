@@ -20,12 +20,13 @@
 		function controllerFn() {
 			var vm = this;
 
-			vm.props = {};
-			vm.props.appTitle = 'App Name';
-			vm.props.auth = null;
-			vm.props.loggedIn = false;
-			vm.props.login = null;
-			vm.props.user = null;
+			vm.props = {
+				app: {
+					title: 'App Name'
+				}
+			};
+
+			// TODO move to sidenav directive.
 			vm.props.sidenav = {
 				id: 'sidenav',
 				toggle: function() {
