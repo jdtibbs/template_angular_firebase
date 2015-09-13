@@ -21,6 +21,8 @@
 
 		function controllerFn() {
 			var vm = this;
+			vm.click = click;
+			vm.logout = logout;
 			vm.props.menu = {
 				items: []
 			};
@@ -28,15 +30,15 @@
 			// TODO remove temp menu item.
 			vm.props.menu.items.push(new Menu('Test', '/Test'));
 
-			vm.click = function(path) {
+			function click(path) {
 				vm.props.sidenav.close();
 				$location.path(path);
-			};
+			}
 
-			vm.logout = function(path) {
+			function logout(path) {
 				vm.props.sidenav.close();
 				loginService.logout();
-			};
+			}
 
 			function Menu(title, path) {
 				this.title = title;
