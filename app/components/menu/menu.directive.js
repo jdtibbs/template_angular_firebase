@@ -23,12 +23,12 @@
 			var vm = this;
 			vm.click = click;
 			vm.logout = logout;
-			vm.props.menu = {
+			vm.menu = {
 				items: []
 			};
 
 			// TODO remove temp menu item.
-			vm.props.menu.items.push(new Menu('Test', '/Test'));
+			vm.menu.items.push(new Menu('Test', '/Test'));
 
 			function click(path) {
 				vm.props.sidenav.close();
