@@ -12,5 +12,8 @@
 	</md-input-container>
 
 	<md-button class="md-primary md-raised" type="submit" ng-disabled="form.password.$error.required || form.email.$error.required" ng-click="vm.login()">Login</md-button>
+
 	<md-button class="md-raised" type="button" ng-disabled="form.email.$error.required" ng-click="vm.forgot()">Forgot Password</md-button>
 </form>
+
+<jdt-feedback feedback="vm.feedback"></jdt-feedback>
