@@ -32,8 +32,7 @@
 			}
 
 			function login() {
-				loginService.onAuth(setAuthData);
-				loginService.login(vm.email, vm.password, feedbackFactory);
+				loginService.login(vm.email, vm.password, setAuthData, feedbackFactory);
 			}
 
 			function setAuthData(authData) {
