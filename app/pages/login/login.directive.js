@@ -4,9 +4,9 @@
 	angular.module('login.module')
 		.directive('jdtLogin', directiveFn);
 
-	directiveFn.$inject = ['$location', '$log', 'loginService', 'rx'];
+	directiveFn.$inject = ['FeedbackFactory', '$log', 'loginService'];
 
-	function directiveFn($location, $log, loginService, rx) {
+	function directiveFn(FeedbackFactory, $log, loginService) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -21,42 +21,22 @@
 
 		function controllerFn() {
 			var vm = this;
-			onAuth();
+			vm.feedback = {};
+			vm.login = login;
+			vm.forgot = forgot;
 
-			vm.login = function() {
-				var source = rx.Observable.startAsync(function() {
-					return loginService.login(vm.email, vm.password);
-				});
-				var subscription = source.subscribe(
-					function(authData) {
-						// see onAuth()
-					},
-					function(error) {
-						$log.error('Email or password is invalid.');
-					},
-					function() {
-						$log.debug('rx completed');
-					});
+			var feedbackFactory = new FeedbackFactory(vm.feedback);
 
-			};
+			function forgot() {
+				loginService.forgot(feedbackFactory);
+			}
 
-			vm.forgot = function() {
-				$log.debug('forgot');
-			};
+			function login() {
+				loginService.login(vm.email, vm.password, setAuthData, feedbackFactory);
+			}
 
-			function onAuth() {
-				// handle changes in authentication state.
-				loginService.authObj().$onAuth(function(authData) {
-					vm.props.authData = authData;
-					$log.debug(vm.props.authData);
-					if (authData) {
-						$log.debug("Logged in:", authData.uid);
-						$location.path('/home');
-					} else {
-						$log.debug("Logged out.");
-						$location.path('/login');
-					}
-				});
+			function setAuthData(authData) {
+				vm.props.authData = authData;
 			}
 		}
 
