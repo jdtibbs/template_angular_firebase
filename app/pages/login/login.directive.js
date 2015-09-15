@@ -4,9 +4,9 @@
 	angular.module('login.module')
 		.directive('jdtLogin', directiveFn);
 
-	directiveFn.$inject = ['FeedbackFactory', '$log', 'loginService'];
+	directiveFn.$inject = ['FeedbackFactory', '$log', 'loginService', 'settingsService'];
 
-	function directiveFn(FeedbackFactory, $log, loginService) {
+	function directiveFn(FeedbackFactory, $log, loginService, settingsService) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -28,7 +28,7 @@
 			var feedbackFactory = new FeedbackFactory(vm.feedback);
 
 			function forgot() {
-				loginService.forgot(feedbackFactory);
+				settingsService.resetPassword(vm.email, feedbackFactory);
 			}
 
 			function login() {

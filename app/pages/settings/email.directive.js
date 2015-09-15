@@ -4,9 +4,9 @@
 	angular.module('settings.module')
 		.directive('jdtSettingsEmail', directiveFn);
 
-	directiveFn.$inject = ['FeedbackFactory', '$log'];
+	directiveFn.$inject = ['FeedbackFactory', '$log', 'settingsService'];
 
-	function directiveFn(FeedbackFactory, $log) {
+	function directiveFn(FeedbackFactory, $log, settingsService) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -34,10 +34,13 @@
 
 			function init() {
 				vm.email = vm.props.authData.password.email;
+				vm.password = null;
 			}
 
 			function save() {
 				$log.debug(vm.email);
+				var oldEmail = vm.props.authData.password.email;
+				settingsService.changeEmail(oldEmail, vm.email, vm.password, feedbackFactory);
 			}
 		}
 

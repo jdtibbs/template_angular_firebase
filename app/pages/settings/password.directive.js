@@ -37,7 +37,10 @@
 				vm.confirm = null;
 			}
 
-			function save() {}
+			function save() {
+				var email = vm.props.authData.password.email;
+				settingsService.changePassword(email, vm.password, vm.newPassword, feedbackFactory);
+			}
 		}
 
 		function linkFn(scope, elem, attrs) {}

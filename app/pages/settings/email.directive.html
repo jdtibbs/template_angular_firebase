@@ -7,6 +7,14 @@
 		</div>
 	</md-input-container>
 
+	<md-input-container>
+		<label>Password</label>
+		<input name="password" type="password" ng-model="vm.password" required>
+		<div ng-messages="form.password.$error">
+			<div ng-message="required">Required</div>
+		</div>
+	</md-input-container>
+
 	<md-button class="md-primary md-raised" type="button" ng-click="vm.save()">Save</md-button>
 
 	<md-button class="md-raised" type="button" ng-click="vm.cancel()">Cancel</md-button>
