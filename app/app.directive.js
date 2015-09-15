@@ -28,7 +28,7 @@
 		}
 
 		function linkFn(scope, elem, attrs) {
-			// build sidenav object to allow menu directive to toggle and close.
+			// build sidenav object to allow menu directive to toggle and close..
 			// tried placing sidenav in its own directive but was unable to so far to make layout work properly. 
 			var sidenav = angular.element(elem[0]).find('md-sidenav')[0].attributes.getNamedItem('md-component-id').value;
 			scope.vm.props.sidenav = {
