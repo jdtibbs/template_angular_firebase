@@ -29,7 +29,6 @@
 		}
 
 		function login(email, password, setAuthData, feedback) {
-			onAuth(setAuthData);
 			var source = rx.Observable.startAsync(function() {
 				return firebaseAuthService.login(email, password);
 			});
@@ -52,7 +51,9 @@
 		function onAuth(setAuthData) {
 			// handle changes in authentication state.
 			authObj().$onAuth(function(authData) {
-				setAuthData(authData);
+				if (setAuthData) {
+					setAuthData(authData);
+				}
 				if (authData) {
 					$log.debug("Logged in:", authData.uid);
 					$location.path('/home');
