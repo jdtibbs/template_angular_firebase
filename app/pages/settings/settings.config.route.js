@@ -1,13 +1,13 @@
 (function() {
 
     'use strict';
-    angular.module('home.module')
+    angular.module('settings.module')
         .config(config);
     config.$inject = ['$routeProvider'];
 
     function config($routeProvider) {
-        $routeProvider.when('/home', {
-            templateUrl: 'app/pages/home/home.html'
+        $routeProvider.when('/settings', {
+            templateUrl: 'app/pages/settings/settings.html'
                 // resolve: {
                 // waitForAuth: waitForAuth
                 // }

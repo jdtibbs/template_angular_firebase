@@ -1,0 +1,19 @@
+<form name="form" role="form" novalidate>
+	<md-input-container>
+		<label>Email</label>
+		<input name="email" type="text" ng-model="vm.email" required>
+		<div ng-messages="form.email.$error">
+			<div ng-message="required">Required</div>
+		</div>
+	</md-input-container>
+	<md-input-container>
+		<label>Password</label>
+		<input name="password" type="password" ng-model="vm.password">
+	</md-input-container>
+
+	<md-button class="md-primary md-raised" type="button" ng-click="vm.save()">Save</md-button>
+
+	<md-button class="md-raised" type="button" ng-click="vm.cancel()">Cancel</md-button>
+</form>
+
+<jdt-feedback feedback="vm.feedback"></jdt-feedback>
