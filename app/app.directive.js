@@ -20,11 +20,7 @@
 		function controllerFn() {
 			var vm = this;
 
-			vm.props = {
-				app: {
-					title: 'App Name'
-				}
-			};
+			vm.props = {};
 		}
 
 		function linkFn(scope, elem, attrs) {
