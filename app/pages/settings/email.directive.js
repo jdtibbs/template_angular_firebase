@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular.module('settings.module')
-		.directive('jdtSettings', directiveFn);
+		.directive('jdtSettingsEmail', directiveFn);
 
 	directiveFn.$inject = ['FeedbackFactory', '$log'];
 
@@ -16,7 +16,7 @@
 			controllerAs: 'vm',
 			bindToController: true,
 			link: linkFn,
-			templateUrl: 'app/pages/settings/settings.directive.html'
+			templateUrl: 'app/pages/settings/email.directive.html'
 		};
 
 		function controllerFn() {
