@@ -1,17 +1,26 @@
 <div layout="row" flex>
-	<h1 class="md-title">Settings</h1>
+	<h1 class="md-title">Change Your Settings</h1>
 </div>
 
-<!-- <div layout="row" flex class="jdt-tabs"> -->
 <div layout="row" flex>
 	<md-content layout-fill>
 		<md-tabs class="md-primary" md-dynamic-height="" md-border-bottom="">
 			<md-tab>
 				<md-tab-label>
+					Profile
+				</md-tab-label>
+				<md-tab-body>
+					<md-content layout-padding>
+						<jdt-settings-profile props="vm.props"></jdt-settings-profile>
+					</md-content>
+				</md-tab-body>
+			</md-tab>
+			<md-tab>
+				<md-tab-label>
 					Email
 				</md-tab-label>
 				<md-tab-body>
-					<md-content layout-align="center start">
+					<md-content layout-padding>
 						<jdt-settings-email props="vm.props"></jdt-settings-email>
 					</md-content>
 				</md-tab-body>
@@ -21,7 +30,9 @@
 					Password
 				</md-tab-label>
 				<md-tab-body>
-					<p>Todo change password</p>
+					<md-content layout-padding>
+						<jdt-settings-password props="vm.props"></jdt-settings-password>
+					</md-content>
 				</md-tab-body>
 			</md-tab>
 		</md-tabs>

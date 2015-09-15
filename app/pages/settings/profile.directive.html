@@ -1,8 +1,16 @@
 <form name="form" role="form" novalidate>
 	<md-input-container>
-		<label>Email</label>
-		<input name="email" type="text" ng-model="vm.email" required>
-		<div ng-messages="form.email.$error">
+		<label>First Name</label>
+		<input name="firstName" type="text" ng-model="vm.firstName" required>
+		<div ng-messages="form.firstName.$error">
+			<div ng-message="required">Required</div>
+		</div>
+	</md-input-container>
+
+	<md-input-container>
+		<label>Last Name</label>
+		<input name="lastName" type="text" ng-model="vm.lastName" required>
+		<div ng-messages="form.lastName.$error">
 			<div ng-message="required">Required</div>
 		</div>
 	</md-input-container>

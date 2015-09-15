@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular.module('settings.module')
-		.directive('jdtSettingsEmail', directiveFn);
+		.directive('jdtSettingsProfile', directiveFn);
 
 	directiveFn.$inject = ['FeedbackFactory', '$log'];
 
@@ -16,7 +16,7 @@
 			controllerAs: 'vm',
 			bindToController: true,
 			link: linkFn,
-			templateUrl: 'app/pages/settings/email.directive.html'
+			templateUrl: 'app/pages/settings/profile.directive.html'
 		};
 
 		function controllerFn() {
@@ -33,11 +33,13 @@
 			}
 
 			function init() {
-				vm.email = vm.props.authData.password.email;
+				vm.firstName = null;
+				vm.lastName = null;
 			}
 
 			function save() {
-				$log.debug(vm.email);
+				$log.debug(vm.firstName);
+				$log.debug(vm.lastName);
 			}
 		}
 
