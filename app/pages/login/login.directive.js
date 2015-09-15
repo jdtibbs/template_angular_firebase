@@ -32,11 +32,7 @@
 			}
 
 			function login() {
-				loginService.login(vm.email, vm.password, setAuthData, feedbackFactory);
-			}
-
-			function setAuthData(authData) {
-				vm.props.authData = authData;
+				loginService.login(vm.email, vm.password, feedbackFactory);
 			}
 		}
 

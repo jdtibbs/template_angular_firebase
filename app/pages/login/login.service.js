@@ -8,13 +8,12 @@
 	serviceFn.$inject = ['firebaseAuthService', '$location', '$log', 'rx'];
 
 	function serviceFn(firebaseAuthService, $location, $log, rx) {
-		var offOnAuth;
-
 		this.authData = authData;
 		this.authObj = authObj;
 		this.forgot = forgot;
 		this.login = login;
 		this.logout = logout;
+		this.onAuth = onAuth;
 
 		function authData() {
 			return firebaseAuthService.authData();
@@ -52,10 +51,7 @@
 
 		function onAuth(setAuthData) {
 			// handle changes in authentication state.
-			if (offOnAuth) {
-				offOnAuth(); // unregister previous.
-			}
-			offOnAuth = authObj().$onAuth(function(authData) {
+			authObj().$onAuth(function(authData) {
 				setAuthData(authData);
 				if (authData) {
 					$log.debug("Logged in:", authData.uid);
