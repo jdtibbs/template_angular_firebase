@@ -4,9 +4,9 @@
 	angular.module('settings.module')
 		.directive('jdtSettingsPassword', directiveFn);
 
-	directiveFn.$inject = ['FeedbackFactory', '$log'];
+	directiveFn.$inject = ['FeedbackFactory', '$log', 'settingsService'];
 
-	function directiveFn(FeedbackFactory, $log) {
+	function directiveFn(FeedbackFactory, $log, settingsService) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -24,7 +24,7 @@
 			vm.cancel = cancel;
 			vm.save = save;
 			vm.feedback = {};
-			var feedbackFactory = new FeedbackFactory(vm.feedback);
+			var feedbackFactory;
 
 			init();
 
@@ -34,12 +34,18 @@
 
 			function init() {
 				vm.password = null;
+				vm.newPassword = null;
 				vm.confirm = null;
 			}
 
 			function save() {
-				var email = vm.props.authData.password.email;
-				settingsService.changePassword(email, vm.password, vm.newPassword, feedbackFactory);
+				feedbackFactory = new FeedbackFactory(vm.feedback);
+				if (vm.newPassword === vm.confirm) {
+					var email = vm.props.authData.password.email;
+					settingsService.changePassword(email, vm.password, vm.newPassword, feedbackFactory, init);
+				} else {
+					feedbackFactory.error('New password and confirm password must match.');
+				}
 			}
 		}
 

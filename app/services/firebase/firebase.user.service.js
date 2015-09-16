@@ -15,7 +15,7 @@
         this.resetPassword = resetPassword;
 
         function changeEmail(oldEmail, newEmail, password) {
-            return loginAuthService.authObj().$changeEmail({
+            return firebaseAuthService.authObj().$changeEmail({
                 oldEmail: oldEmail,
                 newEmail: newEmail,
                 password: password
@@ -23,7 +23,7 @@
         }
 
         function changePassword(email, oldPassword, newPassword) {
-            return loginAuthService.authObj().$changePassword({
+            return firebaseAuthService.authObj().$changePassword({
                 email: email,
                 oldPassword: oldPassword,
                 newPassword: newPassword
@@ -35,7 +35,7 @@
         }
 
         function resetPassword(email) {
-            return loginAuthService.authObj().$resetPassword({
+            return firebaseAuthService.authObj().$resetPassword({
                 email: email
             });
         }

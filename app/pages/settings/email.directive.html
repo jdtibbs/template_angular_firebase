@@ -2,7 +2,7 @@
 	<md-input-container>
 		<label>Email</label>
 		<input name="email" type="text" ng-model="vm.email" required>
-		<div ng-messages="form.email.$error">
+		<div ng-show="form.email.$touched" ng-messages="form.email.$error">
 			<div ng-message="required">Required</div>
 		</div>
 	</md-input-container>
@@ -10,7 +10,7 @@
 	<md-input-container>
 		<label>Password</label>
 		<input name="password" type="password" ng-model="vm.password" required>
-		<div ng-messages="form.password.$error">
+		<div ng-show="form.password.$touched" ng-messages="form.password.$error">
 			<div ng-message="required">Required</div>
 		</div>
 	</md-input-container>

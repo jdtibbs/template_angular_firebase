@@ -13,14 +13,14 @@
 
         function FeedbackFactory(feedback) {
             this.feedback = feedback;
+            this.init = init;
             this.success = success;
             this.error = error;
+            this.init();
 
-            if (this.feedback.success === undefined) {
-                this.feedback.success = [];
-            }
-            if (this.feedback.errors === undefined) {
+            function init() {
                 this.feedback.errors = [];
+                this.feedback.success = [];
             }
 
             function success(message) {
@@ -31,7 +31,5 @@
                 this.feedback.errors.push(message);
             }
         }
-
-
     }
 })();
