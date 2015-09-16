@@ -13,6 +13,7 @@
 		this.resetPassword = resetPassword;
 
 		function changeEmail(oldEmail, newEmail, password, feedbackFactory) {
+			feedbackFactory.init();
 			var source = rx.Observable.startAsync(function() {
 				return firebaseUserService.changeEmail(oldEmail, newEmail, password);
 			});
@@ -31,6 +32,7 @@
 		}
 
 		function changePassword(email, oldPassword, newPassword, feedbackFactory, init) {
+			feedbackFactory.init();
 			var source = rx.Observable.startAsync(function() {
 				return firebaseUserService.changePassword(email, oldPassword, newPassword);
 			});
@@ -50,6 +52,7 @@
 		}
 
 		function resetPassword(email, feedbackFactory) {
+			feedbackFactory.init();
 			firebaseUserService.resetPassword(email);
 		}
 	}

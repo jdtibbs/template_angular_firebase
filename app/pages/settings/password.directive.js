@@ -16,6 +16,7 @@
 			controllerAs: 'vm',
 			bindToController: true,
 			link: linkFn,
+			require: '^form',
 			templateUrl: 'app/pages/settings/password.directive.html'
 		};
 
@@ -24,22 +25,24 @@
 			vm.cancel = cancel;
 			vm.save = save;
 			vm.feedback = {};
-			var feedbackFactory;
-
-			init();
+			var feedbackFactory = new FeedbackFactory(vm.feedback);
 
 			function cancel() {
 				init();
+				feedbackFactory.init();
 			}
 
 			function init() {
+				if (vm.form) {
+					vm.form.$setPristine();
+					vm.form.$setUntouched();
+				}
 				vm.password = null;
 				vm.newPassword = null;
 				vm.confirm = null;
 			}
 
 			function save() {
-				feedbackFactory = new FeedbackFactory(vm.feedback);
 				if (vm.newPassword === vm.confirm) {
 					var email = vm.props.authData.password.email;
 					settingsService.changePassword(email, vm.password, vm.newPassword, feedbackFactory, init);
@@ -49,6 +52,8 @@
 			}
 		}
 
-		function linkFn(scope, elem, attrs) {}
+		function linkFn(scope, elem, attrs, formCtrl) {
+			scope.vm.form = formCtrl;
+		}
 	}
 })();
