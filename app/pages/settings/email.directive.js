@@ -39,7 +39,9 @@
 					vm.form.$setPristine();
 					vm.form.$setUntouched();
 				}
-				vm.currentEmail = vm.props.authData.password.email;
+				if (vm.props.authData) {
+					vm.currentEmail = vm.props.authData.password.email;
+				}
 				vm.email = null;
 				vm.confirm = null;
 				vm.password = null;
@@ -49,6 +51,7 @@
 				if (vm.email === vm.confirm) {
 					settingsService.changeEmail(vm.currentEmail, vm.email, vm.password, feedbackFactory);
 				} else {
+					// handled by jdtEmailMatch.
 					feedbackFactory.error("New Email and Confirm New Email must match.");
 				}
 			}

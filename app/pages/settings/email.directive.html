@@ -1,9 +1,4 @@
-<p class="md-subhead">After changing your email address, you will be asked to login with the new email.</p>
-
-<md-input-container>
-	<label>Email</label>
-	<input type="text" ng-disabled="true" ng-model="vm.currentEmail">
-</md-input-container>
+<p class="md-subhead" ng-bind="vm.currentEmail"></p>
 
 <md-input-container>
 	<label>New Email</label>
@@ -15,9 +10,10 @@
 
 <md-input-container>
 	<label>Confirm New Email</label>
-	<input name="confirm" type="text" ng-model="vm.confirm" required>
+	<input name="confirm" type="text" ng-model="vm.confirm" jdt-email-match required>
 	<div ng-show="vm.form.confirm.$touched" ng-messages="vm.form.confirm.$error">
 		<div ng-message="required">Required</div>
+		<div ng-message="emailMatch">New Email and Confirm Email must match.</div>
 	</div>
 </md-input-container>
 
@@ -28,6 +24,8 @@
 		<div ng-message="required">Required</div>
 	</div>
 </md-input-container>
+
+<p class="md-subhead">After changing your email address, you will be asked to login with the new email.</p>
 
 <md-button class="md-primary md-raised" type="button" ng-disabled="vm.form.$invalid" ng-click="vm.save()">Save</md-button>
 
