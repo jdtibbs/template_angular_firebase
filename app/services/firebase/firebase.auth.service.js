@@ -14,14 +14,12 @@
         this.login = login;
         this.logout = logout;
 
-        var _authObj;
-
         function authData() {
             return authObj().$getAuth();
         }
 
         function authObj() {
-            return _authObj || (_authObj = $firebaseAuth(firebaseService.ref()));
+            return $firebaseAuth(firebaseService.ref());
         }
 
         function login(email, password) {

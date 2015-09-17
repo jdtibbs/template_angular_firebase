@@ -16,6 +16,7 @@
 			controllerAs: 'vm',
 			bindToController: true,
 			link: linkFn,
+			require: '^form',
 			templateUrl: 'app/pages/settings/email.directive.html'
 		};
 
@@ -30,20 +31,31 @@
 
 			function cancel() {
 				init();
+				feedbackFactory.init();
 			}
 
 			function init() {
-				vm.email = vm.props.authData.password.email;
+				if (vm.form) {
+					vm.form.$setPristine();
+					vm.form.$setUntouched();
+				}
+				vm.currentEmail = vm.props.authData.password.email;
+				vm.email = null;
+				vm.confirm = null;
 				vm.password = null;
 			}
 
 			function save() {
-				$log.debug(vm.email);
-				var oldEmail = vm.props.authData.password.email;
-				settingsService.changeEmail(oldEmail, vm.email, vm.password, feedbackFactory);
+				if (vm.email === vm.confirm) {
+					settingsService.changeEmail(vm.currentEmail, vm.email, vm.password, feedbackFactory);
+				} else {
+					feedbackFactory.error("New Email and Confirm New Email must match.");
+				}
 			}
 		}
 
-		function linkFn(scope, elem, attrs) {}
+		function linkFn(scope, elem, attrs, formCtrl) {
+			scope.vm.form = formCtrl;
+		}
 	}
 })();

@@ -5,23 +5,21 @@
 	angular.module('settings.module')
 		.service('settingsService', serviceFn);
 
-	serviceFn.$inject = ['firebaseUserService', '$log', 'rx'];
+	serviceFn.$inject = ['firebaseUserService', '$log', 'loginService', 'rx'];
 
-	function serviceFn(firebaseUserService, $log, rx) {
+	function serviceFn(firebaseUserService, $log, loginService, rx) {
 		this.changeEmail = changeEmail;
 		this.changePassword = changePassword;
 		this.resetPassword = resetPassword;
 
-		function changeEmail(oldEmail, newEmail, password, feedbackFactory) {
+		function changeEmail(currentEmail, newEmail, password, feedbackFactory) {
 			feedbackFactory.init();
 			var source = rx.Observable.startAsync(function() {
-				return firebaseUserService.changeEmail(oldEmail, newEmail, password);
+				return firebaseUserService.changeEmail(currentEmail, newEmail, password);
 			});
 			var subscription = source.subscribe(
 				function(response) {
-					$log.debug('changeEmail response:');
-					$log.debug(response);
-					feedbackFactory.success('Email changed successfully.');
+					loginService.logout();
 				},
 				function(error) {
 					feedbackFactory.error(error);
@@ -38,8 +36,6 @@
 			});
 			var subscription = source.subscribe(
 				function(response) {
-					$log.debug('changePassword response:');
-					$log.debug(response);
 					init();
 					feedbackFactory.success('Password changed successfully.');
 				},

@@ -11,7 +11,9 @@
 				</md-tab-label>
 				<md-tab-body>
 					<md-content layout-padding>
-						<jdt-settings-profile props="vm.props"></jdt-settings-profile>
+						<form name="profileForm" role="form" novalidate>
+							<jdt-settings-profile props="vm.props"></jdt-settings-profile>
+						</form>
 					</md-content>
 				</md-tab-body>
 			</md-tab>
@@ -21,7 +23,9 @@
 				</md-tab-label>
 				<md-tab-body>
 					<md-content layout-padding>
-						<jdt-settings-email props="vm.props"></jdt-settings-email>
+						<form name="emailForm" role="form" novalidate>
+							<jdt-settings-email props="vm.props"></jdt-settings-email>
+						</form>
 					</md-content>
 				</md-tab-body>
 			</md-tab>
@@ -31,7 +35,7 @@
 				</md-tab-label>
 				<md-tab-body>
 					<md-content layout-padding>
-						<form name="form" role="form" novalidate>
+						<form name="passwordForm" role="form" novalidate>
 							<jdt-settings-password props="vm.props"></jdt-settings-password>
 						</form>
 					</md-content>

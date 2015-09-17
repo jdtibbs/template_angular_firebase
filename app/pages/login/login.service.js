@@ -13,7 +13,10 @@
 		this.forgot = forgot;
 		this.login = login;
 		this.logout = logout;
+		this.offOnAuth = offOnAuth;
 		this.onAuth = onAuth;
+
+		var _offOnAuth;
 
 		function authData() {
 			return firebaseAuthService.authData();
@@ -28,7 +31,7 @@
 			feedback.success('An email with directions to reset your password has been sent to you.');
 		}
 
-		function login(email, password, setAuthData, feedback) {
+		function login(email, password, feedback) {
 			var source = rx.Observable.startAsync(function() {
 				return firebaseAuthService.login(email, password);
 			});
@@ -50,7 +53,7 @@
 
 		function onAuth(setAuthData) {
 			// handle changes in authentication state.
-			authObj().$onAuth(function(authData) {
+			_offOnAuth = authObj().$onAuth(function(authData) {
 				if (setAuthData) {
 					setAuthData(authData);
 				}
@@ -62,6 +65,10 @@
 					$location.path('/login');
 				}
 			});
+		}
+
+		function offOnAuth() {
+			_offOnAuth();
 		}
 	}
 })();

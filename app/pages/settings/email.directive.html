@@ -1,23 +1,36 @@
-<form name="form" role="form" novalidate>
-	<md-input-container>
-		<label>Email</label>
-		<input name="email" type="text" ng-model="vm.email" required>
-		<div ng-show="form.email.$touched" ng-messages="form.email.$error">
-			<div ng-message="required">Required</div>
-		</div>
-	</md-input-container>
+<p class="md-subhead">After changing your email address, you will be asked to login with the new email.</p>
 
-	<md-input-container>
-		<label>Password</label>
-		<input name="password" type="password" ng-model="vm.password" required>
-		<div ng-show="form.password.$touched" ng-messages="form.password.$error">
-			<div ng-message="required">Required</div>
-		</div>
-	</md-input-container>
+<md-input-container>
+	<label>Email</label>
+	<input type="text" ng-disabled="true" ng-model="vm.currentEmail">
+</md-input-container>
 
-	<md-button class="md-primary md-raised" type="button" ng-click="vm.save()">Save</md-button>
+<md-input-container>
+	<label>New Email</label>
+	<input name="email" type="text" ng-model="vm.email" required>
+	<div ng-show="vm.form.email.$touched" ng-messages="vm.form.email.$error">
+		<div ng-message="required">Required</div>
+	</div>
+</md-input-container>
 
-	<md-button class="md-raised" type="button" ng-click="vm.cancel()">Cancel</md-button>
-</form>
+<md-input-container>
+	<label>Confirm New Email</label>
+	<input name="confirm" type="text" ng-model="vm.confirm" required>
+	<div ng-show="vm.form.confirm.$touched" ng-messages="vm.form.confirm.$error">
+		<div ng-message="required">Required</div>
+	</div>
+</md-input-container>
+
+<md-input-container>
+	<label>Password</label>
+	<input name="password" type="password" ng-model="vm.password" required>
+	<div ng-show="vm.form.password.$touched" ng-messages="vm.form.password.$error">
+		<div ng-message="required">Required</div>
+	</div>
+</md-input-container>
+
+<md-button class="md-primary md-raised" type="button" ng-disabled="vm.form.$invalid" ng-click="vm.save()">Save</md-button>
+
+<md-button class="md-raised" type="button" ng-click="vm.cancel()">Cancel</md-button>
 
 <jdt-feedback feedback="vm.feedback"></jdt-feedback>
