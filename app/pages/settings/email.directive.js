@@ -57,8 +57,8 @@
 			}
 		}
 
-		function linkFn(scope, elem, attrs, formCtrl) {
-			scope.vm.form = formCtrl;
+		function linkFn(scope, elem, attrs, form) {
+			scope.vm.form = form;
 		}
 	}
 })();

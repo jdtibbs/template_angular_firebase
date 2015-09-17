@@ -16,6 +16,7 @@
 			controllerAs: 'vm',
 			bindToController: true,
 			link: linkFn,
+			require: '^form',
 			templateUrl: 'app/pages/settings/profile.directive.html'
 		};
 
@@ -33,6 +34,10 @@
 			}
 
 			function init() {
+				if (vm.form) {
+					vm.form.$setPristine();
+					vm.form.$setUntouched();
+				}
 				vm.firstName = null;
 				vm.lastName = null;
 			}
@@ -43,6 +48,8 @@
 			}
 		}
 
-		function linkFn(scope, elem, attrs) {}
+		function linkFn(scope, elem, attrs, form) {
+			scope.vm.form = form;
+		}
 	}
 })();
