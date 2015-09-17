@@ -13,10 +13,7 @@
 		this.forgot = forgot;
 		this.login = login;
 		this.logout = logout;
-		this.offOnAuth = offOnAuth;
 		this.onAuth = onAuth;
-
-		var _offOnAuth;
 
 		function authData() {
 			return firebaseAuthService.authData();
@@ -53,7 +50,7 @@
 
 		function onAuth(setAuthData) {
 			// handle changes in authentication state.
-			_offOnAuth = authObj().$onAuth(function(authData) {
+			authObj().$onAuth(function(authData) {
 				if (setAuthData) {
 					setAuthData(authData);
 				}
@@ -65,10 +62,6 @@
 					$location.path('/login');
 				}
 			});
-		}
-
-		function offOnAuth() {
-			_offOnAuth();
 		}
 	}
 })();
