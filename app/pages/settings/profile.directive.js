@@ -4,9 +4,9 @@
 	angular.module('settings.module')
 		.directive('jdtSettingsProfile', directiveFn);
 
-	directiveFn.$inject = ['FeedbackFactory', '$log'];
+	directiveFn.$inject = ['FeedbackFactory', '$log', 'profileDaoFactory'];
 
-	function directiveFn(FeedbackFactory, $log) {
+	function directiveFn(FeedbackFactory, $log, profileDaoFactory) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -38,13 +38,38 @@
 					vm.form.$setPristine();
 					vm.form.$setUntouched();
 				}
-				vm.firstName = null;
-				vm.lastName = null;
+				vm.profile = {
+					firstName: null,
+					lastName: null
+				};
+				profileDaoFactory.syncObject(vm.props.authData.uid)
+					.$loaded()
+					.then(function(data) {
+						vm.profile = data;
+					})
+					.catch(function(error) {
+						feedbackFactory.error(error);
+					});
 			}
 
 			function save() {
-				$log.debug(vm.firstName);
-				$log.debug(vm.lastName);
+				if (vm.profile.$id) {
+					profileDaoFactory.save(vm.profile)
+						.then(function(data) {
+								feedbackFactory.success('Profile saved successfully.');
+							},
+							function(error) {
+								feedbackFactory.error(error);
+							});
+				} else {
+					profileDaoFactory.add(vm.profile)
+						.then(function(data) {
+								feedbackFactory.success('Profile added successfully.');
+							},
+							function(error) {
+								feedbackFactory.error(error);
+							});
+				}
 			}
 		}
 

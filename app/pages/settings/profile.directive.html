@@ -1,7 +1,7 @@
 <form name="form" role="form" novalidate>
 	<md-input-container>
 		<label>First Name</label>
-		<input name="firstName" type="text" ng-model="vm.firstName" required>
+		<input name="firstName" type="text" ng-model="vm.profile.firstName" required>
 		<div ng-show="vm.form.firstName.$touched" ng-messages="vm.form.firstName.$error">
 			<div ng-message="required">Required</div>
 		</div>
@@ -9,7 +9,7 @@
 
 	<md-input-container>
 		<label>Last Name</label>
-		<input name="lastName" type="text" ng-model="vm.lastName" required>
+		<input name="lastName" type="text" ng-model="vm.profile.lastName" required>
 		<div ng-show="vm.form.lastName.$touched" ng-messages="vm.form.lastName.$error">
 			<div ng-message="required">Required</div>
 		</div>
