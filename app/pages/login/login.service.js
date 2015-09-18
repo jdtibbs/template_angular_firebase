@@ -5,12 +5,12 @@
 	angular.module('login.module')
 		.service('loginService', serviceFn);
 
-	serviceFn.$inject = ['firebaseAuthService', '$location', '$log', 'rx'];
+	serviceFn.$inject = ['firebaseAuthService', '$location', '$log', 'passwordService', 'rx'];
 
-	function serviceFn(firebaseAuthService, $location, $log, rx) {
+	function serviceFn(firebaseAuthService, $location, $log, passwordService, rx) {
 		this.authData = authData;
 		this.authObj = authObj;
-		this.forgot = forgot;
+		this.resetPassword = resetPassword;
 		this.login = login;
 		this.logout = logout;
 		this.onAuth = onAuth;
@@ -23,9 +23,8 @@
 			return firebaseAuthService.authObj();
 		}
 
-		function forgot(feedback) {
-			// TODO finish this.
-			feedback.success('An email with directions to reset your password has been sent to you.');
+		function resetPassword(email, feedback) {
+			passwordService.resetPassword(email, feedback);
 		}
 
 		function login(email, password, feedback) {

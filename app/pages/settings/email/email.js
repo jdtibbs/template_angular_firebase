@@ -4,9 +4,9 @@
 	angular.module('settings.module')
 		.directive('jdtSettingsEmail', directiveFn);
 
-	directiveFn.$inject = ['FeedbackFactory', '$log', 'settingsService'];
+	directiveFn.$inject = ['FeedbackFactory', '$log', 'emailService'];
 
-	function directiveFn(FeedbackFactory, $log, settingsService) {
+	function directiveFn(FeedbackFactory, $log, emailService) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -17,7 +17,7 @@
 			bindToController: true,
 			link: linkFn,
 			require: '^form',
-			templateUrl: 'app/pages/settings/email.directive.html'
+			templateUrl: 'app/pages/settings/email/email.html'
 		};
 
 		function controllerFn() {
@@ -50,7 +50,7 @@
 			function save() {
 				feedbackFactory.init();
 				if (vm.email === vm.confirm) {
-					settingsService.changeEmail(vm.currentEmail, vm.email, vm.password, feedbackFactory);
+					emailService.changeEmail(vm.currentEmail, vm.email, vm.password, feedbackFactory);
 				} else {
 					// handled by jdtEmailMatch.
 					feedbackFactory.error("New Email and Confirm New Email must match.");

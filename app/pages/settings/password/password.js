@@ -2,11 +2,11 @@
 	'use strict';
 
 	angular.module('settings.module')
-		.directive('jdtSettingsProfile', directiveFn);
+		.directive('jdtSettingsPassword', directiveFn);
 
-	directiveFn.$inject = ['FeedbackFactory', '$log', 'profileService'];
+	directiveFn.$inject = ['FeedbackFactory', '$log', 'passwordService'];
 
-	function directiveFn(FeedbackFactory, $log, profileService) {
+	function directiveFn(FeedbackFactory, $log, passwordService) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -17,7 +17,7 @@
 			bindToController: true,
 			link: linkFn,
 			require: '^form',
-			templateUrl: 'app/pages/settings/profile.directive.html'
+			templateUrl: 'app/pages/settings/password/password.html'
 		};
 
 		function controllerFn() {
@@ -26,8 +26,6 @@
 			vm.save = save;
 			vm.feedback = {};
 			var feedbackFactory = new FeedbackFactory(vm.feedback);
-
-			init();
 
 			function cancel() {
 				feedbackFactory.init();
@@ -39,20 +37,19 @@
 					vm.form.$setPristine();
 					vm.form.$setUntouched();
 				}
-				vm.profile = {
-					firstName: null,
-					lastName: null
-				};
-				profileService.get(vm.props.authData.uid, feedbackFactory, setCallback);
-
-				function setCallback(data) {
-					vm.profile = data;
-				}
+				vm.password = null;
+				vm.newPassword = null;
+				vm.confirm = null;
 			}
 
 			function save() {
 				feedbackFactory.init();
-				profileService.save(vm.profile, feedbackFactory);
+				if (vm.newPassword === vm.confirm) {
+					var email = vm.props.authData.password.email;
+					passwordService.changePassword(email, vm.password, vm.newPassword, feedbackFactory, init);
+				} else {
+					feedbackFactory.error('New password and confirm password must match.');
+				}
 			}
 		}
 

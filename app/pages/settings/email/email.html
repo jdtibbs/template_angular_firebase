@@ -10,18 +10,20 @@
 
 <md-input-container>
 	<label>New Email</label>
-	<input name="email" type="text" ng-model="vm.email" required>
+	<input name="email" type="email" ng-model="vm.email" required>
 	<div ng-show="vm.form.email.$touched" ng-messages="vm.form.email.$error">
 		<div ng-message="required">Required</div>
+		<div ng-message="email">Invalid email.</div>
 	</div>
 </md-input-container>
 
 <md-input-container>
 	<label>Confirm New Email</label>
-	<input name="confirm" type="text" ng-model="vm.confirm" jdt-email-match required>
+	<input name="confirm" type="email" ng-model="vm.confirm" jdt-email-validate required>
 	<div ng-show="vm.form.confirm.$touched" ng-messages="vm.form.confirm.$error">
 		<div ng-message="required">Required</div>
-		<div ng-message="emailMatch">New Email and Confirm Email must match.</div>
+		<div ng-message="email">Invalid email.</div>
+		<div ng-message="match">New Email and Confirm Email must match.</div>
 	</div>
 </md-input-container>
 
