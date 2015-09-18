@@ -28,8 +28,8 @@
 			var feedbackFactory = new FeedbackFactory(vm.feedback);
 
 			function cancel() {
-				init();
 				feedbackFactory.init();
+				init();
 			}
 
 			function init() {
@@ -43,6 +43,7 @@
 			}
 
 			function save() {
+				feedbackFactory.init();
 				if (vm.newPassword === vm.confirm) {
 					var email = vm.props.authData.password.email;
 					settingsService.changePassword(email, vm.password, vm.newPassword, feedbackFactory, init);

@@ -30,8 +30,8 @@
 			init();
 
 			function cancel() {
-				init();
 				feedbackFactory.init();
+				init();
 			}
 
 			function init() {
@@ -48,6 +48,7 @@
 			}
 
 			function save() {
+				feedbackFactory.init();
 				if (vm.email === vm.confirm) {
 					settingsService.changeEmail(vm.currentEmail, vm.email, vm.password, feedbackFactory);
 				} else {

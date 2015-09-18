@@ -4,9 +4,9 @@
 	angular.module('settings.module')
 		.directive('jdtSettingsProfile', directiveFn);
 
-	directiveFn.$inject = ['FeedbackFactory', '$log', 'profileDaoFactory'];
+	directiveFn.$inject = ['FeedbackFactory', '$log', 'profileService'];
 
-	function directiveFn(FeedbackFactory, $log, profileDaoFactory) {
+	function directiveFn(FeedbackFactory, $log, profileService) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -30,6 +30,7 @@
 			init();
 
 			function cancel() {
+				feedbackFactory.init();
 				init();
 			}
 
@@ -42,34 +43,16 @@
 					firstName: null,
 					lastName: null
 				};
-				profileDaoFactory.syncObject(vm.props.authData.uid)
-					.$loaded()
-					.then(function(data) {
-						vm.profile = data;
-					})
-					.catch(function(error) {
-						feedbackFactory.error(error);
-					});
+				profileService.get(vm.props.authData.uid, feedbackFactory, setCallback);
+
+				function setCallback(data) {
+					vm.profile = data;
+				}
 			}
 
 			function save() {
-				if (vm.profile.$id) {
-					profileDaoFactory.save(vm.profile)
-						.then(function(data) {
-								feedbackFactory.success('Profile saved successfully.');
-							},
-							function(error) {
-								feedbackFactory.error(error);
-							});
-				} else {
-					profileDaoFactory.add(vm.profile)
-						.then(function(data) {
-								feedbackFactory.success('Profile added successfully.');
-							},
-							function(error) {
-								feedbackFactory.error(error);
-							});
-				}
+				feedbackFactory.init();
+				profileService.save(vm.profile, feedbackFactory);
 			}
 		}
 
