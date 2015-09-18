@@ -28,15 +28,11 @@
 			var feedbackFactory = new FeedbackFactory(vm.feedback);
 
 			function forgot() {
-				loginService.forgot(feedbackFactory);
+				loginService.resetPassword(vm.email, feedbackFactory);
 			}
 
 			function login() {
-				loginService.login(vm.email, vm.password, setAuthData, feedbackFactory);
-			}
-
-			function setAuthData(authData) {
-				vm.props.authData = authData;
+				loginService.login(vm.email, vm.password, feedbackFactory);
 			}
 		}
 

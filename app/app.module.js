@@ -9,6 +9,7 @@
 			'components.module',
 			'home.module',
 			'login.module',
+			'settings.module',
 			'services.firebase.module',
 			'services.util.module',
 		]);
