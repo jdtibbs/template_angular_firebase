@@ -8,9 +8,10 @@
     factoryFn.$inject = ['firebaseService', '$firebaseObject', '$log', 'profileConstants'];
 
     function factoryFn(firebaseService, $firebaseObject, $log, profileConstants) {
-        this.ref = ref;
-        this.get = get;
         this.add = add;
+        this.destroy = destroy;
+        this.get = get;
+        this.ref = ref;
         this.save = save;
 
         var callBacks = [];
