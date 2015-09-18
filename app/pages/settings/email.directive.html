@@ -1,6 +1,14 @@
 <p class="md-body-1" ng-bind="vm.currentEmail"></p>
 
 <md-input-container>
+	<label>Password</label>
+	<input name="password" type="password" ng-model="vm.password" required>
+	<div ng-show="vm.form.password.$touched" ng-messages="vm.form.password.$error">
+		<div ng-message="required">Required</div>
+	</div>
+</md-input-container>
+
+<md-input-container>
 	<label>New Email</label>
 	<input name="email" type="text" ng-model="vm.email" required>
 	<div ng-show="vm.form.email.$touched" ng-messages="vm.form.email.$error">
@@ -14,14 +22,6 @@
 	<div ng-show="vm.form.confirm.$touched" ng-messages="vm.form.confirm.$error">
 		<div ng-message="required">Required</div>
 		<div ng-message="emailMatch">New Email and Confirm Email must match.</div>
-	</div>
-</md-input-container>
-
-<md-input-container>
-	<label>Password</label>
-	<input name="password" type="password" ng-model="vm.password" required>
-	<div ng-show="vm.form.password.$touched" ng-messages="vm.form.password.$error">
-		<div ng-message="required">Required</div>
 	</div>
 </md-input-container>
 
