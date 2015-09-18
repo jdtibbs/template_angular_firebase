@@ -52,7 +52,6 @@
 				if (vm.email === vm.confirm) {
 					emailService.changeEmail(vm.currentEmail, vm.email, vm.password, feedbackFactory);
 				} else {
-					// handled by jdtEmailMatch.
 					feedbackFactory.error("New Email and Confirm New Email must match.");
 				}
 			}
