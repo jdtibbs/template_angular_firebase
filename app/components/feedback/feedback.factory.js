@@ -12,23 +12,23 @@
         return FeedbackFactory;
 
         function FeedbackFactory(feedback) {
-            this.feedback = feedback;
             this.init = init;
             this.success = success;
             this.error = error;
+
             this.init();
 
             function init() {
-                this.feedback.errors = [];
-                this.feedback.success = [];
+                feedback.errors = [];
+                feedback.success = [];
             }
 
             function success(message) {
-                this.feedback.success.push(message);
+                feedback.success.push(message);
             }
 
             function error(message) {
-                this.feedback.errors.push(message);
+                feedback.errors.push(message);
             }
         }
     }
