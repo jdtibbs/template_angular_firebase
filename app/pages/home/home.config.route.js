@@ -8,16 +8,6 @@
     function config($routeProvider) {
         $routeProvider.when('/home', {
             templateUrl: 'app/pages/home/home.html'
-                // resolve: {
-                // waitForAuth: waitForAuth
-                // }
         });
     }
-
-    // waitForAuth.$inject = ['firebaseFactory'];
-
-    // function waitForAuth(firebaseFactory) {
-    //     return firebaseFactory.auth().$waitForAuth();
-    // }
-
 })();

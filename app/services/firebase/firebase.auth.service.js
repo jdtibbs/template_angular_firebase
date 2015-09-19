@@ -13,6 +13,7 @@
         this.authObj = authObj;
         this.login = login;
         this.logout = logout;
+        this.requireAuth = requireAuth;
 
         function authData() {
             return authObj().$getAuth();
@@ -31,6 +32,10 @@
 
         function logout() {
             authObj().$unauth();
+        }
+
+        function requireAuth() {
+            return authObj().$requireAuth();
         }
     }
 })();

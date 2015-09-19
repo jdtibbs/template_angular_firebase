@@ -14,6 +14,7 @@
 		this.login = login;
 		this.logout = logout;
 		this.onAuth = onAuth;
+		this.requireAuth = requireAuth;
 
 		function authData() {
 			return firebaseAuthService.authData();
@@ -61,6 +62,11 @@
 					$location.path('/login');
 				}
 			});
+		}
+
+		function requireAuth() {
+			return firebaseAuthService.requireAuth();
+
 		}
 	}
 })();

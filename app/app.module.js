@@ -9,6 +9,8 @@
 			'components.module',
 			'home.module',
 			'login.module',
+			'permission.module',
+			'route.resolve.module',
 			'settings.module',
 			'services.firebase.module',
 			'services.util.module',
