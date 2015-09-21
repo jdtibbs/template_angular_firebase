@@ -2,7 +2,7 @@
 
     'use strict';
 
-    angular.module('route.resolve.module')
+    angular.module('services.module')
         .service('routeResolveService', serviceFn);
 
     serviceFn.$inject = ['firebaseAuthService', 'permissionService', '$q', '$log'];

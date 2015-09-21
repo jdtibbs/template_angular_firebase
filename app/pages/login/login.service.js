@@ -66,7 +66,6 @@
 
 		function requireAuth() {
 			return firebaseAuthService.requireAuth();
-
 		}
 	}
 })();

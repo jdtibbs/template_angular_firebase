@@ -2,13 +2,16 @@
 
     'use strict';
 
-    angular.module('services.firebase.module')
+    angular.module('services.module')
         .service('firebaseAuthService', serviceFn);
 
     serviceFn.$inject = ['firebaseService', '$firebaseAuth', '$log'];
 
     function serviceFn(firebaseService, $firebaseAuth, $log) {
 
+        /*
+        loginService should implement theses methods, use it. 
+        */
         this.authData = authData;
         this.authObj = authObj;
         this.login = login;
