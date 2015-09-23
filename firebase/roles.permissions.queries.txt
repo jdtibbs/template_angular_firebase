@@ -1,0 +1,27 @@
+Build menu:
+
+1. get all permissions for user:
+for each permissionUid in profile/uid/permission 
+	->  permissions
+for each roleUid in profile/uid/role 
+	-> for each permissionUid in role/roleUid/permission 
+		-> permissions
+
+2. get all routes for permissions
+for each permissionUid in permissions 
+	-> for each routeUid in permission/permissionUid 
+		-> routes
+
+3. read and display all routes
+for each routeUid in routes
+	route/routeUid
+	-> display
+
+
+firebase security rules to access given route:
+1. 
+route: {
+	$route:{
+		.read: 
+	}
+}
