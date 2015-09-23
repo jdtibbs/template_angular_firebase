@@ -10,6 +10,7 @@
 			'home.module',
 			'login.module',
 			'services.module',
-			'settings.module'
+			'settings.module',
+			'test.module'
 		]);
 })();
