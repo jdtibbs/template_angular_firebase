@@ -1,0 +1,65 @@
+{
+  "profile": {
+    "user1Uid": {
+      "permission": {
+        "route": {
+          "route1Uid": true
+        }
+      },
+      "role": {
+        "role1Uid": true,
+        "permission": {
+          "route": {
+            "route1Uid": true,
+            "route2Uid": true,
+            "route3Uid": true
+          }
+        }
+      }
+    }
+  },
+  "role": {
+    "role1Uid": {
+      "name": "Admin",
+      "permission": {
+        "comment": "permission will contain objects to indicate permissions to routes (menu), actions, etc.",
+        "route": {
+          "route1Uid": true,
+          "route2Uid": true,
+          "route3Uid": true
+        }
+      }
+    },
+    "role2Uid": {
+      "name": "userAdmin",
+      "permissions": {
+        "route": {
+          "route2Uid": true,
+          "route3Uid": true
+        }
+      }
+    },
+    "role3Uid": {
+      "name": "User",
+      "permissions": {
+        "route": {
+          "route3Uid": true
+        }
+      }
+    }
+  },
+  "route": {
+    "route1Uid": {
+      "route": "/settings",
+      "name": "Settings"
+    },
+    "route2Uid": {
+      "route": "/userAdmin",
+      "name": "User Admin"
+    },
+    "route3Uid": {
+      "route": "/catalog",
+      "name": "Catalog"
+    }
+  }
+}
