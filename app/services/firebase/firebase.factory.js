@@ -9,29 +9,79 @@
 
     function factoryFn(firebaseService, $firebaseArray, $firebaseObject, $log) {
 
-        function factory(constant) {
-            var onChildAdded = [];
+        var factory = {};
+        var _ref;
+        var _onChildAdded = [];
+        var _onValue = [];
 
-            function offChildAdded(ref) {
-                // Detaches callbacks previously attached with on().
-                onChildAdded.map(function(value) {
-                    ref.off('child_added', value);
-                });
-            }
-
-            function ref() {
-                return firebaseService.ref().child(constant.dao());
-            }
-
-            function syncArray(key) {
-                return $firebaseArray(ref());
-            }
-
-            function syncObject(key) {
-                return $firebaseObject(ref().child(uid));
-            }
+        function firebaseFactory(constant) {
+            factory.constant = constant; // private.
+            this.add = add;
+            this.destroy = destroy;
+            this.get = get;
+            this.onChildAdded = onChildAdded;
+            this.onValue = onValue;
+            this.ref = ref;
+            this.save = save;
+            this.syncArray = syncArray;
+            this.syncObject = syncObject;
         }
 
-        return factory;
+        return firebaseFactory;
+
+
+        function add(object) {
+            return ref().$add(object);
+        }
+
+        function destroy() {
+            offChildAdded();
+            offValue();
+        }
+
+        function get(key) {
+            return $firebaseObject(ref().child(key));
+        }
+
+        function onChildAdded(ref, callback) {
+            _onChildAdded.push(callback);
+            ref.on('child_added', callback);
+        }
+
+        function offChildAdded(ref) {
+            // Detaches callbacks previously attached with on().
+            _onChildAdded.map(function(value) {
+                ref.off('child_added', value);
+            });
+        }
+
+        function onValue(ref, callback) {
+            _onValue.push(callback);
+            ref.on('value', callback);
+        }
+
+        function offValue(ref) {
+            // Detaches callbacks previously attached with on().
+            _onValue.map(function(value) {
+                ref.off('value', value);
+            });
+        }
+
+        function ref() {
+            return _ref || (_ref = firebaseService.ref().child(factory.constant.dao()));
+        }
+
+        function save(object) {
+            return object.$save();
+        }
+
+        function syncArray(ref) {
+            return $firebaseArray(ref);
+        }
+
+        function syncObject(ref) {
+            return $firebaseObject(ref);
+        }
+
     }
 })();

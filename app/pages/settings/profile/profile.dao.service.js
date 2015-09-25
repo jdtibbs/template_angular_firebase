@@ -3,38 +3,15 @@
     'use strict';
 
     angular.module('settings.module')
-        .service('profileDaoService', factoryFn);
+        .service('profileDaoService', serviceFn);
 
-    factoryFn.$inject = ['firebaseService', '$firebaseObject', '$log', 'profileConstants'];
+    serviceFn.$inject = ['FirebaseFactory', 'profileConstants'];
 
-    function factoryFn(firebaseService, $firebaseObject, $log, profileConstants) {
-        this.add = add;
-        this.destroy = destroy;
-        this.get = get;
-        this.ref = ref;
-        this.save = save;
+    function serviceFn(FirebaseFactory, profileConstants) {
+        var dao = new FirebaseFactory(profileConstants);
 
-        var callBacks = [];
-
-        function add(obj) {
-            return ref().$add(obj);
-        }
-
-        function destroy() {
-            firebaseFactory.offOnChildAdded(callBacks);
-        }
-
-        function get(id) {
-            return $firebaseObject(ref().child(id));
-        }
-
-        function ref() {
-            return firebaseService.ref().child(profileConstants.dao());
-        }
-
-        function save(obj) {
-            return obj.$save();
-        }
-
+        this.add = dao.add;
+        this.get = dao.get;
+        this.save = dao.save;
     }
 })();
