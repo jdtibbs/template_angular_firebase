@@ -3,18 +3,18 @@
     'use strict';
 
     angular.module('services.module')
-        .factory('FirebaseFactory', factoryFn);
+        .factory('FirebaseDaoFactory', factoryFn);
 
     factoryFn.$inject = ['firebaseService', '$firebaseArray', '$firebaseObject', '$log'];
 
     function factoryFn(firebaseService, $firebaseArray, $firebaseObject, $log) {
 
-        function FirebaseFactory(constant) {
+        function FirebaseDaoFactory(constant) {
             this.constant = constant;
         }
 
-        FirebaseFactory.prototype = {
-            constructor: FirebaseFactory,
+        FirebaseDaoFactory.prototype = {
+            constructor: FirebaseDaoFactory,
             add: function(object) {
                 return ref().$add(object);
             },
@@ -32,6 +32,6 @@
             }
         };
 
-        return FirebaseFactory;
+        return FirebaseDaoFactory;
     }
 })();
