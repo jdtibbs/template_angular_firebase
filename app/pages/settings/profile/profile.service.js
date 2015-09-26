@@ -3,17 +3,17 @@
 	'use strict';
 
 	angular.module('settings.module')
-		.service('profileService', serviceFn);
+		.service('profileDaoService', serviceFn);
 
 	serviceFn.$inject = ['FirebaseDaoFactory', '$log', 'rx', 'profileConstants'];
 
 	function serviceFn(FirebaseDaoFactory, $log, rx, profileConstants) {
-		this.save = save;
+		// this.save = save;
 		this.get = get;
 
 		var dao = new FirebaseDaoFactory(profileConstants);
 
-		function save(profile, feedbackFactory) {
+		this.save = function(profile, feedbackFactory) {
 			if (profile.$id) {
 				dao.save(profile)
 					.then(function(ref) {
@@ -31,7 +31,7 @@
 							feedbackFactory.error(error);
 						});
 			}
-		}
+		};
 
 		function get(key, feedbackFactory, setCallback) {
 			var ref = dao.ref().child(key);
