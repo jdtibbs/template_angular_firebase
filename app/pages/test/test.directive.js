@@ -21,6 +21,7 @@
 
 		function controllerFn() {
 			var vm = this;
+
 			var dao = new FirebaseFactory(testConstants);
 			vm.data = dao.syncArray(dao.ref());
 		}

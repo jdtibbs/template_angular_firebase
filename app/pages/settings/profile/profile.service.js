@@ -5,15 +5,17 @@
 	angular.module('settings.module')
 		.service('profileService', serviceFn);
 
-	serviceFn.$inject = ['profileDaoService', '$log', 'rx'];
+	serviceFn.$inject = ['FirebaseFactory', '$log', 'rx', 'profileConstants'];
 
-	function serviceFn(profileDaoService, $log, rx) {
+	function serviceFn(FirebaseFactory, $log, rx, profileConstants) {
 		this.save = save;
 		this.get = get;
 
+		var dao = new FirebaseFactory(profileConstants);
+
 		function save(profile, feedbackFactory) {
 			if (profile.$id) {
-				profileDaoService.save(profile)
+				dao.save(profile)
 					.then(function(ref) {
 							feedbackFactory.success('Profile saved successfully.');
 						},
@@ -21,7 +23,7 @@
 							feedbackFactory.error(error);
 						});
 			} else {
-				profileDaoService.add(profile)
+				dao.add(profile)
 					.then(function(ref) {
 							feedbackFactory.success('Profile added successfully.');
 						},
@@ -32,7 +34,8 @@
 		}
 
 		function get(key, feedbackFactory, setCallback) {
-			profileDaoService.get(key)
+			var ref = dao.ref().child(key);
+			dao.syncObject(ref)
 				.$loaded()
 				.then(function(data) {
 					setCallback(data);
