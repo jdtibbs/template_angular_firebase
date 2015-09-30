@@ -11,33 +11,31 @@
 
         // call these methods via loginService! 
 
-        this.authData = authData;
-        this.authObj = authObj;
-        this.login = login;
-        this.logout = logout;
-        this.requireAuth = requireAuth;
+        var service = {
+            authData: function() {
+                return this.authObj().$getAuth();
+            },
 
-        function authData() {
-            return authObj().$getAuth();
-        }
+            authObj: function() {
+                return $firebaseAuth(firebaseService.ref());
+            },
 
-        function authObj() {
-            return $firebaseAuth(firebaseService.ref());
-        }
+            login: function(email, password) {
+                return this.authObj().$authWithPassword({
+                    email: email,
+                    password: password
+                });
+            },
 
-        function login(email, password) {
-            return authObj().$authWithPassword({
-                email: email,
-                password: password
-            });
-        }
+            logout: function() {
+                this.authObj().$unauth();
+            },
 
-        function logout() {
-            authObj().$unauth();
-        }
+            requireAuth: function() {
+                return this.authObj().$requireAuth();
+            },
+        };
 
-        function requireAuth() {
-            return authObj().$requireAuth();
-        }
+        return service;
     }
 })();

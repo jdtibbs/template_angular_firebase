@@ -9,10 +9,6 @@
 
     function serviceFn(firebaseAuthService, $log) {
 
-        // this.changeEmail = changeEmail;
-        // this.changePassword = changePassword;
-        // this.createUser = createUser;
-        // this.resetPassword = resetPassword;
         var service = {
             changeEmail: function(oldEmail, newEmail, password) {
                 return firebaseAuthService.authObj().$changeEmail({
