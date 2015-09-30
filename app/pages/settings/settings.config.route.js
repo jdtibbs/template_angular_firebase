@@ -7,17 +7,17 @@
 
     function config($routeProvider) {
         $routeProvider.when('/settings', {
-            templateUrl: 'app/pages/settings/settings.html'
-                // resolve: {
-                // waitForAuth: waitForAuth
-                // }
+            templateUrl: 'app/pages/settings/settings.html',
+            resolve: {
+                requireAuth: requireAuth
+            }
         });
     }
 
-    // waitForAuth.$inject = ['firebaseFactory'];
+    requireAuth.$inject = ['loginService'];
 
-    // function waitForAuth(firebaseFactory) {
-    //     return firebaseFactory.auth().$waitForAuth();
-    // }
+    function requireAuth(loginService) {
+        return loginService.requireAuth();
+    }
 
 })();

@@ -1,10 +1,10 @@
 (function() {
 	'use strict';
 
-	angular.module('services.firebase.module')
+	angular.module('services.module')
 		.constant('FIREBASE_URL', 'https://jdt-sandbox.firebaseio.com/');
 
-	angular.module('services.firebase.module')
+	angular.module('services.module')
 		.provider('firebaseConstants', providerFn);
 
 	providerFn.$inject = ['FIREBASE_URL'];

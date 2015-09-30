@@ -2,8 +2,8 @@
   "rules": {
     "profile": {
       ".read": "auth.uid !== null",
-      ".write": "auth.uid !== null",
       "$profile_id": {
+        ".write": "$profile_id === auth.uid",
         ".validate": "newData.hasChildren(['firstName', 'lastName'])",
         "firstName": {
           ".validate": "newData.isString() && newData.val().length <= 50"

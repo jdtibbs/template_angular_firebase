@@ -8,59 +8,62 @@
 	serviceFn.$inject = ['firebaseAuthService', '$location', '$log', 'passwordService', 'rx'];
 
 	function serviceFn(firebaseAuthService, $location, $log, passwordService, rx) {
-		this.authData = authData;
-		this.authObj = authObj;
-		this.resetPassword = resetPassword;
-		this.login = login;
-		this.logout = logout;
-		this.onAuth = onAuth;
 
-		function authData() {
-			return firebaseAuthService.authData();
-		}
+		var service = {
 
-		function authObj() {
-			return firebaseAuthService.authObj();
-		}
+			authData: function() {
+				return firebaseAuthService.authData();
+			},
 
-		function resetPassword(email, feedback) {
-			passwordService.resetPassword(email, feedback);
-		}
+			authObj: function() {
+				return firebaseAuthService.authObj();
+			},
 
-		function login(email, password, feedback) {
-			var source = rx.Observable.startAsync(function() {
-				return firebaseAuthService.login(email, password);
-			});
-			var subscription = source.subscribe(
-				function(authData) {
-					// see onAuth()
-				},
-				function(error) {
-					feedback.error('Email or password is invalid.');
-				},
-				function() {
-					$log.debug('rx completed');
+			resetPassword: function(email, feedback) {
+				passwordService.resetPassword(email, feedback);
+			},
+
+			login: function(email, password, feedback) {
+				var source = rx.Observable.startAsync(function() {
+					return firebaseAuthService.login(email, password);
 				});
-		}
+				var subscription = source.subscribe(
+					function(authData) {
+						// see onAuth()
+					},
+					function(error) {
+						feedback.error('Email or password is invalid.');
+					},
+					function() {
+						$log.debug('rx completed');
+					});
+			},
 
-		function logout() {
-			return firebaseAuthService.logout();
-		}
+			logout: function() {
+				return firebaseAuthService.logout();
+			},
 
-		function onAuth(setAuthData) {
-			// handle changes in authentication state.
-			authObj().$onAuth(function(authData) {
-				if (setAuthData) {
-					setAuthData(authData);
-				}
-				if (authData) {
-					$log.debug("Logged in:", authData.uid);
-					$location.path('/home');
-				} else {
-					$log.debug("Logged out (or login failed).");
-					$location.path('/login');
-				}
-			});
-		}
+			onAuth: function(setAuthData) {
+				// handle changes in authentication state.
+				this.authObj().$onAuth(function(authData) {
+					if (setAuthData) {
+						setAuthData(authData);
+					}
+					if (authData) {
+						$log.debug("Logged in:", authData.uid);
+						$location.path('/home');
+					} else {
+						$log.debug("Logged out (or login failed).");
+						$location.path('/login');
+					}
+				});
+			},
+
+			requireAuth: function() {
+				return firebaseAuthService.requireAuth();
+			}
+		};
+
+		return service;
 	}
 })();
