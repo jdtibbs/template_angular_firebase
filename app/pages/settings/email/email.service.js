@@ -10,8 +10,8 @@
 	function serviceFn(firebaseUserService, $log, loginService, rx) {
 		this.changeEmail = changeEmail;
 
-		function changeEmail(currentEmail, newEmail, password, feedbackFactory) {
-			feedbackFactory.init();
+		function changeEmail(currentEmail, newEmail, password, feedback) {
+			feedback.init();
 			var source = rx.Observable.startAsync(function() {
 				return firebaseUserService.changeEmail(currentEmail, newEmail, password);
 			});
@@ -21,7 +21,7 @@
 					loginService.logout();
 				},
 				function(error) {
-					feedbackFactory.error(error);
+					feedback.error(error);
 				},
 				function() {
 					$log.debug('rx change email completed');

@@ -4,9 +4,9 @@
 	angular.module('settings.module')
 		.directive('jdtSettingsProfile', directiveFn);
 
-	directiveFn.$inject = ['FeedbackFactory', '$log', 'profileDaoService'];
+	directiveFn.$inject = ['feedbackFactory', '$log', 'profileDaoService'];
 
-	function directiveFn(FeedbackFactory, $log, profileDaoService) {
+	function directiveFn(feedbackFactory, $log, profileDaoService) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -25,12 +25,12 @@
 			vm.cancel = cancel;
 			vm.save = save;
 			vm.feedback = {};
-			var feedbackFactory = new FeedbackFactory(vm.feedback);
+			var feedback = feedbackFactory(vm.feedback);
 
 			init();
 
 			function cancel() {
-				feedbackFactory.init();
+				feedback.init();
 				init();
 			}
 
@@ -44,7 +44,7 @@
 					lastName: null
 				};
 
-				profileDaoService.syncObject(vm.props.authData.uid, feedbackFactory, syncProfile);
+				profileDaoService.syncObject(vm.props.authData.uid, feedback, syncProfile);
 
 				function syncProfile(profile) {
 					vm.profile = profile;
@@ -52,8 +52,8 @@
 			}
 
 			function save() {
-				feedbackFactory.init();
-				profileDaoService.save(vm.profile, feedbackFactory);
+				feedback.init();
+				profileDaoService.save(vm.profile, feedback);
 			}
 		}
 

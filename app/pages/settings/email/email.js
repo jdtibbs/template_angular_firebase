@@ -4,9 +4,9 @@
 	angular.module('settings.module')
 		.directive('jdtSettingsEmail', directiveFn);
 
-	directiveFn.$inject = ['FeedbackFactory', '$log', 'emailService'];
+	directiveFn.$inject = ['feedbackFactory', '$log', 'emailService'];
 
-	function directiveFn(FeedbackFactory, $log, emailService) {
+	function directiveFn(feedbackFactory, $log, emailService) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -25,12 +25,12 @@
 			vm.cancel = cancel;
 			vm.save = save;
 			vm.feedback = {};
-			var feedbackFactory = new FeedbackFactory(vm.feedback);
+			var feedback = feedbackFactory(vm.feedback);
 
 			init();
 
 			function cancel() {
-				feedbackFactory.init();
+				feedback.init();
 				init();
 			}
 
@@ -48,11 +48,11 @@
 			}
 
 			function save() {
-				feedbackFactory.init();
+				feedback.init();
 				if (vm.email === vm.confirm) {
-					emailService.changeEmail(vm.currentEmail, vm.email, vm.password, feedbackFactory);
+					emailService.changeEmail(vm.currentEmail, vm.email, vm.password, feedback);
 				} else {
-					feedbackFactory.error("New Email and Confirm New Email must match.");
+					feedback.error("New Email and Confirm New Email must match.");
 				}
 			}
 		}

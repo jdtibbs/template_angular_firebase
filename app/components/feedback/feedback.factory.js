@@ -3,33 +3,38 @@
     'use strict';
 
     angular.module('components.module')
-        .factory('FeedbackFactory', factoryFn);
+        .factory('feedbackFactory', factoryFn);
 
     factoryFn.$inject = [];
 
     function factoryFn() {
 
-        return FeedbackFactory;
+        function factory(feedback) {
 
-        function FeedbackFactory(feedback) {
-            this.init = init;
-            this.success = success;
-            this.error = error;
+            var service = {
+                init: function() {
+                    feedback.errors = [];
+                    feedback.success = [];
+                },
 
-            this.init();
+                error: function(message) {
+                    if (feedback.errors === undefined) {
+                        this.init();
+                    }
+                    feedback.errors.push(message);
+                },
 
-            function init() {
-                feedback.errors = [];
-                feedback.success = [];
-            }
+                success: function(message) {
+                    if (feedback.success === undefined) {
+                        this.init();
+                    }
+                    feedback.success.push(message);
+                }
+            };
 
-            function success(message) {
-                feedback.success.push(message);
-            }
-
-            function error(message) {
-                feedback.errors.push(message);
-            }
+            return Object.create(service);
         }
+
+        return factory;
     }
 })();

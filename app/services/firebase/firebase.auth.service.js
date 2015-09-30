@@ -9,9 +9,8 @@
 
     function serviceFn(firebaseService, $firebaseAuth, $log) {
 
-        /*
-        loginService should implement theses methods, use it. 
-        */
+        // call these methods via loginService! 
+
         this.authData = authData;
         this.authObj = authObj;
         this.login = login;
