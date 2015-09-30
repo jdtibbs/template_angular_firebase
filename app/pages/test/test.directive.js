@@ -4,9 +4,9 @@
 	angular.module('login.module')
 		.directive('jdtTest', directiveFn);
 
-	directiveFn.$inject = ['feedbackFactory', 'testDaoService', '$log', 'testConstants'];
+	directiveFn.$inject = ['feedbackFactory', 'testDaoFactory', '$log', 'testConstants'];
 
-	function directiveFn(feedbackFactory, testDaoService, $log, testConstants) {
+	function directiveFn(feedbackFactory, testDaoFactory, $log, testConstants) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -24,7 +24,7 @@
 			vm.feedback = {};
 			var feedback = feedbackFactory(vm.feedback);
 
-			testDaoService.syncArray(null, feedback, syncArray);
+			testDaoFactory.syncArray(null, feedback, syncArray);
 
 			function syncArray(data) {
 				vm.data = data;

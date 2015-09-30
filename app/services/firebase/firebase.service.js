@@ -10,8 +10,12 @@
     function FirebaseService(firebaseConstants, $log) {
         var _ref;
 
-        this.ref = function() {
-            return _ref || (_ref = new Firebase(firebaseConstants.url()));
+        var service = {
+            ref: function() {
+                return _ref || (_ref = new Firebase(firebaseConstants.url()));
+            }
         };
+
+        return service;
     }
 })();

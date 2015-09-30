@@ -9,6 +9,12 @@
 
     function serviceFn(firebaseService, $firebaseAuth, $log) {
 
+        var privateCount = 0;
+
+        function privateMethod() {
+            return 'i am a private method';
+        }
+
         // call these methods via loginService! 
 
         var service = {
@@ -32,6 +38,8 @@
             },
 
             requireAuth: function() {
+                $log.debug(privateMethod());
+                $log.debug(privateCount++);
                 return this.authObj().$requireAuth();
             },
         };

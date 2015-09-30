@@ -8,10 +8,12 @@
     serviceFn.$inject = ['$log', 'rx'];
 
     function serviceFn($log, rx) {
-        this.hasRole = hasRole;
 
-        function hasRole() {
-            return true;
-        }
+        var service = {
+            hasRole: function() {
+                return true;
+            }
+        };
+        return service;
     }
 })();
