@@ -3,35 +3,24 @@
     'use strict';
 
     angular.module('services.module')
-        .factory('FirebaseDaoFactory', factoryFn);
+        .factory('firebaseDaoFactory', factoryFn);
 
-    factoryFn.$inject = ['firebaseService', '$firebaseArray', '$firebaseObject', '$log'];
+    factoryFn.$inject = ['firebaseDaoService', 'firebaseService', '$log'];
 
-    function factoryFn(firebaseService, $firebaseArray, $firebaseObject, $log) {
+    function factoryFn(firebaseDaoService, firebaseService, $log) {
 
-        function FirebaseDaoFactory(constant) {
-            this.constant = constant;
+        function factory(constant) {
+            var propertiesObj = {
+                constant: {
+                    value: constant
+                },
+                ref: {
+                    value: firebaseService.ref().child(constant.dao())
+                }
+            };
+            return Object.create(firebaseDaoService, propertiesObj);
         }
 
-        FirebaseDaoFactory.prototype = {
-            constructor: FirebaseDaoFactory,
-            add: function(object) {
-                return ref().$add(object);
-            },
-            ref: function() {
-                return firebaseService.ref().child(this.constant.dao());
-            },
-            save: function(object) {
-                return object.$save();
-            },
-            syncArray: function(ref) {
-                return $firebaseArray(ref);
-            },
-            syncObject: function(ref) {
-                return $firebaseObject(ref);
-            }
-        };
-
-        return FirebaseDaoFactory;
+        return factory;
     }
 })();

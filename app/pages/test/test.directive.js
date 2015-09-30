@@ -4,9 +4,9 @@
 	angular.module('login.module')
 		.directive('jdtTest', directiveFn);
 
-	directiveFn.$inject = ['FirebaseDaoFactory', '$log', 'testConstants'];
+	directiveFn.$inject = ['FeedbackFactory', 'testDaoService', '$log', 'testConstants'];
 
-	function directiveFn(FirebaseDaoFactory, $log, testConstants) {
+	function directiveFn(FeedbackFactory, testDaoService, $log, testConstants) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -21,9 +21,14 @@
 
 		function controllerFn() {
 			var vm = this;
+			vm.feedback = {};
+			var feedbackFactory = new FeedbackFactory(vm.feedback);
 
-			var dao = new FirebaseDaoFactory(testConstants);
-			vm.data = dao.syncArray(dao.ref());
+			testDaoService.syncArray(null, feedbackFactory, syncArray);
+
+			function syncArray(data) {
+				vm.data = data;
+			}
 		}
 
 		function linkFn(scope, elem, attrs) {}

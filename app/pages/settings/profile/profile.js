@@ -35,6 +35,8 @@
 			}
 
 			function init() {
+				$log.debug('profileDaoService');
+				$log.debug(profileDaoService);
 				if (vm.form) {
 					vm.form.$setPristine();
 					vm.form.$setUntouched();
@@ -43,10 +45,11 @@
 					firstName: null,
 					lastName: null
 				};
-				profileDaoService.get(vm.props.authData.uid, feedbackFactory, setCallback);
 
-				function setCallback(data) {
-					vm.profile = data;
+				profileDaoService.syncObject(vm.props.authData.uid, feedbackFactory, syncProfile);
+
+				function syncProfile(profile) {
+					vm.profile = profile;
 				}
 			}
 
