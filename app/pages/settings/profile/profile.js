@@ -35,8 +35,6 @@
 			}
 
 			function init() {
-				$log.debug('profileDaoService');
-				$log.debug(profileDaoService);
 				if (vm.form) {
 					vm.form.$setPristine();
 					vm.form.$setUntouched();
