@@ -4,9 +4,9 @@
 	angular.module('login.module')
 		.directive('jdtTest', directiveFn);
 
-	directiveFn.$inject = ['feedbackFactory', 'testConstants', 'testDaoFactory', '$log'];
+	directiveFn.$inject = ['feedbackFactory', 'testConstants', 'testDaoFactory', '$log', 'rx'];
 
-	function directiveFn(feedbackFactory, testConstants, testDaoFactory, $log) {
+	function directiveFn(feedbackFactory, testConstants, testDaoFactory, $log, rx) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -25,10 +25,21 @@
 			vm.feedback = {};
 			var feedback = feedbackFactory(vm.feedback);
 
-			testDaoFactory.syncArray(null, feedback, syncArray);
+			// RxJS, just tinkering.
+			// useful if callback provided parameter to another function.
+			var fn = rx.Observable.fromCallback(testDaoFactory.syncArray);
+			fn(null, feedback).subscribe(onNext, onError, onComplete);
 
-			function syncArray(data) {
+			function onNext(data) {
 				vm.data = data;
+			}
+
+			function onError(error) {
+				$log.error(error);
+			}
+
+			function onComplete() {
+				// $log.debug('rx fromCallbak complete');
 			}
 		}
 
