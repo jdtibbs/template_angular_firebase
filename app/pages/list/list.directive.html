@@ -1,3 +1,7 @@
-<ul ng-repeat="list in vm.data track by $index">
-	<li ng-bind="list.name"></li>
-</ul>
+<md-content>
+	<md-list ng-repeat="list in vm.data track by $index">
+		<md-list-item>
+			<p ng-bind="list.name">x</p>
+		</md-list-item>
+	</md-list>
+</md-content>
