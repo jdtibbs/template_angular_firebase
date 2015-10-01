@@ -1,7 +1,6 @@
-<md-content>
-	<md-list ng-repeat="list in vm.data track by $index">
-		<md-list-item>
-			<p ng-bind="list.name">x</p>
-		</md-list-item>
-	</md-list>
-</md-content>
+<md-list ng-repeat="list in vm.data track by $index">
+	<md-list-item>
+		<p ng-bind="list.name">x</p>
+	</md-list-item>
+	<md-divider ng-if="!$last"></md-divider>
+</md-list>
