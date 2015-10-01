@@ -1,14 +1,14 @@
 (function() {
 	'use strict';
 
-	angular.module('test.module')
+	angular.module('list.module')
 		.config(config);
 
 	config.$inject = ['$routeProvider'];
 
 	function config($routeProvider) {
-		$routeProvider.when('/test', {
-			templateUrl: 'app/pages/test/test.html'
+		$routeProvider.when('/list', {
+			templateUrl: 'app/pages/list/list.html'
 		});
 	}
 })();
