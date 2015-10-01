@@ -2,11 +2,11 @@
 	'use strict';
 
 	angular.module('login.module')
-		.directive('jdtTest', directiveFn);
+		.directive('jdtList', directiveFn);
 
-	directiveFn.$inject = ['feedbackFactory', 'testConstants', 'testDaoFactory', '$log', 'rx'];
+	directiveFn.$inject = ['feedbackFactory', 'listConstants', 'listDaoFactory', '$log', 'rx'];
 
-	function directiveFn(feedbackFactory, testConstants, testDaoFactory, $log, rx) {
+	function directiveFn(feedbackFactory, listConstants, listDaoFactory, $log, rx) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -16,18 +16,18 @@
 			controllerAs: 'vm',
 			bindToController: true,
 			link: linkFn,
-			templateUrl: 'app/pages/test/test.directive.html'
+			templateUrl: 'app/pages/list/list.directive.html'
 		};
 
 		function controllerFn() {
 			var vm = this;
-			vm.props.title = testConstants.title;
+			vm.props.title = listConstants.title;
 			vm.feedback = {};
 			var feedback = feedbackFactory(vm.feedback);
 
 			// RxJS, just tinkering.
 			// useful if callback provided parameter to another function.
-			var fn = rx.Observable.fromCallback(testDaoFactory.syncArray);
+			var fn = rx.Observable.fromCallback(listDaoFactory.syncArray);
 			fn(null, feedback).subscribe(onNext, onError, onComplete);
 
 			function onNext(data) {
