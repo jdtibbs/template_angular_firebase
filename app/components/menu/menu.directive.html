@@ -6,12 +6,18 @@
 	</md-menu-item>
 
 	<span ng-show="vm.props.authData">
-		<md-menu-item ng-repeat="menu in vm.props.menu.items">
+		<md-menu-item ng-repeat="menu in vm.menu.items">
 			<md-button ng-click="vm.click(menu.path)" class="md-primary">
 				{{menu.title}}
 			</md-button>
 		</md-menu-item>
 	</span>
+
+	<md-menu-item ng-show="vm.props.authData">
+		<md-button ng-click="vm.click('/settings')" class="md-primary">
+			<span>Settings</span>
+		</md-button>
+	</md-menu-item>
 
 	<md-menu-item ng-hide="vm.props.authData">
 		<md-button ng-click="vm.click('/login')" class="md-primary">

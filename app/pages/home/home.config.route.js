@@ -1,26 +1,14 @@
 (function() {
 
-    'use strict';
-    angular.module('home.module')
-        .config(config);
-    config.$inject = ['$routeProvider'];
+	'use strict';
+	angular.module('home.module')
+		.config(config);
 
-    function config($routeProvider) {
-        $routeProvider.when('/home', {
-                templateUrl: 'app/pages/home/home.html'
-                    // resolve: {
-                    // waitForAuth: waitForAuth
-                    // }
-            })
-            .otherwise({
-                redirectTo: '/home'
-            });
-    }
+	config.$inject = ['$routeProvider'];
 
-    // waitForAuth.$inject = ['firebaseFactory'];
-
-    // function waitForAuth(firebaseFactory) {
-    //     return firebaseFactory.auth().$waitForAuth();
-    // }
-
+	function config($routeProvider) {
+		$routeProvider.when('/home', {
+			templateUrl: 'app/pages/home/home.html'
+		});
+	}
 })();

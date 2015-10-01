@@ -1,0 +1,23 @@
+<md-input-container>
+	<label>First Name</label>
+	<input name="firstName" type="text" ng-model="vm.profile.firstName" required ng-maxlength="50">
+	<div ng-show="vm.form.firstName.$touched" ng-messages="vm.form.firstName.$error">
+		<div ng-message="required">Required</div>
+		<div ng-message="maxlength">Must not exceed 50 characters.</div>
+	</div>
+</md-input-container>
+
+<md-input-container>
+	<label>Last Name</label>
+	<input name="lastName" type="text" ng-model="vm.profile.lastName" required ng-maxlength="50">
+	<div ng-show="vm.form.lastName.$touched" ng-messages="vm.form.lastName.$error">
+		<div ng-message="required">Required</div>
+		<div ng-message="maxlength">Must not exceed 50 characters.</div>
+	</div>
+</md-input-container>
+
+<md-button class="md-primary md-raised" type="button" ng-disabled="vm.form.$invalid" ng-click="vm.save()">Save</md-button>
+
+<md-button class="md-raised" type="button" ng-click="vm.cancel()">Cancel</md-button>
+
+<jdt-feedback feedback="vm.feedback"></jdt-feedback>

@@ -1,0 +1,22 @@
+Build menu:
+
+1. get all route permissions for user:
+for each routeUid in profile/uid/permission/route 
+	->  routes
+for each routeUid in profile/uid/role/permission/route 
+	-> routes
+
+2. read and display all routes (menu)
+for each route in routes
+	-> display route.name
+
+
+firebase security rules to access given route:
+1. 
+route: {
+	$route:{
+		.read: root.child('profile').child(auth_uid).child('permission').child('route').child($route_uid).exits() 
+		||
+		root.child('profile').child(auth_uid).child('role').child('permission').child('route').child($route_uid).exits() 
+	}
+}

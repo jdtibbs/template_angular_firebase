@@ -2,19 +2,20 @@
 
     'use strict';
 
-    angular.module('services.firebase.module')
-        .service('firebaseService', serviceFn);
+    angular.module('services.module')
+        .service('firebaseService', FirebaseService);
 
-    serviceFn.$inject = ['firebaseConstants', '$log'];
+    FirebaseService.$inject = ['firebaseConstants', '$log'];
 
-    function serviceFn(firebaseConstants, $log) {
-
-        this.ref = ref;
-
+    function FirebaseService(firebaseConstants, $log) {
         var _ref;
 
-        function ref() {
-            return _ref || (_ref = new Firebase(firebaseConstants.url()));
-        }
+        var service = {
+            ref: function() {
+                return _ref || (_ref = new Firebase(firebaseConstants.url()));
+            }
+        };
+
+        return service;
     }
 })();

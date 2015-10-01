@@ -2,32 +2,48 @@
 
     'use strict';
 
-    angular.module('services.firebase.module')
+    angular.module('services.module')
         .service('firebaseAuthService', serviceFn);
 
     serviceFn.$inject = ['firebaseService', '$firebaseAuth', '$log'];
 
     function serviceFn(firebaseService, $firebaseAuth, $log) {
 
-        this.authObj = authObj;
-        this.login = login;
-        this.logout = logout;
+        var privateCount = 0;
 
-        var _authObj;
-
-        function authObj() {
-            return _authObj || (_authObj = $firebaseAuth(firebaseService.ref()));
+        function privateMethod() {
+            return 'i am a private method';
         }
 
-        function login(email, password) {
-            return authObj().$authWithPassword({
-                email: email,
-                password: password
-            });
-        }
+        // call these methods via loginService! 
 
-        function logout() {
-            authObj().$unauth();
-        }
+        var service = {
+            authData: function() {
+                return this.authObj().$getAuth();
+            },
+
+            authObj: function() {
+                return $firebaseAuth(firebaseService.ref());
+            },
+
+            login: function(email, password) {
+                return this.authObj().$authWithPassword({
+                    email: email,
+                    password: password
+                });
+            },
+
+            logout: function() {
+                this.authObj().$unauth();
+            },
+
+            requireAuth: function() {
+                $log.debug(privateMethod());
+                $log.debug(privateCount++);
+                return this.authObj().$requireAuth();
+            },
+        };
+
+        return service;
     }
 })();
