@@ -1,13 +1,14 @@
 (function() {
 
-    'use strict';
-    angular.module('home.module')
-        .config(config);
-    config.$inject = ['$routeProvider'];
+	'use strict';
+	angular.module('home.module')
+		.config(config);
 
-    function config($routeProvider) {
-        $routeProvider.when('/home', {
-            templateUrl: 'app/pages/home/home.html'
-        });
-    }
+	config.$inject = ['$routeProvider'];
+
+	function config($routeProvider) {
+		$routeProvider.when('/home', {
+			templateUrl: 'app/pages/home/home.html'
+		});
+	}
 })();

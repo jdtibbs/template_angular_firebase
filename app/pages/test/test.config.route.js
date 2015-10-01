@@ -1,8 +1,9 @@
 (function() {
-
 	'use strict';
+
 	angular.module('test.module')
 		.config(config);
+
 	config.$inject = ['$routeProvider'];
 
 	function config($routeProvider) {

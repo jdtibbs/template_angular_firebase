@@ -4,7 +4,7 @@
 			<md-button ng-click="vm.props.sidenav.toggle()" hide-gt-md class="md-icon-button">
 				<md-icon aria-label="Menu" md-svg-icon="https://s3-us-west-2.amazonaws.com/s.cdpn.io/68133/menu.svg"></md-icon>
 			</md-button>
-			<h1 class="md-title" jdt-app-name></h1>
+			<jdt-title props="vm.props"></jdt-title>
 		</div>
 	</md-toolbar>
 
@@ -13,8 +13,8 @@
 			<jdt-menu props="vm.props"></jdt-menu>
 		</md-sidenav>
 
-		<md-content layout="column" flex class="md-padding">
-			<div ng-cloak ng-view></div>
+		<md-content layout="column" flex>
+			<jdt-view props="vm.props"></jdt-view>
 		</md-content>
 	</div>
 </div>

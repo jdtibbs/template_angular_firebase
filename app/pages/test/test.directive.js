@@ -4,9 +4,9 @@
 	angular.module('login.module')
 		.directive('jdtTest', directiveFn);
 
-	directiveFn.$inject = ['feedbackFactory', 'testDaoFactory', '$log', 'testConstants'];
+	directiveFn.$inject = ['feedbackFactory', 'testConstants', 'testDaoFactory', '$log'];
 
-	function directiveFn(feedbackFactory, testDaoFactory, $log, testConstants) {
+	function directiveFn(feedbackFactory, testConstants, testDaoFactory, $log) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -21,6 +21,7 @@
 
 		function controllerFn() {
 			var vm = this;
+			vm.props.title = testConstants.title;
 			vm.feedback = {};
 			var feedback = feedbackFactory(vm.feedback);
 

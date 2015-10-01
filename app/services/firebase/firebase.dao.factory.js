@@ -10,7 +10,7 @@
     function factoryFn($firebaseArray, $firebaseObject, firebaseService, $log, rx) {
 
         function factory(constant) {
-            var ref = firebaseService.ref().child(constant.dao());
+            var ref = firebaseService.ref().child(constant.dao);
 
             var service = {
                 add: function(object, feedback, callback) {
