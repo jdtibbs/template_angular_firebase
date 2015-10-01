@@ -20,6 +20,7 @@
 		function controllerFn() {
 			var vm = this;
 
+			// initialize root properties property. 
 			vm.props = {};
 
 			// monitor login state.

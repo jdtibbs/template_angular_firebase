@@ -4,9 +4,9 @@
 	angular.module('settings.module')
 		.directive('jdtSettingsProfile', directiveFn);
 
-	directiveFn.$inject = ['feedbackFactory', '$log', 'profileDaoService'];
+	directiveFn.$inject = ['feedbackFactory', '$log', 'profileConstants', 'profileDaoService'];
 
-	function directiveFn(feedbackFactory, $log, profileDaoService) {
+	function directiveFn(feedbackFactory, $log, profileConstants, profileDaoService) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -22,6 +22,7 @@
 
 		function controllerFn() {
 			var vm = this;
+			vm.props.title = profileConstants.title;
 			vm.cancel = cancel;
 			vm.save = save;
 			vm.feedback = {};

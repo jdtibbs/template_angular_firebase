@@ -4,9 +4,9 @@
 	angular.module('login.module')
 		.directive('jdtLogin', directiveFn);
 
-	directiveFn.$inject = ['feedbackFactory', '$log', 'loginService'];
+	directiveFn.$inject = ['feedbackFactory', '$log', 'loginConstants', 'loginService'];
 
-	function directiveFn(feedbackFactory, $log, loginService) {
+	function directiveFn(feedbackFactory, $log, loginConstants, loginService) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -21,11 +21,10 @@
 
 		function controllerFn() {
 			var vm = this;
+			vm.props.title = loginConstants.title;
 			vm.feedback = {};
 			vm.login = login;
 			vm.forgot = forgot;
-
-			var feedback = feedbackFactory(vm.feedback);
 
 			function forgot() {
 				feedback.init();
@@ -36,6 +35,8 @@
 				feedback.init();
 				loginService.login(vm.email, vm.password, feedback);
 			}
+
+			var feedback = feedbackFactory(vm.feedback);
 		}
 
 		function linkFn(scope, elem, attrs) {}
