@@ -21,11 +21,11 @@
                         if (callback !== undefined) {
                             callback(ref);
                         }
-                        feedback.success(constant.name() + ' added successfully.');
+                        feedback.success(constant.title + ' added successfully.');
                     };
                     var onError = function() {
                         $log.error(error);
-                        feedback.error('Error adding ' + constant.name() + '.');
+                        feedback.error('Error adding ' + constant.title + '.');
                     };
                     var onComplete = function() {};
 
@@ -40,12 +40,12 @@
                         if (callback !== undefined) {
                             callback(ref);
                         }
-                        feedback.success(constant.name() + ' saved successfully.');
+                        feedback.success(constant.title + ' saved successfully.');
                     };
                     var onError =
                         function(error) {
                             $log.error(error);
-                            feedback.error('Error saving ' + constant.name() + '.');
+                            feedback.error('Error saving ' + constant.title + '.');
                         };
                     var onComplete = function() {};
 
@@ -62,7 +62,7 @@
                     };
                     var onError = function(error) {
                         $log.error(error);
-                        feedback.error('Error syncing array ' + constant.name() + '.');
+                        feedback.error('Error syncing array ' + constant.title + '.');
                     };
                     var onComplete = function() {};
                     rx.Observable.startAsync(async).subscribe(onNext, onError, onComplete);
@@ -77,7 +77,7 @@
                     };
                     var onError = function(error) {
                         $log.error(error);
-                        feedback.error('Error syncing object ' + constant.name() + '.');
+                        feedback.error('Error syncing object ' + constant.title + '.');
                     };
                     var onComplete = function() {};
                     rx.Observable.startAsync(async).subscribe(onNext, onError, onComplete);
