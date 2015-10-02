@@ -23,7 +23,13 @@
 			var vm = this;
 			vm.props.title = listConstants.title;
 			vm.feedback = {};
-			vm.add = add;
+			vm.props.toolbar = {
+				add: {
+					show: true,
+					action: add
+				}
+			};
+			// vm.add = add;
 			vm.click = click;
 
 			var feedback = feedbackFactory(vm.feedback);
@@ -54,6 +60,10 @@
 			}
 		}
 
-		function linkFn(scope, elem, attrs) {}
+		function linkFn(scope, elem, attrs) {
+			scope.$on('$destroy', function() {
+				scope.vm.props.toolbar.add = {};
+			});
+		}
 	}
 })();
