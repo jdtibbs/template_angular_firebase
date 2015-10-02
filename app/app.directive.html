@@ -1,4 +1,5 @@
 <div layout="column" style="height:100%;">
+
 	<md-toolbar layout="row">
 		<div class="md-toolbar-tools">
 			<md-button ng-click="vm.props.sidenav.toggle()" hide-gt-md class="md-icon-button">
@@ -6,6 +7,9 @@
 			</md-button>
 			<jdt-title props="vm.props"></jdt-title>
 		</div>
+
+		<md-button ng-show="vm.props.toolbar.add.show" style="float:right;" class="md-raised md-accent" ng-click="vm.props.toolbar.add.action()">Add</md-button>
+
 	</md-toolbar>
 
 	<div layout="row" flex>

@@ -23,6 +23,7 @@
 			var vm = this;
 			vm.props.title = listConstants.titleEdit;
 			vm.feedback = {};
+			vm.add = false;
 			vm.cancel = cancel;
 			vm.save = save;
 
@@ -31,8 +32,13 @@
 			initModel();
 
 			function initModel() {
-				var fn = rx.Observable.fromCallback(listDaoFactory.syncObject);
-				fn($routeParams.key, feedback).subscribe(onNext, onError, onComplete);
+				if ($routeParams.key) {
+					var fn = rx.Observable.fromCallback(listDaoFactory.syncObject);
+					fn($routeParams.key, feedback).subscribe(onNext, onError, onComplete);
+				} else {
+					vm.add = true;
+					vm.model = {};
+				}
 
 				function onNext(data) {
 					vm.model = data;
@@ -48,19 +54,25 @@
 			}
 
 			function cancel() {
+				feedback.init();
 				$location.path('/list');
 			}
 
 			function save() {
-				$log.debug('save: ' + vm.model);
+				feedback.init();
 				// RxJS, just tinkering.
 				// useful if callback provided parameter to another function.
-				var fn = rx.Observable.fromCallback(listDaoFactory.save);
-				fn(vm.model, feedback).subscribe(onNext, onError, onComplete);
+				if (vm.add) {
+					var fn = rx.Observable.fromCallback(listDaoFactory.add);
+					fn(vm.model, feedback).subscribe(onNext, onError, onComplete);
+				} else {
+					var sfn = rx.Observable.fromCallback(listDaoFactory.save);
+					sfn(vm.model, feedback).subscribe(onNext, onError, onComplete);
+				}
 
 				function onNext(ref) {
-					$log.debug('saved:');
-					$log.debug(ref);
+					// $log.debug('saved:');
+					// $log.debug(ref);
 				}
 
 				function onError(error) {
