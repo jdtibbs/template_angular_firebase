@@ -1,6 +1,7 @@
 <md-list ng-repeat="friend in vm.data track by $index">
 	<md-list-item aria-label="friend" ng-click="vm.click(friend.$id)">
-		<p ng-bind="friend.name"></p>
+		<span ng-bind="friend.firstName"></span>&nbsp;
+		<span ng-bind="friend.lastName"></span>
 	</md-list-item>
 	<md-divider ng-if="!$last"></md-divider>
 </md-list>
