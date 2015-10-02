@@ -36,7 +36,7 @@
                     var async = function() {
                         return object.$save();
                     };
-                    var onNext = function(ref, callback) {
+                    var onNext = function(ref) {
                         if (callback !== undefined) {
                             callback(ref);
                         }
