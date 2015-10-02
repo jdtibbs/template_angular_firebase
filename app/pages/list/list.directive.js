@@ -4,9 +4,9 @@
 	angular.module('login.module')
 		.directive('jdtList', directiveFn);
 
-	directiveFn.$inject = ['feedbackFactory', 'listConstants', 'listDaoFactory', '$log', 'rx'];
+	directiveFn.$inject = ['feedbackFactory', 'listConstants', 'listDaoFactory', '$location', '$log', 'rx'];
 
-	function directiveFn(feedbackFactory, listConstants, listDaoFactory, $log, rx) {
+	function directiveFn(feedbackFactory, listConstants, listDaoFactory, $location, $log, rx) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -23,6 +23,8 @@
 			var vm = this;
 			vm.props.title = listConstants.title;
 			vm.feedback = {};
+			vm.click = click;
+
 			var feedback = feedbackFactory(vm.feedback);
 
 			// RxJS, just tinkering.
@@ -40,6 +42,10 @@
 
 			function onComplete() {
 				// $log.debug('rx fromCallbak complete');
+			}
+
+			function click(key) {
+				$location.path('/list/edit/' + key);
 			}
 		}
 

@@ -38,8 +38,8 @@
             },
 
             requireAuth: function() {
-                $log.debug(privateMethod());
-                $log.debug(privateCount++);
+                // $log.debug(privateMethod());
+                // $log.debug(privateCount++);
                 return this.authObj().$requireAuth();
             },
         };

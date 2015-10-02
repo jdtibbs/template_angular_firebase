@@ -28,7 +28,7 @@
 			};
 
 			// TODO remove temp menu item.
-			vm.menu.items.push(new Menu('List', '/list'));
+			vm.menu.items.push(new Menu('Friends', '/list'));
 
 			function click(path) {
 				vm.props.sidenav.close();

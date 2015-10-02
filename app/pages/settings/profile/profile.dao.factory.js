@@ -3,7 +3,7 @@
 	'use strict';
 
 	angular.module('settings.module')
-		.factory('profileDaoService', factoryFn);
+		.factory('profileDaoFactory', factoryFn);
 
 	factoryFn.$inject = ['firebaseDaoFactory', 'profileConstants'];
 
