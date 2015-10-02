@@ -23,6 +23,7 @@
 			var vm = this;
 			vm.props.title = listConstants.title;
 			vm.feedback = {};
+			vm.add = add;
 			vm.click = click;
 
 			var feedback = feedbackFactory(vm.feedback);
@@ -42,6 +43,10 @@
 
 			function onComplete() {
 				// $log.debug('rx fromCallbak complete');
+			}
+
+			function add() {
+				$location.path('/list/edit');
 			}
 
 			function click(key) {

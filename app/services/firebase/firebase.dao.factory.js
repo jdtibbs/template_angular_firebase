@@ -15,7 +15,7 @@
             var service = {
                 add: function(object, feedback, callback) {
                     var async = function() {
-                        return ref.$add(object);
+                        return $firebaseArray(ref).$add(object);
                     };
                     var onNext = function() {
                         if (callback !== undefined) {
@@ -23,7 +23,7 @@
                         }
                         feedback.success(constant.title + ' added successfully.');
                     };
-                    var onError = function() {
+                    var onError = function(error) {
                         $log.error(error);
                         feedback.error('Error adding ' + constant.title + '.');
                     };
