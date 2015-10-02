@@ -54,11 +54,12 @@
 			}
 
 			function cancel() {
+				feedback.init();
 				$location.path('/list');
 			}
 
 			function save() {
-				$log.debug('save: ' + vm.model);
+				feedback.init();
 				// RxJS, just tinkering.
 				// useful if callback provided parameter to another function.
 				if (vm.add) {
@@ -70,8 +71,8 @@
 				}
 
 				function onNext(ref) {
-					$log.debug('saved:');
-					$log.debug(ref);
+					// $log.debug('saved:');
+					// $log.debug(ref);
 				}
 
 				function onError(error) {
