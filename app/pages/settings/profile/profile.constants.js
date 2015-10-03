@@ -3,7 +3,7 @@
 
 	angular.module('settings.module')
 		.constant('PROFILE_DAO', 'profile')
-		.constant('PROFILE_TITLE', 'Profile');
+		.constant('PROFILE_TITLE', 'Settings');
 
 	angular.module('settings.module')
 		.provider('profileConstants', providerFn);
