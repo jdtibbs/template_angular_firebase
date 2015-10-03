@@ -4,13 +4,13 @@
 	angular.module('list.module')
 		.config(config);
 
-	config.$inject = ['$routeProvider'];
+	config.$inject = ['listConstantsProvider', '$routeProvider'];
 
-	function config($routeProvider) {
-		$routeProvider.when('/list/edit/:key', {
+	function config(listConstantsProvider, $routeProvider) {
+		$routeProvider.when(listConstantsProvider.pathEdit() + ':key', {
 				templateUrl: 'app/pages/list/edit/edit.html'
 			})
-			.when('/list/edit', {
+			.when(listConstantsProvider.pathAdd(), {
 				templateUrl: 'app/pages/list/edit/edit.html'
 			});
 	}

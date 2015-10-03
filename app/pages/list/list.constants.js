@@ -15,6 +15,15 @@
 	function providerFn(LIST_PATH, LIST_PATH_ADD, LIST_PATH_EDIT, LIST_TITLE, LIST_TITLE_EDIT, LIST_DAO) {
 
 		return {
+			path: function() {
+				return LIST_PATH;
+			},
+			pathAdd: function() {
+				return LIST_PATH_ADD;
+			},
+			pathEdit: function() {
+				return LIST_PATH_EDIT;
+			},
 			$get: function() {
 				return {
 					dao: LIST_DAO,
