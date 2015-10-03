@@ -52,11 +52,11 @@
 			}
 
 			function add() {
-				$location.path('/list/edit');
+				$location.path(listConstants.pathAdd);
 			}
 
 			function click(key) {
-				$location.path('/list/edit/' + key);
+				$location.path(listConstants.pathEdit + key);
 			}
 
 			function remove(key, event) {
