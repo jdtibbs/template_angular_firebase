@@ -32,6 +32,26 @@
                     rx.Observable.startAsync(async).subscribe(onNext, onError, onComplete);
                 },
 
+                remove: function(key, feedback, callback) {
+                    var async = function() {
+                        return $firebaseObject(ref.child(key)).$remove();
+                    };
+                    var onNext = function(ref) {
+                        if (callback !== undefined) {
+                            callback(ref);
+                        }
+                        feedback.success(constant.title + ' removed successfully.');
+                    };
+                    var onError =
+                        function(error) {
+                            $log.error(error);
+                            feedback.error('Error saving ' + constant.title + '.');
+                        };
+                    var onComplete = function() {};
+
+                    rx.Observable.startAsync(async).subscribe(onNext, onError, onComplete);
+                },
+
                 save: function(object, feedback, callback) {
                     var async = function() {
                         return object.$save();

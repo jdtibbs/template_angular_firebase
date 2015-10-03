@@ -2,6 +2,10 @@
 	<md-list-item aria-label="friend" ng-click="vm.click(friend.$id)">
 		<span ng-bind="friend.firstName"></span>&nbsp;
 		<span ng-bind="friend.lastName"></span>
+		<span flex></span>
+		<md-button class="md-fab md-accent" ng-click="vm.remove(friend.$id, $event)" aria-label="Remove">
+			<md-icon md-svg-icon="icons/ic_remove_black_24px.svg"></md-icon>
+		</md-button>
 	</md-list-item>
 	<md-divider ng-if="!$last"></md-divider>
 </md-list>

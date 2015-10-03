@@ -29,7 +29,7 @@
 					action: add
 				}
 			};
-			// vm.add = add;
+			vm.remove = remove;
 			vm.click = click;
 
 			var feedback = feedbackFactory(vm.feedback);
@@ -57,6 +57,22 @@
 
 			function click(key) {
 				$location.path('/list/edit/' + key);
+			}
+
+			function remove(key, event) {
+				event.stopPropagation();
+				var fn = rx.Observable.fromCallback(listDaoFactory.remove);
+				fn(key, feedback).subscribe(onNextRemove, onErrorRemove, onCompleteRemove);
+
+				function onNextRemove(ref) {}
+
+				function onErrorRemove(error) {
+					$log.error(error);
+				}
+
+				function onCompleteRemove() {
+					// $log.debug('rx fromCallbak complete');
+				}
 			}
 		}
 
