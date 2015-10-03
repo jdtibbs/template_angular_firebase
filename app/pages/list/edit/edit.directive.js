@@ -55,7 +55,7 @@
 
 			function cancel() {
 				feedback.init();
-				$location.path('/list');
+				$location.path(listConstants.path);
 			}
 
 			function save() {

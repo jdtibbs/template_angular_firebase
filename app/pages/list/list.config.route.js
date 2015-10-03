@@ -4,10 +4,10 @@
 	angular.module('list.module')
 		.config(config);
 
-	config.$inject = ['$routeProvider'];
+	config.$inject = ['listConstantsProvider', '$routeProvider'];
 
-	function config($routeProvider) {
-		$routeProvider.when('/list', {
+	function config(listConstantsProvider, $routeProvider) {
+		$routeProvider.when(listConstantsProvider.path(), {
 			templateUrl: 'app/pages/list/list.html'
 		});
 	}
