@@ -1,16 +1,15 @@
 <div layout="row" layout-padding>
 	<span flex></span>
 	<span style="padding-right:24px;">
-		<md-button ng-show="vm.props.toolbar.add.show" ng-click="vm.props.toolbar.add.action()" class="md-fab md-accent" aria-label="Add">
+		<md-button ng-show="ctrl.toolbar.add.show" ng-click="ctrl.toolbar.add.action()" class="md-fab md-accent" aria-label="Add">
 			<md-icon md-svg-icon="icons/ic_add_black_24px.svg"></md-icon>
 		</md-button>
 	</span>
 </div>
-<md-divider></md-divider>
-
 
 <div layout="row" layout-fill layout-padding>
 	<md-content flex>
+		<md-divider></md-divider>
 		<jdt-list props="vm.props"></jdt-list>
 	</md-content>
 </div>
