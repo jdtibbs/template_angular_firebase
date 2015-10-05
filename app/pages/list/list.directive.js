@@ -23,6 +23,10 @@
 			var vm = this;
 			vm.props.title = listConstants.title;
 			vm.feedback = {};
+			vm.props.toolbar.add = {
+				show: true,
+				action: add
+			};
 			vm.remove = remove;
 			vm.click = click;
 
@@ -43,6 +47,10 @@
 
 			function onComplete() {
 				// $log.debug('rx fromCallbak complete');
+			}
+
+			function add() {
+				$location.path(listConstants.pathAdd);
 			}
 
 			function click(key) {
@@ -66,6 +74,10 @@
 			}
 		}
 
-		function linkFn(scope, elem, attrs) {}
+		function linkFn(scope, elem, attrs) {
+			scope.$on('$destroy', function() {
+				scope.vm.props.toolbar.add = {};
+			});
+		}
 	}
 })();
