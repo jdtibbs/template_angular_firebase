@@ -21,7 +21,9 @@
 
 		function controllerFn() {
 			var vm = this;
-			vm.props.title = vendorConstants.title;
+			vm.props.title = {
+				text: vendorConstants.title
+			};
 			vm.feedback = {};
 			vm.props.toolbar.add = {
 				show: true,

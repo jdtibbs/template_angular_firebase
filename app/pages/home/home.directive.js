@@ -23,7 +23,9 @@
 
 		function controllerFn() {
 			var vm = this;
-			vm.props.title = homeConstants.title;
+			vm.props.title = {
+				text: homeConstants.title
+			};
 		}
 
 		function linkFn(scope, elem, attrs) {}
