@@ -21,7 +21,9 @@
 
 		function controllerFn() {
 			var vm = this;
-			vm.props.title = loginConstants.title;
+			vm.props.title = {
+				text: loginConstants.title
+			};
 			vm.feedback = {};
 			vm.login = login;
 			vm.forgot = forgot;

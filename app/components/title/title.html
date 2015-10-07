@@ -1,1 +1,4 @@
-<h1 class="md-title" ng-bind="vm.props.title"></h1>
+<div layout="row" ng-click="vm.props.title.back.action()">
+	<md-icon ng-if="vm.props.title.back.show" class="material-icons">arrow_back</md-icon>
+	<h1 class="md-title" ng-bind="vm.props.title.text"></h1>
+</div>

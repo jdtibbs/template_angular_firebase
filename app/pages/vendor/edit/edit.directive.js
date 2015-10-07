@@ -21,7 +21,13 @@
 
 		function controllerFn() {
 			var vm = this;
-			vm.props.title = vendorConstants.titleEdit;
+			vm.props.title = {
+				back: {
+					action: cancel,
+					show: true
+				},
+				text: vendorConstants.titleEdit
+			};
 			vm.feedback = {};
 			vm.add = false;
 			vm.cancel = cancel;
