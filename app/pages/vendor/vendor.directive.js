@@ -2,11 +2,11 @@
 	'use strict';
 
 	angular.module('login.module')
-		.directive('jdtList', directiveFn);
+		.directive('jdtVendorList', directiveFn);
 
-	directiveFn.$inject = ['feedbackFactory', 'listConstants', 'listDaoFactory', '$location', '$log', 'rx'];
+	directiveFn.$inject = ['feedbackFactory', 'vendorConstants', 'vendorDaoFactory', '$location', '$log', 'rx'];
 
-	function directiveFn(feedbackFactory, listConstants, listDaoFactory, $location, $log, rx) {
+	function directiveFn(feedbackFactory, vendorConstants, vendorDaoFactory, $location, $log, rx) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -16,12 +16,12 @@
 			controllerAs: 'vm',
 			bindToController: true,
 			link: linkFn,
-			templateUrl: 'app/pages/list/list.directive.html'
+			templateUrl: 'app/pages/vendor/vendor.directive.html'
 		};
 
 		function controllerFn() {
 			var vm = this;
-			vm.props.title = listConstants.title;
+			vm.props.title = vendorConstants.title;
 			vm.feedback = {};
 			vm.props.toolbar.add = {
 				show: true,
@@ -34,7 +34,7 @@
 
 			// RxJS, just tinkering.
 			// useful if callback provided parameter to another function.
-			var fn = rx.Observable.fromCallback(listDaoFactory.syncArray);
+			var fn = rx.Observable.fromCallback(vendorDaoFactory.syncArray);
 			fn(null, feedback).subscribe(onNext, onError, onComplete);
 
 			function onNext(data) {
@@ -50,16 +50,16 @@
 			}
 
 			function add() {
-				$location.path(listConstants.pathAdd);
+				$location.path(vendorConstants.pathAdd);
 			}
 
 			function click(key) {
-				$location.path(listConstants.pathEdit + key);
+				$location.path(vendorConstants.pathEdit + key);
 			}
 
 			function remove(key, event) {
 				event.stopPropagation();
-				var fn = rx.Observable.fromCallback(listDaoFactory.remove);
+				var fn = rx.Observable.fromCallback(vendorDaoFactory.remove);
 				fn(key, feedback).subscribe(onNextRemove, onErrorRemove, onCompleteRemove);
 
 				function onNextRemove(ref) {}

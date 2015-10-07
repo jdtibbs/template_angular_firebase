@@ -4,9 +4,9 @@
 	angular.module('components.module')
 		.directive('jdtMenu', directiveFn);
 
-	directiveFn.$inject = ['listConstants', 'loginService', '$location', '$log', '$mdSidenav'];
+	directiveFn.$inject = ['vendorConstants', 'loginService', '$location', '$log', '$mdSidenav'];
 
-	function directiveFn(listConstants, loginService, $location, $log, $mdSidenav) {
+	function directiveFn(vendorConstants, loginService, $location, $log, $mdSidenav) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -28,7 +28,7 @@
 			};
 
 			// TODO remove temp menu item.
-			vm.menu.items.push(new Menu('Friends', listConstants.path));
+			vm.menu.items.push(new Menu('Vendors', vendorConstants.path));
 
 			function click(path) {
 				vm.props.sidenav.close();

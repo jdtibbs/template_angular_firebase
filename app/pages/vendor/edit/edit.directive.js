@@ -2,11 +2,11 @@
 	'use strict';
 
 	angular.module('login.module')
-		.directive('jdtEdit', directiveFn);
+		.directive('jdtVendorEdit', directiveFn);
 
-	directiveFn.$inject = ['feedbackFactory', 'listConstants', 'listDaoFactory', '$location', '$log', 'rx', '$routeParams', '$timeout'];
+	directiveFn.$inject = ['feedbackFactory', 'vendorConstants', 'vendorDaoFactory', '$location', '$log', 'rx', '$routeParams', '$timeout'];
 
-	function directiveFn(feedbackFactory, listConstants, listDaoFactory, $location, $log, rx, $routeParams, $timeout) {
+	function directiveFn(feedbackFactory, vendorConstants, vendorDaoFactory, $location, $log, rx, $routeParams, $timeout) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -16,12 +16,12 @@
 			controllerAs: 'vm',
 			bindToController: true,
 			link: linkFn,
-			templateUrl: 'app/pages/list/edit/edit.directive.html'
+			templateUrl: 'app/pages/vendor/edit/edit.directive.html'
 		};
 
 		function controllerFn() {
 			var vm = this;
-			vm.props.title = listConstants.titleEdit;
+			vm.props.title = vendorConstants.titleEdit;
 			vm.feedback = {};
 			vm.add = false;
 			vm.cancel = cancel;
@@ -33,7 +33,7 @@
 
 			function initModel() {
 				if ($routeParams.key) {
-					var fn = rx.Observable.fromCallback(listDaoFactory.syncObject);
+					var fn = rx.Observable.fromCallback(vendorDaoFactory.syncObject);
 					fn($routeParams.key, feedback).subscribe(onNext, onError, onComplete);
 				} else {
 					vm.add = true;
@@ -55,7 +55,7 @@
 
 			function cancel() {
 				feedback.init();
-				$location.path(listConstants.path);
+				$location.path(vendorConstants.path);
 			}
 
 			function save() {
@@ -63,10 +63,10 @@
 				// RxJS, just tinkering.
 				// useful if callback provided parameter to another function.
 				if (vm.add) {
-					var fn = rx.Observable.fromCallback(listDaoFactory.add);
+					var fn = rx.Observable.fromCallback(vendorDaoFactory.add);
 					fn(vm.model, feedback).subscribe(onNext, onError, onComplete);
 				} else {
-					var sfn = rx.Observable.fromCallback(listDaoFactory.save);
+					var sfn = rx.Observable.fromCallback(vendorDaoFactory.save);
 					sfn(vm.model, feedback).subscribe(onNext, onError, onComplete);
 				}
 
