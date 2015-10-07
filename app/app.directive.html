@@ -6,13 +6,13 @@
 				<md-icon aria-label="Menu" md-svg-icon="https://s3-us-west-2.amazonaws.com/s.cdpn.io/68133/menu.svg"></md-icon>
 			</md-button>
 			<jdt-title props="vm.props"></jdt-title>
+			<span flex></span>
+			<span style="padding-right:16px;">
+				<md-button ng-show="vm.props.toolbar.add.show" ng-click="vm.props.toolbar.add.action()" class="md-fab md-accent" aria-label="Add">
+					<md-icon md-svg-icon="icons/ic_add_black_24px.svg"></md-icon>
+				</md-button>
+			</span>
 		</div>
-
-		<!-- <md-button ng-show="vm.props.toolbar.add.show" style="float:right;" class="md-raised md-accent" ng-click="vm.props.toolbar.add.action()">Add</md-button> -->
-
-		<md-button ng-show="vm.props.toolbar.add.show" ng-click="vm.props.toolbar.add.action()" class="md-fab md-accent" aria-label="Add">
-			<md-icon md-svg-icon="icons/ic_add_black_24px.svg"></md-icon>
-		</md-button>
 	</md-toolbar>
 
 	<div layout="row" flex>

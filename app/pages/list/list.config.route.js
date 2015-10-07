@@ -11,4 +11,6 @@
 			templateUrl: 'app/pages/list/list.html'
 		});
 	}
+
+
 })();
