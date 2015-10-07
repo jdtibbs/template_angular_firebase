@@ -21,6 +21,9 @@
 
 		function controllerFn() {
 			var vm = this;
+
+			// TODO: make factory to build this for all edit directives.
+
 			vm.props.title = {
 				back: {
 					action: cancel,

@@ -21,6 +21,9 @@
 
 		function controllerFn() {
 			var vm = this;
+
+			// TODO: make factory to build this for all list controllers.
+
 			vm.props.title = {
 				text: vendorConstants.title
 			};
