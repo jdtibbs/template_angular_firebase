@@ -1,7 +1,7 @@
 (function() {
 	'use strict';
 
-	angular.module('test.module', [
+	angular.module('list.module', [
 		'ngRoute'
 	]);
 })();

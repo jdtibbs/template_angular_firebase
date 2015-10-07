@@ -15,18 +15,38 @@
             var service = {
                 add: function(object, feedback, callback) {
                     var async = function() {
-                        return ref.$add(object);
+                        return $firebaseArray(ref).$add(object);
                     };
                     var onNext = function() {
                         if (callback !== undefined) {
                             callback(ref);
                         }
-                        feedback.success(constant.name() + ' added successfully.');
+                        feedback.success(constant.title + ' added successfully.');
                     };
-                    var onError = function() {
+                    var onError = function(error) {
                         $log.error(error);
-                        feedback.error('Error adding ' + constant.name() + '.');
+                        feedback.error('Error adding ' + constant.title + '.');
                     };
+                    var onComplete = function() {};
+
+                    rx.Observable.startAsync(async).subscribe(onNext, onError, onComplete);
+                },
+
+                remove: function(key, feedback, callback) {
+                    var async = function() {
+                        return $firebaseObject(ref.child(key)).$remove();
+                    };
+                    var onNext = function(ref) {
+                        if (callback !== undefined) {
+                            callback(ref);
+                        }
+                        feedback.success(constant.title + ' removed successfully.');
+                    };
+                    var onError =
+                        function(error) {
+                            $log.error(error);
+                            feedback.error('Error saving ' + constant.title + '.');
+                        };
                     var onComplete = function() {};
 
                     rx.Observable.startAsync(async).subscribe(onNext, onError, onComplete);
@@ -36,16 +56,16 @@
                     var async = function() {
                         return object.$save();
                     };
-                    var onNext = function(ref, callback) {
+                    var onNext = function(ref) {
                         if (callback !== undefined) {
                             callback(ref);
                         }
-                        feedback.success(constant.name() + ' saved successfully.');
+                        feedback.success(constant.title + ' saved successfully.');
                     };
                     var onError =
                         function(error) {
                             $log.error(error);
-                            feedback.error('Error saving ' + constant.name() + '.');
+                            feedback.error('Error saving ' + constant.title + '.');
                         };
                     var onComplete = function() {};
 
@@ -62,7 +82,7 @@
                     };
                     var onError = function(error) {
                         $log.error(error);
-                        feedback.error('Error syncing array ' + constant.name() + '.');
+                        feedback.error('Error syncing array ' + constant.title + '.');
                     };
                     var onComplete = function() {};
                     rx.Observable.startAsync(async).subscribe(onNext, onError, onComplete);
@@ -77,7 +97,7 @@
                     };
                     var onError = function(error) {
                         $log.error(error);
-                        feedback.error('Error syncing object ' + constant.name() + '.');
+                        feedback.error('Error syncing object ' + constant.title + '.');
                     };
                     var onComplete = function() {};
                     rx.Observable.startAsync(async).subscribe(onNext, onError, onComplete);

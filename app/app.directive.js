@@ -22,6 +22,7 @@
 
 			// initialize root properties property. 
 			vm.props = {};
+			vm.props.toolbar = {};
 
 			// monitor login state.
 			loginService.onAuth(setAuthData);
