@@ -1,0 +1,14 @@
+<md-vendor ng-repeat="vendor in vm.data track by vendor.$id">
+	<md-list-item aria-label="vendor" ng-click="vm.click(vendor.$id)">
+		<div layout="row" layout-sm="column" flex>
+			<div flex ng-bind="vendor.vendorName"></div>
+			<div flex ng-bind="vendor.contactName"></div>
+			<div flex ng-bind="vendor.contactPhone"></div>
+			<div flex></div>
+		</div>
+		<md-button class="md-fab md-accent" ng-click="vm.remove(vendor.$id, $event)" aria-label="Remove">
+			<md-icon md-svg-icon="icons/ic_remove_black_24px.svg"></md-icon>
+		</md-button>
+	</md-list-item>
+	<md-divider ng-if="!$last"></md-divider>
+</md-vendor>

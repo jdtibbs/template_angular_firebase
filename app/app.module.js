@@ -8,9 +8,9 @@
 			'rx',
 			'components.module',
 			'home.module',
-			'list.module',
 			'login.module',
 			'services.module',
-			'settings.module'
+			'settings.module',
+			'vendor.module'
 		]);
 })();
