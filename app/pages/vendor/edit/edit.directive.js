@@ -16,6 +16,7 @@
 			controllerAs: 'vm',
 			bindToController: true,
 			link: linkFn,
+			require: '^form',
 			templateUrl: 'app/pages/vendor/edit/edit.directive.html'
 		};
 
@@ -94,6 +95,8 @@
 			}
 		}
 
-		function linkFn(scope, elem, attrs) {}
+		function linkFn(scope, elem, attrs, form) {
+			scope.vm.form = form;
+		}
 	}
 })();
