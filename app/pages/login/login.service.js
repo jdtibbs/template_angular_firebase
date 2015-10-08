@@ -50,7 +50,6 @@
 						setAuthData(authData);
 					}
 					if (authData) {
-						$log.debug("Logged in:", authData.uid);
 						$location.path('/home');
 					} else {
 						$log.debug("Logged out (or login failed).");
