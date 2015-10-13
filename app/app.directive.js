@@ -20,9 +20,8 @@
 		function controllerFn() {
 			var vm = this;
 
-			// initialize root properties property. 
+			// initialize root properties. 
 			vm.props = {};
-			vm.props.toolbar = {};
 
 			// monitor login state.
 			loginService.onAuth(setAuthData);

@@ -4,9 +4,9 @@
 	angular.module('login.module')
 		.directive('jdtVendorList', directiveFn);
 
-	directiveFn.$inject = ['feedbackFactory', 'vendorConstants', 'vendorDaoFactory', '$location', '$log', 'rx'];
+	directiveFn.$inject = ['feedbackFactory', 'toolbarFactory', 'vendorConstants', 'vendorDaoFactory', '$location', '$log', 'rx'];
 
-	function directiveFn(feedbackFactory, vendorConstants, vendorDaoFactory, $location, $log, rx) {
+	function directiveFn(feedbackFactory, toolbarFactory, vendorConstants, vendorDaoFactory, $location, $log, rx) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -28,10 +28,11 @@
 				text: vendorConstants.title
 			};
 			vm.feedback = {};
-			vm.props.toolbar.add = {
-				show: true,
-				action: add
-			};
+
+			var toolbar = toolbarFactory(vm.props);
+			toolbar.showAdd();
+			toolbar.showSearch();
+
 			vm.remove = remove;
 			vm.click = click;
 
@@ -80,9 +81,9 @@
 		}
 
 		function linkFn(scope, elem, attrs) {
-			scope.$on('$destroy', function() {
-				scope.vm.props.toolbar.add = {};
-			});
+			// scope.$on('$destroy', function() {
+			// 	scope.vm.props.toolbar.add = {};
+			// });
 		}
 	}
 })();
