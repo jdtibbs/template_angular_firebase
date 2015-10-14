@@ -104,7 +104,7 @@
                 }
             };
 
-            return Object.create(service);
+            return service;
         }
         return factory;
     }

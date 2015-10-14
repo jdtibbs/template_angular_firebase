@@ -19,12 +19,6 @@
                     this.add.init();
                     this.search.init();
                 },
-                showAdd: function() {
-                    this.add.showButton();
-                },
-                showSearch: function() {
-                    this.search.showButton();
-                },
                 add: {
                     init: function() {
                         this.hideButton();
@@ -61,7 +55,7 @@
                 }
             };
 
-            return Object.create(service);
+            return service;
         }
         return factory;
     }
