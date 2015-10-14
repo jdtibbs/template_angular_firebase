@@ -22,7 +22,7 @@
 
 	<div style="padding-top:15px;">
 		<md-icon style="color:white;" class="material-icons" ng-click="vm.toolbar.search.close()">clear</md-icon>
-		<input ng-attr-autofocus=" {{vm.props.toolbar.search}} " type="text " ng-model="vm.props.toolbar.search.value " placeholder="Search ">
+		<input ng-attr-autofocus=" {{vm.props.toolbar.search}} " ng-blur="vm.toolbar.search.blur()" type="text " ng-model="vm.props.toolbar.search.value " placeholder="Search ">
 	</div>
 </div>
 <div ng-if="vm.props.toolbar.search.show ">

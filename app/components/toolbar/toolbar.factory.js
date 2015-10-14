@@ -18,6 +18,7 @@
                 init: function() {
                     this.add.init();
                     this.search.init();
+                    props.toolbar.search.value = '';
                 },
                 add: {
                     init: function() {
@@ -33,6 +34,11 @@
                 search: {
                     init: function() {
                         this.hideButton();
+                    },
+                    blur: function() {
+                        if (props.toolbar.search.value === undefined || props.toolbar.search.value.length < 1) {
+                            this.close();
+                        }
                     },
                     showButton: function() {
                         props.toolbar.search.show = true;

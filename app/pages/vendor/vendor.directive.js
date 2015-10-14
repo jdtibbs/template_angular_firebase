@@ -34,14 +34,14 @@
 			toolbar.search.showButton();
 
 			vm.remove = remove;
-			vm.click = click;
+			vm.edit = edit;
 
 			var feedback = feedbackFactory(vm.feedback);
 
 			// RxJS, just tinkering.
 			// useful if callback provided parameter to another function.
 			var fn = rx.Observable.fromCallback(vendorDaoFactory.syncArray);
-			fn(null, feedback).subscribe(onNext, onError, onComplete);
+			fn(null, feedback).subscribe(onNext, onError);
 
 			function onNext(data) {
 				vm.data = data;
@@ -51,15 +51,11 @@
 				$log.error(error);
 			}
 
-			function onComplete() {
-				// $log.debug('rx fromCallbak complete');
-			}
-
 			function add() {
 				$location.path(vendorConstants.pathAdd);
 			}
 
-			function click(key) {
+			function edit(key) {
 				$location.path(vendorConstants.pathEdit + key);
 			}
 
