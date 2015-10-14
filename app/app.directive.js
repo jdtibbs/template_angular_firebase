@@ -24,11 +24,9 @@
 			vm.props = {};
 
 			// monitor login state.
-			loginService.onAuth(setAuthData);
-
-			function setAuthData(authData) {
+			loginService.onAuth(function(authData) {
 				vm.props.authData = authData;
-			}
+			});
 		}
 
 		function linkFn(scope, elem, attrs) {
