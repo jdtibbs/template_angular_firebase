@@ -30,8 +30,8 @@
 			vm.feedback = {};
 
 			var toolbar = toolbarFactory(vm.props);
-			toolbar.showAdd();
-			toolbar.showSearch();
+			toolbar.add.showButton();
+			toolbar.search.showButton();
 
 			vm.remove = remove;
 			vm.click = click;
