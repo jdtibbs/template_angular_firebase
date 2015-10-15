@@ -4,9 +4,9 @@
 	angular.module('components.module')
 		.directive('jdtSearch', directiveDefinitionObject);
 
-	directiveDefinitionObject.$inject = ['$log', 'toolbarFactory'];
+	directiveDefinitionObject.$inject = ['$log'];
 
-	function directiveDefinitionObject($log, toolbarFactory) {
+	function directiveDefinitionObject($log) {
 		var ddo = {
 			restrict: 'E',
 			scope: {
@@ -23,7 +23,6 @@
 
 		function controllerFn() {
 			var vm = this;
-			vm.toolbar = toolbarFactory(vm.props);
 		}
 
 		function linkFn(scope, elem, attrs) {}

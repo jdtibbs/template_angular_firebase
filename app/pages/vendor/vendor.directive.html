@@ -1,4 +1,4 @@
-<md-vendor ng-repeat="vendor in vm.data | filter: vm.props.toolbar.search.value | orderBy: 'vendorName' track by vendor.$id">
+<md-vendor ng-repeat="vendor in vm.data | filter: vm.props.toolbar.props.search.value | orderBy: 'vendorName' track by vendor.$id">
 	<md-list-item aria-label="vendor" ng-click="vm.edit(vendor.$id)">
 		<div layout="row" layout-sm="column" flex>
 			<div flex ng-bind="vendor.vendorName"></div>

@@ -2,8 +2,8 @@
 
 	<jdt-search props="vm.props"></jdt-search>
 
-	<div style="padding-right:16px;">
-		<md-button ng-show="vm.props.toolbar.add.show" ng-click="vm.props.toolbar.add.action()" class="md-fab md-accent" aria-label="Add">
+	<div ng-show="vm.props.toolbar.props.add.show" style="padding-right:16px;">
+		<md-button ng-click="vm.props.toolbar.service.add.action()" class="md-fab md-accent" aria-label="Add">
 			<md-icon class="material-icons">add</md-icon>
 		</md-button>
 	</div>

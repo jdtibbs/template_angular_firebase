@@ -1,4 +1,4 @@
-<div ng-if="vm.props.toolbar.search.text">
+<div ng-if="vm.props.toolbar.props.search.text">
 	<!-- <md-content style="padding-top:25px;">
 		<md-input-container class="md-no-float">
 			<md-icon class="material-icons" ng-click="vm.toolbar.search.close()">clear</md-icon>
@@ -21,12 +21,12 @@
 	</div> -->
 
 	<div style="padding-top:15px;">
-		<md-icon style="color:white;" class="material-icons" ng-click="vm.toolbar.search.close()">clear</md-icon>
-		<input ng-attr-autofocus=" {{vm.props.toolbar.search}} " ng-blur="vm.toolbar.search.blur()" type="text " ng-model="vm.props.toolbar.search.value " placeholder="Search ">
+		<md-icon style="color:white;" class="material-icons" ng-click="vm.props.toolbar.service.search.close()">clear</md-icon>
+		<input ng-attr-autofocus=" {{vm.props.toolbar.props.search}} " ng-blur="vm.props.toolbar.service.search.blur()" type="text " ng-model="vm.props.toolbar.props.search.value " placeholder="Search ">
 	</div>
 </div>
-<div ng-if="vm.props.toolbar.search.show ">
-	<md-button ng-click="vm.toolbar.search.showText() " class="md-fab md-accent " aria-label="Add ">
+<div ng-if="vm.props.toolbar.props.search.show ">
+	<md-button ng-click="vm.props.toolbar.service.search.showText() " class="md-fab md-accent " aria-label="Add ">
 		<md-icon class="material-icons ">search</md-icon>
 	</md-button>
 </div>

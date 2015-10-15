@@ -4,9 +4,9 @@
 	angular.module('components.module')
 		.directive('jdtHome', directiveDefinitionObject);
 
-	directiveDefinitionObject.$inject = ['homeConstants', 'toolbarFactory'];
+	directiveDefinitionObject.$inject = ['$log', 'homeConstants'];
 
-	function directiveDefinitionObject(homeConstants, toolbarFactory) {
+	function directiveDefinitionObject($log, homeConstants) {
 		var ddo = {
 			restrict: 'E',
 			scope: {
@@ -26,8 +26,7 @@
 			vm.props.title = {
 				text: homeConstants.title
 			};
-			var toolbar = toolbarFactory(vm.props);
-			toolbar.init();
+			vm.props.toolbar.service.init();
 		}
 
 		function linkFn(scope, elem, attrs) {}
