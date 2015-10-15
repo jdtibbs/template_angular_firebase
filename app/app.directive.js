@@ -22,7 +22,7 @@
 
 			// initialize root properties. 
 			vm.props = {
-				toolbar: toolbarFactory(vm.props)
+				toolbar: toolbarFactory()
 			};
 			$log.debug(vm.props);
 
