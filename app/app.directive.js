@@ -4,9 +4,9 @@
 	angular.module('app')
 		.directive('jdtApp', directiveFn);
 
-	directiveFn.$inject = ['$log', 'loginService', '$mdSidenav', 'toolbarFactory'];
+	directiveFn.$inject = ['$location', '$log', 'loginService', '$mdSidenav', 'toolbarFactory'];
 
-	function directiveFn($log, loginService, $mdSidenav, toolbarFactory) {
+	function directiveFn($location, $log, loginService, $mdSidenav, toolbarFactory) {
 		return {
 			restrict: 'E',
 			scope: {},
@@ -27,9 +27,17 @@
 			$log.debug(vm.props);
 
 			// monitor login state.
-			loginService.onAuth(function(authData) {
+			loginService.onAuth(onAuth);
+
+			function onAuth(authData) {
 				vm.props.authData = authData;
-			});
+				if (authData) {
+					$location.path('/home');
+				} else {
+					$log.debug("Logged out (or login failed).");
+					$location.path('/login');
+				}
+			}
 		}
 
 		function linkFn(scope, elem, attrs) {

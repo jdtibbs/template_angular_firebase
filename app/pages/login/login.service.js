@@ -5,9 +5,9 @@
 	angular.module('login.module')
 		.service('loginService', serviceFn);
 
-	serviceFn.$inject = ['firebaseAuthService', '$location', '$log', 'passwordService', 'rx'];
+	serviceFn.$inject = ['firebaseAuthService', '$log', 'passwordService', 'rx'];
 
-	function serviceFn(firebaseAuthService, $location, $log, passwordService, rx) {
+	function serviceFn(firebaseAuthService, $log, passwordService, rx) {
 
 		var service = {
 
@@ -33,9 +33,6 @@
 					},
 					function(error) {
 						feedback.error('Email or password is invalid.');
-					},
-					function() {
-						$log.debug('rx completed');
 					});
 			},
 
@@ -46,13 +43,7 @@
 			onAuth: function(callback) {
 				// monitor and handle changes in authentication state.
 				this.authObj().$onAuth(function(authData) {
-					if (authData) {
-						callback(authData);
-						$location.path('/home');
-					} else {
-						$log.debug("Logged out (or login failed).");
-						$location.path('/login');
-					}
+					callback(authData);
 				});
 			},
 
