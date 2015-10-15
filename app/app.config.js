@@ -12,9 +12,11 @@
 		// $logProvider.debugEnabled(false);
 
 		$mdThemingProvider.theme('default')
-			.primaryPalette('purple')
-			.accentPalette('teal', {
-				'default': '500'
+			.primaryPalette('blue', {
+				'default': '700'
+			})
+			.accentPalette('blue', {
+				'default': '600'
 			});
 	}
 })();

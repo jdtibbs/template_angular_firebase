@@ -1,20 +1,27 @@
-<md-input-container>
-	<label>First Name</label>
-	<input name="firstName" type="text" ng-model="vm.profile.firstName" required ng-maxlength="50">
-	<div ng-show="vm.form.firstName.$touched" ng-messages="vm.form.firstName.$error">
-		<div ng-message="required">Required</div>
-		<div ng-message="maxlength">Must not exceed 50 characters.</div>
-	</div>
-</md-input-container>
+<div layout="row">
+	<md-input-container flex="66" flex-sm="100">
+		<label>First Name</label>
+		<input name="firstName" type="text" ng-model="vm.profile.firstName" required ng-maxlength="50">
+		<div ng-show="vm.form.firstName.$touched" ng-messages="vm.form.firstName.$error">
+			<div ng-message="required">Required</div>
+			<div ng-message="maxlength">Must not exceed 50 characters.</div>
+		</div>
+	</md-input-container>
+	<div flex></div>
+</div>
 
-<md-input-container>
-	<label>Last Name</label>
-	<input name="lastName" type="text" ng-model="vm.profile.lastName" required ng-maxlength="50">
-	<div ng-show="vm.form.lastName.$touched" ng-messages="vm.form.lastName.$error">
-		<div ng-message="required">Required</div>
-		<div ng-message="maxlength">Must not exceed 50 characters.</div>
-	</div>
-</md-input-container>
+<div layout="row">
+	<md-input-container flex="66" flex-sm="100">
+		<label>Last Name</label>
+		<input name="lastName" type="text" ng-model="vm.profile.lastName" required ng-maxlength="50">
+		<div ng-show="vm.form.lastName.$touched" ng-messages="vm.form.lastName.$error">
+			<div ng-message="required">Required</div>
+			<div ng-message="maxlength">Must not exceed 50 characters.</div>
+		</div>
+	</md-input-container>
+	<div flex></div>
+</div>
+
 
 <md-button class="md-accent md-raised" type="button" ng-disabled="vm.form.$invalid" ng-click="vm.save()">Save</md-button>
 

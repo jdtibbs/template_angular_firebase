@@ -22,7 +22,11 @@
 
 		function controllerFn() {
 			var vm = this;
-			vm.props.title = profileConstants.title;
+			vm.props.title = {
+				text: profileConstants.title
+			};
+			vm.props.toolbar.service.init();
+
 			vm.cancel = cancel;
 			vm.save = save;
 			vm.feedback = {};
