@@ -30,7 +30,7 @@
 					action: cancel,
 					show: true
 				},
-				text: vendorConstants.titleEdit
+				text: vendorConstants.title
 			};
 			vm.props.toolbar.service.init();
 
@@ -58,6 +58,7 @@
 
 				function onError(error) {
 					$log.error(error);
+					feedback.error(error);
 				}
 			}
 
@@ -84,6 +85,7 @@
 
 				function onError(error) {
 					$log.error(error);
+					feedback.error(error);
 				}
 			}
 		}
