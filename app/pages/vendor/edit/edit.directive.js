@@ -4,9 +4,9 @@
 	angular.module('login.module')
 		.directive('jdtVendorEdit', directiveFn);
 
-	directiveFn.$inject = ['feedbackFactory', 'vendorConstants', 'vendorDaoFactory', '$location', '$log', 'rx', '$routeParams', '$timeout'];
+	directiveFn.$inject = ['baseEditControllerService', 'feedbackFactory', 'vendorConstants', 'vendorDaoFactory', '$location', '$log', 'rx', '$routeParams', '$timeout'];
 
-	function directiveFn(feedbackFactory, vendorConstants, vendorDaoFactory, $location, $log, rx, $routeParams, $timeout) {
+	function directiveFn(baseEditControllerService, feedbackFactory, vendorConstants, vendorDaoFactory, $location, $log, rx, $routeParams, $timeout) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -23,16 +23,9 @@
 		function controllerFn() {
 			var vm = this;
 
-			// TODO: make factory to build this for all edit directives.
+			baseEditControllerService.init(vm.props, vendorConstants, cancel);
 
-			vm.props.title = {
-				back: {
-					action: cancel,
-					show: true
-				},
-				text: vendorConstants.title
-			};
-			vm.props.toolbar.service.init();
+			// TODO: make factory to build this for all edit directives.
 
 			vm.add = false;
 			vm.cancel = cancel;
