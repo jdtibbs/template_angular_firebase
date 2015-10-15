@@ -4,9 +4,9 @@
 	angular.module('app')
 		.directive('jdtApp', directiveFn);
 
-	directiveFn.$inject = ['$log', 'loginService', '$mdSidenav'];
+	directiveFn.$inject = ['$location', '$log', 'loginService', '$mdSidenav', 'toolbarFactory'];
 
-	function directiveFn($log, loginService, $mdSidenav) {
+	function directiveFn($location, $log, loginService, $mdSidenav, toolbarFactory) {
 		return {
 			restrict: 'E',
 			scope: {},
@@ -20,15 +20,23 @@
 		function controllerFn() {
 			var vm = this;
 
-			// initialize root properties property. 
-			vm.props = {};
-			vm.props.toolbar = {};
+			// initialize root properties. 
+			vm.props = {
+				toolbar: toolbarFactory()
+			};
+			$log.debug(vm.props);
 
 			// monitor login state.
-			loginService.onAuth(setAuthData);
+			loginService.onAuth(onAuth);
 
-			function setAuthData(authData) {
+			function onAuth(authData) {
 				vm.props.authData = authData;
+				if (authData) {
+					$location.path('/home');
+				} else {
+					$log.debug("Logged out (or login failed).");
+					$location.path('/login');
+				}
 			}
 		}
 

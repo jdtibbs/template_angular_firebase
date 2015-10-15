@@ -2,11 +2,11 @@
 	'use strict';
 
 	angular.module('components.module')
-		.directive('jdtHome', directiveDefinitionObject);
+		.directive('jdtToolbarAdd', directiveDefinitionObject);
 
-	directiveDefinitionObject.$inject = ['$log', 'homeConstants'];
+	directiveDefinitionObject.$inject = ['$log'];
 
-	function directiveDefinitionObject($log, homeConstants) {
+	function directiveDefinitionObject($log) {
 		var ddo = {
 			restrict: 'E',
 			scope: {
@@ -16,17 +16,13 @@
 			controllerAs: 'vm',
 			bindToController: true,
 			link: linkFn,
-			templateUrl: 'app/pages/home/home.directive.html'
+			templateUrl: 'app/components/toolbar/add/add.html'
 		};
 
 		return ddo;
 
 		function controllerFn() {
 			var vm = this;
-			vm.props.title = {
-				text: homeConstants.title
-			};
-			vm.props.toolbar.service.init();
 		}
 
 		function linkFn(scope, elem, attrs) {}

@@ -7,7 +7,7 @@
 		.constant('VENDOR_PATH_ADD', '/vendor/edit')
 		.constant('VENDOR_PATH_EDIT', '/vendor/edit/')
 		.constant('VENDOR_TITLE', 'Vendors')
-		.constant('VENDOR_TITLE_EDIT', 'Vendor')
+		.constant('VENDOR_TITLE_EDIT', 'Vendors')
 		.provider('vendorConstants', providerFn);
 
 	providerFn.$inject = ['VENDOR_PATH', 'VENDOR_PATH_ADD', 'VENDOR_PATH_EDIT', 'VENDOR_TITLE', 'VENDOR_TITLE_EDIT', 'VENDOR_DAO'];

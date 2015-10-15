@@ -1,5 +1,5 @@
-<md-vendor ng-repeat="vendor in vm.data track by vendor.$id">
-	<md-list-item aria-label="vendor" ng-click="vm.click(vendor.$id)">
+<div ng-repeat="vendor in vm.data | filter: vm.props.toolbar.props.search.value | orderBy: 'vendorName' track by vendor.$id">
+	<md-list-item aria-label="vendor" ng-click="vm.edit(vendor.$id)">
 		<div layout="row" layout-sm="column" flex>
 			<div flex ng-bind="vendor.vendorName"></div>
 			<div flex ng-bind="vendor.contactName"></div>
@@ -12,4 +12,6 @@
 		</md-button>
 	</md-list-item>
 	<md-divider ng-if="!$last"></md-divider>
-</md-vendor>
+</div>
+
+<jdt-feedback feedback="vm.feedback"></jdt-feedback>
