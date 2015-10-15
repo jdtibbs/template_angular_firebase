@@ -1,11 +1,45 @@
-<div layout="row">
-
-	<jdt-search props="vm.props"></jdt-search>
-
-	<div ng-show="vm.props.toolbar.props.add.show" style="padding-right:16px;">
-		<md-button ng-click="vm.props.toolbar.service.add.action()" class="md-fab md-accent" aria-label="Add">
-			<md-icon class="material-icons">add</md-icon>
+<!-- TODO: DRY.. this can be better! -->
+<md-toolbar>
+	<div layout="row" hide-sm class="md-toolbar-tools">
+		<md-button ng-click="vm.props.sidenav.toggle()" class="md-icon-button">
+			<md-icon aria-label="Menu" md-svg-icon="https://s3-us-west-2.amazonaws.com/s.cdpn.io/68133/menu.svg"></md-icon>
 		</md-button>
+
+		<jdt-title props="vm.props"></jdt-title>
+
+		<div flex></div>
+
+		<jdt-toolbar-search-text props="vm.props"></jdt-toolbar-search-text>
+
+		<jdt-toolbar-search props="vm.props"></jdt-toolbar-search>
+
+		<jdt-toolbar-add props="vm.props"></jdt-toolbar-add>
 	</div>
 
-</div>
+	<div layout="row" hide-gt-sm class="md-toolbar-tools">
+		<md-button ng-click="vm.props.sidenav.toggle()" class="md-icon-button">
+			<md-icon aria-label="Menu" md-svg-icon="https://s3-us-west-2.amazonaws.com/s.cdpn.io/68133/menu.svg"></md-icon>
+		</md-button>
+
+		<jdt-title props="vm.props"></jdt-title>
+
+		<div flex></div>
+
+		<md-menu ng-if="vm.props.toolbar.props.vertMenu">
+			<i class="material-icons" ng-click="vm.props.toolbar.service.menu.open($mdOpenMenu, $event)">more_vert</i>
+			<md-menu-content>
+				<md-menu-item>
+					<md-button ng-click="vm.props.toolbar.service.search.showText()">Search</md-button>
+				</md-menu-item>
+				<md-menu-item>
+					<md-button ng-click="vm.props.toolbar.service.add.action()">Add</md-button>
+				</md-menu-item>
+			</md-menu-content>
+		</md-menu>
+	</div>
+
+	<div layout="row" hide-gt-sm class="md-toolbar-tools" ng-if="vm.props.toolbar.props.search.text">
+		<jdt-toolbar-search-text props="vm.props"></jdt-toolbar-search-text>
+	</div>
+
+</md-toolbar>

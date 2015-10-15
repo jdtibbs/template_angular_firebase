@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular.module('components.module')
-		.directive('jdtToolbarSearch', directiveDefinitionObject);
+		.directive('jdtToolbarSearchText', directiveDefinitionObject);
 
 	directiveDefinitionObject.$inject = ['$log'];
 
@@ -16,7 +16,7 @@
 			controllerAs: 'vm',
 			bindToController: true,
 			link: linkFn,
-			templateUrl: 'app/components/toolbar/search/search.html'
+			templateUrl: 'app/components/toolbar/search/search.text.html'
 		};
 
 		return ddo;
