@@ -35,6 +35,7 @@
                     init: function() {
                         toolbar.props.search.value = '';
                         this.hideButton();
+                        this.hideText();
                     },
                     blur: function() {
                         if (toolbar.props.search.value === undefined || toolbar.props.search.value.length < 1) {
