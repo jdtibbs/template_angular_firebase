@@ -43,13 +43,11 @@
 				return firebaseAuthService.logout();
 			},
 
-			onAuth: function(setAuthData) {
-				// handle changes in authentication state.
+			onAuth: function(callback) {
+				// monitor and handle changes in authentication state.
 				this.authObj().$onAuth(function(authData) {
-					if (setAuthData) {
-						setAuthData(authData);
-					}
 					if (authData) {
+						callback(authData);
 						$location.path('/home');
 					} else {
 						$log.debug("Logged out (or login failed).");

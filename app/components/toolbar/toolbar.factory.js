@@ -9,59 +9,60 @@
 
     function factoryFn($log) {
 
-        function factory(props) {
-            props.toolbar = {};
-            props.toolbar.add = {};
-            props.toolbar.search = {};
-
-            var service = {
+        function factory() {
+            toolbar = {};
+            toolbar.props = {
+                add: {},
+                search: {}
+            };
+            toolbar.service = {
                 init: function() {
                     this.add.init();
                     this.search.init();
-                },
-                showAdd: function() {
-                    this.add.showButton();
-                },
-                showSearch: function() {
-                    this.search.showButton();
                 },
                 add: {
                     init: function() {
                         this.hideButton();
                     },
                     showButton: function() {
-                        props.toolbar.add.show = true;
+                        toolbar.props.add.show = true;
                     },
                     hideButton: function() {
-                        props.toolbar.add.show = false;
+                        toolbar.props.add.show = false;
                     }
                 },
                 search: {
                     init: function() {
+                        toolbar.props.search.value = '';
                         this.hideButton();
                     },
+                    blur: function() {
+                        if (toolbar.props.search.value === undefined || toolbar.props.search.value.length < 1) {
+                            this.close();
+                        }
+                    },
                     showButton: function() {
-                        props.toolbar.search.show = true;
+                        toolbar.props.search.show = true;
                     },
                     hideButton: function() {
-                        props.toolbar.search.show = false;
+                        toolbar.props.search.show = false;
                     },
                     showText: function() {
                         this.hideButton();
-                        props.toolbar.search.text = true;
+                        toolbar.props.search.text = true;
                     },
                     hideText: function() {
-                        props.toolbar.search.text = false;
+                        toolbar.props.search.text = false;
                     },
                     close: function() {
-                        props.toolbar.search.text = false;
-                        props.toolbar.search.value = '';
+                        toolbar.props.search.text = false;
+                        toolbar.props.search.value = '';
                         this.showButton();
                     }
                 }
             };
 
-            return Object.create(service);
+            return toolbar;
         }
         return factory;
     }

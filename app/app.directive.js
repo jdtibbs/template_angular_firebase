@@ -4,9 +4,9 @@
 	angular.module('app')
 		.directive('jdtApp', directiveFn);
 
-	directiveFn.$inject = ['$log', 'loginService', '$mdSidenav'];
+	directiveFn.$inject = ['$log', 'loginService', '$mdSidenav', 'toolbarFactory'];
 
-	function directiveFn($log, loginService, $mdSidenav) {
+	function directiveFn($log, loginService, $mdSidenav, toolbarFactory) {
 		return {
 			restrict: 'E',
 			scope: {},
@@ -21,14 +21,15 @@
 			var vm = this;
 
 			// initialize root properties. 
-			vm.props = {};
+			vm.props = {
+				toolbar: toolbarFactory(vm.props)
+			};
+			$log.debug(vm.props);
 
 			// monitor login state.
-			loginService.onAuth(setAuthData);
-
-			function setAuthData(authData) {
+			loginService.onAuth(function(authData) {
 				vm.props.authData = authData;
-			}
+			});
 		}
 
 		function linkFn(scope, elem, attrs) {
