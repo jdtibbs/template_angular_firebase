@@ -26,9 +26,16 @@
                     },
                     showButton: function() {
                         toolbar.props.add.show = true;
+                        toolbar.props.vertMenu = true;
                     },
                     hideButton: function() {
                         toolbar.props.add.show = false;
+                        toolbar.props.vertMenu = false;
+                    }
+                },
+                menu: {
+                    open: function(menu, event) {
+                        menu(event);
                     }
                 },
                 search: {
@@ -44,9 +51,11 @@
                     },
                     showButton: function() {
                         toolbar.props.search.show = true;
+                        toolbar.props.vertMenu = true;
                     },
                     hideButton: function() {
                         toolbar.props.search.show = false;
+                        toolbar.props.vertMenu = false;
                     },
                     showText: function() {
                         this.hideButton();
