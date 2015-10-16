@@ -4,9 +4,9 @@
 	angular.module('components.module')
 		.directive('jdtFeedback', directiveDefinitionObject);
 
-	directiveDefinitionObject.$inject = [];
+	directiveDefinitionObject.$inject = ['$timeout'];
 
-	function directiveDefinitionObject() {
+	function directiveDefinitionObject($timeout) {
 		var ddo = {
 			restrict: 'E',
 			scope: {
@@ -23,6 +23,17 @@
 
 		function controllerFn() {}
 
-		function linkFn(scope, elem, attrs) {}
+		function linkFn(scope, elem, attrs) {
+
+			// clear success messages from view after a perios of time.
+			scope.$watch('vm.feedback.success', function(newValue, oldValue) {
+				if (newValue !== oldValue) {
+					$timeout(function() {
+						scope.vm.feedback.success.length = 0;
+					}, 2000);
+				}
+			});
+
+		}
 	}
 })();
