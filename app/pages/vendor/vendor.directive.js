@@ -4,9 +4,9 @@
 	angular.module('login.module')
 		.directive('jdtVendorList', directiveFn);
 
-	directiveFn.$inject = ['feedbackFactory', 'vendorConstants', 'vendorDaoFactory', '$location', '$log', 'rx'];
+	directiveFn.$inject = ['baseListControllerService', 'feedbackFactory', 'vendorConstants', 'vendorDaoFactory', '$location', '$log', 'rx'];
 
-	function directiveFn(feedbackFactory, vendorConstants, vendorDaoFactory, $location, $log, rx) {
+	function directiveFn(baseListControllerService, feedbackFactory, vendorConstants, vendorDaoFactory, $location, $log, rx) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -22,23 +22,16 @@
 		function controllerFn() {
 			var vm = this;
 
-			// TODO: make factory to build this for all list controllers.
 
-			vm.props.title = {
-				text: vendorConstants.title
-			};
-			vm.props.toolbar.service.init();
-			vm.props.toolbar.service.add.showButton();
-			vm.props.toolbar.service.add.action = function() {
-				$location.path(vendorConstants.pathAdd);
-			};
-			vm.props.toolbar.service.search.showButton();
+			baseListControllerService.init(vm.props, vendorConstants);
 
 			vm.remove = remove;
 			vm.edit = edit;
 
 			vm.feedback = {};
 			var feedback = feedbackFactory(vm.feedback);
+
+			// TODO: make a service to build this for all list controllers.
 
 			// RxJS, just tinkering with it.
 			var fn = rx.Observable.fromCallback(vendorDaoFactory.syncArray);
@@ -50,6 +43,7 @@
 
 			function onError(error) {
 				$log.error(error);
+				feedback.error(error);
 			}
 
 			function edit(key) {
@@ -65,6 +59,7 @@
 
 				function onErrorRemove(error) {
 					$log.error(error);
+					feedback.error(error);
 				}
 			}
 		}

@@ -24,7 +24,6 @@
 			vm.props = {
 				toolbar: toolbarFactory()
 			};
-			$log.debug(vm.props);
 
 			// monitor login state.
 			loginService.onAuth(onAuth);

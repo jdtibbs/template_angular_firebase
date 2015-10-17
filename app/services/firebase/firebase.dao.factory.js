@@ -21,11 +21,11 @@
                         if (callback !== undefined) {
                             callback(ref);
                         }
-                        feedback.success(constant.title + ' added successfully.');
+                        feedback.success(constant.titleEdit + ' added successfully.');
                     };
                     var onError = function(error) {
                         $log.error(error);
-                        feedback.error('Error adding ' + constant.title + '.');
+                        feedback.error('Error adding ' + constant.titleEdit + '.');
                     };
                     var onComplete = function() {};
 
@@ -40,12 +40,12 @@
                         if (callback !== undefined) {
                             callback(ref);
                         }
-                        feedback.success(constant.title + ' removed successfully.');
+                        feedback.success(constant.titleEdit + ' removed successfully.');
                     };
                     var onError =
                         function(error) {
                             $log.error(error);
-                            feedback.error('Error saving ' + constant.title + '.');
+                            feedback.error('Error removing ' + constant.titleEdit + '.');
                         };
                     var onComplete = function() {};
 
@@ -60,12 +60,12 @@
                         if (callback !== undefined) {
                             callback(ref);
                         }
-                        feedback.success(constant.title + ' saved successfully.');
+                        feedback.success(constant.titleEdit + ' saved successfully.');
                     };
                     var onError =
                         function(error) {
                             $log.error(error);
-                            feedback.error('Error saving ' + constant.title + '.');
+                            feedback.error('Error saving ' + constant.titleEdit + '.');
                         };
                     var onComplete = function() {};
 
@@ -82,7 +82,7 @@
                     };
                     var onError = function(error) {
                         $log.error(error);
-                        feedback.error('Error syncing array ' + constant.title + '.');
+                        feedback.error('Error reading ' + constant.titleEdit + '.');
                     };
                     var onComplete = function() {};
                     rx.Observable.startAsync(async).subscribe(onNext, onError, onComplete);
@@ -97,7 +97,7 @@
                     };
                     var onError = function(error) {
                         $log.error(error);
-                        feedback.error('Error syncing object ' + constant.title + '.');
+                        feedback.error('Error reading ' + constant.titleEdit + '.');
                     };
                     var onComplete = function() {};
                     rx.Observable.startAsync(async).subscribe(onNext, onError, onComplete);
