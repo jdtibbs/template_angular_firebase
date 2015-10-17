@@ -22,6 +22,7 @@
 
 			// initialize root properties. 
 			vm.props = {
+				wasLoggedIn: false,
 				toolbar: toolbarFactory()
 			};
 
@@ -31,10 +32,15 @@
 			function onAuth(authData) {
 				vm.props.authData = authData;
 				if (authData) {
+					vm.props.wasLoggedIn = true;
 					$location.path('/home');
 				} else {
-					$log.debug("Logged out (or login failed).");
-					$location.path('/login');
+					if (vm.props.wasLoggedIn) {
+						$location.path('/login');
+					} else {
+						$location.path('/home');
+
+					}
 				}
 			}
 		}
