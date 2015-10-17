@@ -22,7 +22,7 @@
 
 	<md-input-container flex>
 		<label>Contact Phone</label>
-		<input name="contactPhone" type="text" ng-model="vm.model.contactPhone" required ng-maxlength="14">
+		<input name="contactPhone" type="tel" ng-model="vm.model.contactPhone" required ng-maxlength="14">
 		<div ng-show="vm.form.contactPhone.$touched" ng-messages="vm.form.contactPhone.$error">
 			<div ng-message="required">Required</div>
 			<div ng-message="maxlength">Must not exceed 14 characters.</div>
