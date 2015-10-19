@@ -9,6 +9,7 @@
 
     function serviceFn($log, rx) {
 
+        // TODO, implement roles.
         var service = {
             hasRole: function() {
                 return true;

@@ -11,7 +11,7 @@
 
         //  a work in progress...
 
-        // TODO: idea... use firebase read rule to determine if user can access given route.
+        // TODO: implement permissions... idea... use firebase read rule to determine if user can access given route.
         // see: https://www.firebase.com/docs/security/guide/securing-data.html#section-other-paths
         // route:{read: root.child('') ... }
 
