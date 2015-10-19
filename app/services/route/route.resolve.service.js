@@ -9,7 +9,7 @@
 
     function serviceFn(firebaseAuthService, permissionService, $q, $log) {
 
-        //  TODO use this....
+        //  TODO implement this....
 
         var service = {
             getAuth: function(permission) {
