@@ -1,6 +1,8 @@
 <div ng-if="vm.props.toolbar.props.search.text">
 	<div>
-		<md-icon style="color:white;" class="material-icons" ng-click="vm.props.toolbar.service.search.close()">clear</md-icon>
 		<input ng-attr-autofocus=" {{vm.props.toolbar.props.search}} " ng-blur="vm.props.toolbar.service.search.blur()" type="text " ng-model="vm.props.toolbar.props.search.value " placeholder="Search ">
+		<md-button ng-click="vm.props.toolbar.service.search.close()" class="md-icon-button" aria-label="Add ">
+			<md-icon style="color:white;" class="material-icons">clear</md-icon>
+		</md-button>
 	</div>
 </div>
