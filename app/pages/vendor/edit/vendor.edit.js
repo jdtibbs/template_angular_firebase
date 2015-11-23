@@ -1,7 +1,7 @@
 (function() {
 	'use strict';
 
-	angular.module('login.module')
+	angular.module('vendor.module')
 		.directive('jdtVendorEdit', directiveFn);
 
 	directiveFn.$inject = ['baseEditControllerService', 'feedbackFactory', 'vendorConstants', 'vendorDaoFactory', '$location', '$log', 'rx', '$routeParams', '$timeout'];
