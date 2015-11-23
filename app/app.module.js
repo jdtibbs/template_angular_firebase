@@ -6,6 +6,7 @@
 			'ngMaterial',
 			'templates',
 			'rx',
+			'catalog.module',
 			'components.module',
 			'home.module',
 			'login.module',
