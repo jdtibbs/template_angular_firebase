@@ -10,7 +10,6 @@
             restrict: 'A',
             link: function(scope, element) {
                 $timeout(function() {
-                    $log.debug('my autoFocus.');
                     element[0].focus();
                 });
             }
