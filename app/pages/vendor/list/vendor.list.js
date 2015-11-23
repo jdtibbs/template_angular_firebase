@@ -16,7 +16,7 @@
 			controllerAs: 'vm',
 			bindToController: true,
 			link: linkFn,
-			templateUrl: 'app/pages/vendor/vendor.directive.html'
+			templateUrl: 'app/pages/vendor/list/vendor.list.html'
 		};
 
 		function controllerFn() {

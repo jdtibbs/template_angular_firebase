@@ -17,7 +17,7 @@
 			bindToController: true,
 			link: linkFn,
 			require: '^form',
-			templateUrl: 'app/pages/vendor/edit/edit.directive.html'
+			templateUrl: 'app/pages/vendor/edit/vendor.edit.html'
 		};
 
 		function controllerFn() {

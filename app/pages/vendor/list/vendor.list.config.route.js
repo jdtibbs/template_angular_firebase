@@ -8,7 +8,7 @@
 
 	function config(vendorConstantsProvider, $routeProvider) {
 		$routeProvider.when(vendorConstantsProvider.path(), {
-			templateUrl: 'app/pages/vendor/vendor.html'
+			templateUrl: 'app/pages/vendor/list/vendor.list.container.html'
 		});
 	}
 

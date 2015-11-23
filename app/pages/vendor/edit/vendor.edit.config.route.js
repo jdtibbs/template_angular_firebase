@@ -8,10 +8,10 @@
 
 	function config(vendorConstantsProvider, $routeProvider) {
 		$routeProvider.when(vendorConstantsProvider.pathEdit() + ':key', {
-				templateUrl: 'app/pages/vendor/edit/edit.html'
+				templateUrl: 'app/pages/vendor/edit/vendor.edit.container.html'
 			})
 			.when(vendorConstantsProvider.pathAdd(), {
-				templateUrl: 'app/pages/vendor/edit/edit.html'
+				templateUrl: 'app/pages/vendor/edit/vendor.edit.container.html'
 			});
 	}
 })();
