@@ -4,9 +4,9 @@
 	angular.module('login.module')
 		.directive('jdtCatalogList', directiveFn);
 
-	directiveFn.$inject = ['baseListControllerService', 'feedbackFactory', 'catalogConstants', 'catalogDaoFactory', '$location', '$log', 'rx'];
+	directiveFn.$inject = ['baseTabListControllerService', 'feedbackFactory', 'catalogConstants', 'catalogDaoFactory', '$location', '$log', 'rx'];
 
-	function directiveFn(baseListControllerService, feedbackFactory, catalogConstants, catalogDaoFactory, $location, $log, rx) {
+	function directiveFn(baseTabListControllerService, feedbackFactory, catalogConstants, catalogDaoFactory, $location, $log, rx) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -21,9 +21,6 @@
 
 		function controllerFn() {
 			var vm = this;
-
-
-			// baseListControllerService.init(vm.props, catalogConstants);
 
 			vm.remove = remove;
 			vm.edit = edit;
