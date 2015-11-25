@@ -18,7 +18,7 @@
 					Catalog
 				</md-tab-label>
 				<md-tab-body>
-					<md-content>
+					<md-content ng-if="vm.tab.catalog.show">
 						<jdt-catalog-list props="vm.props"></jdt-catalog-list>
 					</md-content>
 				</md-tab-body>
