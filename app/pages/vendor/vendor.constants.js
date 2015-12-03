@@ -24,12 +24,16 @@
 			pathEdit: function() {
 				return VENDOR_PATH_EDIT;
 			},
+			pathKey: function() {
+				return VENDOR_DAO;
+			},
 			$get: function() {
 				return {
 					dao: VENDOR_DAO,
 					path: VENDOR_PATH,
 					pathAdd: VENDOR_PATH_ADD,
 					pathEdit: VENDOR_PATH_EDIT,
+					pathKey: VENDOR_DAO,
 					title: VENDOR_TITLE,
 					titleEdit: VENDOR_TITLE_EDIT,
 				};
