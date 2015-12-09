@@ -4,9 +4,9 @@
 	angular.module('catalog.module')
 		.directive('jdtCatalogEdit', directiveFn);
 
-	directiveFn.$inject = ['baseEditControllerService', 'feedbackFactory', 'catalogConstants', 'catalogDaoFactory', 'catalogRouteFactory', '$location', '$log', 'rx'];
+	directiveFn.$inject = ['baseEditControllerService', 'feedbackFactory', 'catalogConstants', 'catalogDaoFactory', 'catalogRouteFactory', 'firebaseDaoOneToManyFactory', 'vendorConstants', '$location', '$log', 'rx'];
 
-	function directiveFn(baseEditControllerService, feedbackFactory, catalogConstants, catalogDaoFactory, catalogRouteFactory, $location, $log, rx) {
+	function directiveFn(baseEditControllerService, feedbackFactory, catalogConstants, catalogDaoFactory, catalogRouteFactory, firebaseDaoOneToManyFactory, vendorConstants, $location, $log, rx) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -34,20 +34,23 @@
 			vm.feedback = {};
 			var feedback = feedbackFactory(vm.feedback);
 
-			initModel();
-
-			function initModel() {
+			(function() {
 				var catalogKey = catalogRouteFactory.getParam(catalogConstants.dao);
 				if (catalogKey) {
-					var fn = rx.Observable.fromCallback(catalogDaoFactory.syncObject);
-					fn(catalogKey, feedback).subscribe(onNext, onError);
+					initModel(catalogKey);
 				} else {
 					vm.add = true;
 					vm.model = {};
 				}
+			})();
+
+			function initModel(catalogKey) {
+				var fn = rx.Observable.fromCallback(catalogDaoFactory.syncObject);
+				fn(catalogKey, feedback).subscribe(onNext, onError);
 
 				function onNext(data) {
 					vm.model = data;
+					vm.add = false;
 				}
 
 				function onError(error) {
@@ -63,16 +66,18 @@
 
 			function save() {
 				feedback.init();
-				var fn;
 				if (vm.add) {
-					fn = rx.Observable.fromCallback(catalogDaoFactory.add);
+					firebaseDaoOneToManyFactory(vendorConstants, catalogConstants, feedback).add(vm.model, onAdd);
 				} else {
-					fn = rx.Observable.fromCallback(catalogDaoFactory.save);
+					var fn = rx.Observable.fromCallback(catalogDaoFactory.save);
+					fn(vm.model, feedback).subscribe(onNext, onError);
 				}
-				fn(vm.model, feedback).subscribe(onNext, onError);
+
+				function onAdd(catalogKey) {
+					initModel(catalogKey);
+				}
 
 				function onNext(ref) {
-					// $log.debug('saved:');
 					// $log.debug(ref);
 				}
 

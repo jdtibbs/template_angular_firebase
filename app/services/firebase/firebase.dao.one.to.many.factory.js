@@ -5,23 +5,53 @@
     angular.module('services.module')
         .factory('firebaseDaoOneToManyFactory', factoryFn);
 
-    factoryFn.$inject = ['firebaseService', '$log', '$timeout'];
+    factoryFn.$inject = ['firebaseService', 'routeParamsFactory', '$log', '$timeout'];
 
-    function factoryFn(firebaseService, $log, $timeout) {
+    function factoryFn(firebaseService, routeParamsFactory, $log, $timeout) {
 
         function factory(oneConstant, manyConstant, feedback) {
             var oneRef = firebaseService.ref().child(oneConstant.dao);
             var manyRef = firebaseService.ref().child(manyConstant.dao);
 
+
             var service = {
                 add: function(object, callback) {
-                    // TODO
+                    var oneKey = routeParamsFactory.getParam(oneConstant.dao);
+                    var ref = firebaseService.ref();
+                    var newRef = ref.child(manyConstant.dao).push();
+                    var newKey = newRef.key();
+                    var newData = {};
+                    newData[oneConstant.dao + '/' + oneKey + '/' + manyConstant.dao + '/' + newKey] = true;
+                    newData[manyConstant.dao + '/' + newKey] = object;
+                    ref.update(newData, onComplete);
+
+                    function onComplete(error) {
+                        if (error) {
+                            $log.error(error);
+                            feedback.error('Error writing ' + manyConstant.title + '.');
+                        } else {
+                            feedback.success(manyConstant.title + ' saved successfully.');
+                            callback(newKey);
+                        }
+                    }
                 },
-                remove: function(object, callback) {
-                    // TODO
-                },
-                save: function(object, callback) {
-                    // TODO
+                remove: function(key) {
+                    var oneKey = routeParamsFactory.getParam(oneConstant.dao);
+                    var ref = firebaseService.ref();
+                    var newRef = ref.child(manyConstant.dao).push();
+                    var newData = {};
+                    newData[oneConstant.dao + '/' + oneKey + '/' + manyConstant.dao + '/' + key] = null;
+                    newData[manyConstant.dao + '/' + key] = null;
+                    ref.update(newData, onComplete);
+
+                    function onComplete(error) {
+                        if (error) {
+                            $log.error(error);
+                            feedback.error('Error deleting ' + manyConstant.title + '.');
+                        } else {
+                            feedback.success(manyConstant.title + ' deleted successfully.');
+                        }
+                    }
                 },
                 syncArray: function(key, onAdd, onChange, onRemove) {
                     var keyRef = oneRef

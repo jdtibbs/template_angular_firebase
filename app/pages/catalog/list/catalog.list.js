@@ -79,15 +79,8 @@
 
 			function remove(key, event) {
 				event.stopPropagation();
-				var fn = rx.Observable.fromCallback(catalogDaoFactory.remove);
-				fn(key, feedback).subscribe(onNextRemove, onErrorRemove);
-
-				function onNextRemove(ref) {}
-
-				function onErrorRemove(error) {
-					$log.error(error);
-					feedback.error(error);
-				}
+				firebaseDaoOneToManyFactory(vendorConstants, catalogConstants, feedback)
+					.remove(key);
 			}
 		}
 
