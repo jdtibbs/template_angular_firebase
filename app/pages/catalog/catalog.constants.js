@@ -4,7 +4,7 @@
 	angular.module('catalog.module')
 		.constant('CATALOG_DAO', 'catalog')
 		.constant('CATALOG_PATH', '/catalog')
-		.constant('CATALOG_PATH_ADD', '/catalog/edit')
+		.constant('CATALOG_PATH_ADD', '/catalog/edit/')
 		.constant('CATALOG_PATH_EDIT', '/catalog/edit/')
 		.constant('CATALOG_TITLE', 'Catalog')
 		.constant('CATALOG_TITLE_EDIT', 'Catalog')
@@ -15,6 +15,9 @@
 	function providerFn(CATALOG_PATH, CATALOG_PATH_ADD, CATALOG_PATH_EDIT, CATALOG_TITLE, CATALOG_TITLE_EDIT, CATALOG_DAO) {
 
 		return {
+			dao: function() {
+				return CATALOG_DAO;
+			},
 			path: function() {
 				return CATALOG_PATH;
 			},

@@ -10,10 +10,10 @@
     function serviceFn($location, $log) {
 
         var service = {
-            init: function(props, constants) {
+            init: function(props, constants, routeFactory) {
                 props.toolbar.service.add.showButton();
                 props.toolbar.service.add.action = function() {
-                    $location.path(constants.pathAdd);
+                    $location.path(routeFactory.addRoute());
                 };
                 props.toolbar.service.search.showButton();
 

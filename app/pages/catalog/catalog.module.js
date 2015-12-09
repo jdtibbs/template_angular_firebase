@@ -2,6 +2,7 @@
 	'use strict';
 
 	angular.module('catalog.module', [
-		'ngRoute'
+		'ngRoute',
+		'vendor.module'
 	]);
 })();

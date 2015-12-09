@@ -4,9 +4,9 @@
 	angular.module('login.module')
 		.directive('jdtCatalogList', directiveFn);
 
-	directiveFn.$inject = ['baseTabListControllerService', 'feedbackFactory', 'catalogConstants', 'catalogDaoFactory', '$location', '$log', 'rx'];
+	directiveFn.$inject = ['firebaseDaoOneToManyFactory', 'baseTabListControllerService', 'feedbackFactory', 'catalogConstants', 'catalogRouteFactory', 'vendorConstants', '$location', '$log', '$timeout', 'rx'];
 
-	function directiveFn(baseTabListControllerService, feedbackFactory, catalogConstants, catalogDaoFactory, $location, $log, rx) {
+	function directiveFn(firebaseDaoOneToManyFactory, baseTabListControllerService, feedbackFactory, catalogConstants, catalogRouteFactory, vendorConstants, $location, $log, $timeout, rx) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -29,22 +29,52 @@
 			var feedback = feedbackFactory(vm.feedback);
 
 			// TODO: make a service to build this for all list controllers.
+			(function() {
+				vm.data = [];
+				var vendorKey = catalogRouteFactory.getParam(vendorConstants.dao);
+				if (vendorKey) {
+					firebaseDaoOneToManyFactory(vendorConstants, catalogConstants, feedback)
+						.syncArray(vendorKey, onAdd, onChange, onRemove);
+				}
 
-			// RxJS, just tinkering with it.
-			var fn = rx.Observable.fromCallback(catalogDaoFactory.syncArray);
-			fn(null, feedback).subscribe(onNext, onError);
+				function onAdd(snap) {
+					var obj = snap.val();
+					obj.$id = snap.key();
+					$timeout(
+						function() {
+							vm.data.push(obj);
+						}, 0);
+				}
 
-			function onNext(data) {
-				vm.data = data;
-			}
+				function onChange(snap) {
+					$timeout(
+						function() {
+							vm.data = vm.data.map(function(element) {
+								if (element.$id === snap.key()) {
+									var obj = snap.val();
+									obj.$id = snap.key();
+									return obj;
+								} else {
+									return element;
+								}
+							});
+						}, 0);
+				}
 
-			function onError(error) {
-				$log.error(error);
-				feedback.error(error);
-			}
+				function onRemove(snap) {
+					$timeout(
+						function() {
+							vm.data = vm.data.filter(function(element, index) {
+								if (element.$id !== snap.key()) {
+									return true;
+								}
+							});
+						}, 0);
+				}
+			})();
 
 			function edit(key) {
-				$location.path(catalogConstants.pathEdit + key);
+				$location.path(catalogRouteFactory.editRoute(key));
 			}
 
 			function remove(key, event) {

@@ -1,12 +1,12 @@
 (function() {
 	'use strict';
 
-	angular.module('vendor.module')
-		.directive('jdtVendorEdit', directiveFn);
+	angular.module('catalog.module')
+		.directive('jdtCatalogEdit', directiveFn);
 
-	directiveFn.$inject = ['baseEditControllerService', 'feedbackFactory', 'vendorConstants', 'vendorDaoFactory', 'vendorRouteFactory', '$location', '$log', 'rx'];
+	directiveFn.$inject = ['baseEditControllerService', 'feedbackFactory', 'catalogConstants', 'catalogDaoFactory', 'catalogRouteFactory', '$location', '$log', 'rx'];
 
-	function directiveFn(baseEditControllerService, feedbackFactory, vendorConstants, vendorDaoFactory, vendorRouteFactory, $location, $log, rx) {
+	function directiveFn(baseEditControllerService, feedbackFactory, catalogConstants, catalogDaoFactory, catalogRouteFactory, $location, $log, rx) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -17,13 +17,13 @@
 			bindToController: true,
 			link: linkFn,
 			require: '^form',
-			templateUrl: 'app/pages/vendor/edit/vendor.edit.html'
+			templateUrl: 'app/pages/catalog/edit/catalog.edit.html'
 		};
 
 		function controllerFn() {
 			var vm = this;
 
-			baseEditControllerService.init(vm.props, vendorConstants, cancel);
+			baseEditControllerService.init(vm.props, catalogConstants, cancel);
 
 			// TODO: make factory to build this for all edit directives.
 
@@ -37,10 +37,10 @@
 			initModel();
 
 			function initModel() {
-				var vendorKey = vendorRouteFactory.getParam(vendorConstants.dao);
-				if (vendorKey) {
-					var fn = rx.Observable.fromCallback(vendorDaoFactory.syncObject);
-					fn(vendorKey, feedback).subscribe(onNext, onError);
+				var catalogKey = catalogRouteFactory.getParam(catalogConstants.dao);
+				if (catalogKey) {
+					var fn = rx.Observable.fromCallback(catalogDaoFactory.syncObject);
+					fn(catalogKey, feedback).subscribe(onNext, onError);
 				} else {
 					vm.add = true;
 					vm.model = {};
@@ -58,16 +58,16 @@
 
 			function cancel() {
 				feedback.init();
-				$location.path(vendorConstants.path);
+				$location.path(catalogRouteFactory.listRoute());
 			}
 
 			function save() {
 				feedback.init();
 				var fn;
 				if (vm.add) {
-					fn = rx.Observable.fromCallback(vendorDaoFactory.add);
+					fn = rx.Observable.fromCallback(catalogDaoFactory.add);
 				} else {
-					fn = rx.Observable.fromCallback(vendorDaoFactory.save);
+					fn = rx.Observable.fromCallback(catalogDaoFactory.save);
 				}
 				fn(vm.model, feedback).subscribe(onNext, onError);
 

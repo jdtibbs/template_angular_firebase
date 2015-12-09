@@ -1,7 +1,7 @@
 <div layout="row" flex>
 	<md-content layout-fill layout-padding>
 		<md-tabs md-dynamic-height="" md-border-bottom="">
-			<md-tab md-on-select="vm.tab.vendor.select()">
+			<md-tab md-on-select="vm.tab.vendor.select()" md-active="vm.props.tab.active.vendor">
 				<md-tab-label>
 					Vendor
 				</md-tab-label>
@@ -13,14 +13,14 @@
 					</md-content>
 				</md-tab-body>
 			</md-tab>
-			<md-tab md-on-select="vm.tab.catalog.select()">
+			<md-tab md-on-select="vm.tab.catalog.select()" md-active="vm.props.tab.active.catalog">
 				<md-tab-label>
 					Catalog
 				</md-tab-label>
 				<md-tab-body>
-					<md-content ng-if="vm.tab.catalog.show">
-						<jdt-catalog-list props="vm.props"></jdt-catalog-list>
-					</md-content>
+					<!-- <md-content ng-if="vm.tab.catalog.show"> -->
+					<jdt-catalog-list props="vm.props"></jdt-catalog-list>
+					<!-- </md-content> -->
 				</md-tab-body>
 			</md-tab>
 		</md-tabs>

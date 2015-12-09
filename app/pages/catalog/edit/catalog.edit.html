@@ -1,0 +1,49 @@
+<div layout="row" layout-sm="column">
+	<md-input-container flex>
+		<label>Item Name</label>
+		<input name="itemName" type="text" ng-model="vm.model.name" required ng-maxlength="50">
+		<div ng-show="vm.form.itemName.$touched" ng-messages="vm.form.itemName.$error">
+			<div ng-message="required">Required</div>
+			<div ng-message="maxlength">Must not exceed 50 characters.</div>
+		</div>
+	</md-input-container>
+	<div flex></div>
+</div>
+
+<div layout="row" layout-sm="column">
+	<md-input-container flex>
+		<label>Description</label>
+		<input name="description" type="text" ng-model="vm.model.description" required ng-maxlength="50">
+		<div ng-show="vm.form.description.$touched" ng-messages="vm.form.description.$error">
+			<div ng-message="required">Required</div>
+			<div ng-message="maxlength">Must not exceed 50 characters.</div>
+		</div>
+	</md-input-container>
+	<div flex></div>
+</div>
+
+<div layout="row" layout-sm="column">
+	<md-input-container flex>
+		<label>Price</label>
+		<input name="price" type="number" ng-model="vm.model.price" required>
+		<div ng-show="vm.form.price.$touched" ng-messages="vm.form.price.$error">
+			<div ng-message="required">Required</div>
+		</div>
+	</md-input-container>
+
+	<md-input-container flex>
+		<label>Price per</label>
+		<input name="units" type="text" ng-model="vm.model.units" required ng-maxlength="25">
+		<div ng-show="vm.form.units.$touched" ng-messages="vm.form.units.$error">
+			<div ng-message="required">Required</div>
+			<div ng-message="maxlength">Must not exceed 25 characters.</div>
+		</div>
+	</md-input-container>
+	<div flex></div>
+</div>
+
+<md-button class="md-accent md-raised" type="button" ng-disabled="vm.form.$invalid" ng-click="vm.save()">Save</md-button>
+
+<md-button class="md-raised" type="button" ng-click="vm.cancel()">Cancel</md-button>
+
+<jdt-feedback feedback="vm.feedback"></jdt-feedback>
