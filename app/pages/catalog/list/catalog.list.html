@@ -1,4 +1,4 @@
-<div ng-repeat="catalog in vm.data | filter: vm.props.toolbar.props.search.value | orderBy: 'catalogName' track by catalog.$id">
+<div ng-repeat="catalog in vm.data | filter: vm.props.toolbar.props.search.value | orderBy: 'name' track by catalog.$id">
 	<md-list-item aria-label="catalog" ng-click="vm.edit(catalog.$id)">
 		<div layout="row" layout-sm="column" flex>
 			<div flex ng-bind="catalog.name"></div>
