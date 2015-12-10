@@ -15,6 +15,9 @@
 	function providerFn(VENDOR_PATH, VENDOR_PATH_ADD, VENDOR_PATH_EDIT, VENDOR_TITLE, VENDOR_TITLE_EDIT, VENDOR_DAO) {
 
 		return {
+			dao: function() {
+				return VENDOR_DAO;
+			},
 			path: function() {
 				return VENDOR_PATH;
 			},
@@ -23,6 +26,12 @@
 			},
 			pathEdit: function() {
 				return VENDOR_PATH_EDIT;
+			},
+			title: function() {
+				return VENDOR_TITLE;
+			},
+			titleEdit: function() {
+				return VENDOR_TITLE_EDIT;
 			},
 			$get: function() {
 				return {

@@ -1,12 +1,12 @@
 (function() {
 	'use strict';
 
-	angular.module('login.module')
+	angular.module('vendor.module')
 		.directive('jdtVendorEdit', directiveFn);
 
-	directiveFn.$inject = ['baseEditControllerService', 'feedbackFactory', 'vendorConstants', 'vendorDaoFactory', '$location', '$log', 'rx', '$routeParams', '$timeout'];
+	directiveFn.$inject = ['baseEditControllerService', 'feedbackFactory', 'vendorConstants', 'vendorDaoFactory', 'vendorRouteFactory', '$location', '$log', 'rx'];
 
-	function directiveFn(baseEditControllerService, feedbackFactory, vendorConstants, vendorDaoFactory, $location, $log, rx, $routeParams, $timeout) {
+	function directiveFn(baseEditControllerService, feedbackFactory, vendorConstants, vendorDaoFactory, vendorRouteFactory, $location, $log, rx) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -37,9 +37,10 @@
 			initModel();
 
 			function initModel() {
-				if ($routeParams.key) {
+				var vendorKey = vendorRouteFactory.getParam(vendorConstants.dao);
+				if (vendorKey) {
 					var fn = rx.Observable.fromCallback(vendorDaoFactory.syncObject);
-					fn($routeParams.key, feedback).subscribe(onNext, onError);
+					fn(vendorKey, feedback).subscribe(onNext, onError);
 				} else {
 					vm.add = true;
 					vm.model = {};
@@ -62,7 +63,6 @@
 
 			function save() {
 				feedback.init();
-				// RxJS, just tinkering.
 				var fn;
 				if (vm.add) {
 					fn = rx.Observable.fromCallback(vendorDaoFactory.add);

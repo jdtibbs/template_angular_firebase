@@ -7,7 +7,7 @@
 	config.$inject = ['vendorConstantsProvider', '$routeProvider'];
 
 	function config(vendorConstantsProvider, $routeProvider) {
-		$routeProvider.when(vendorConstantsProvider.pathEdit() + ':key', {
+		$routeProvider.when(vendorConstantsProvider.pathEdit() + vendorConstantsProvider.dao() + '/:' + vendorConstantsProvider.dao(), {
 				templateUrl: 'app/pages/vendor/edit/vendor.edit.container.html'
 			})
 			.when(vendorConstantsProvider.pathAdd(), {
