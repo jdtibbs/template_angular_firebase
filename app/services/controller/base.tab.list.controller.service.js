@@ -3,15 +3,14 @@
     'use strict';
 
     angular.module('services.module')
-        .service('baseListControllerService', serviceFn);
+        .service('baseTabListControllerService', serviceFn);
 
-    serviceFn.$inject = ['baseControllerService', '$location', '$log'];
+    serviceFn.$inject = ['$location', '$log'];
 
-    function serviceFn(baseControllerService, $location, $log) {
+    function serviceFn($location, $log) {
 
         var service = {
             init: function(props, constants, routeFactory) {
-                baseControllerService.init(props, constants);
                 props.toolbar.service.add.showButton();
                 props.toolbar.service.add.action = function() {
                     $location.path(routeFactory.addRoute());

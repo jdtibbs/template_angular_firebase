@@ -23,6 +23,9 @@
 			// initialize root properties. 
 			vm.props = {
 				wasLoggedIn: false,
+				tab: {
+					active: {}
+				},
 				toolbar: toolbarFactory()
 			};
 
