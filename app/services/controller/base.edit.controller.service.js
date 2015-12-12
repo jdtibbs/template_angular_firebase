@@ -10,12 +10,13 @@
     function serviceFn(baseControllerService, $log) {
 
         var service = {
-            init: function(props, constants, cancel) {
+            init: function(props, constants, routeFactory) {
                 baseControllerService.init(props, constants);
 
-                props.title.back = {
-                    action: cancel,
-                    show: true
+                props.button = {
+                    cancel: {
+                        route: routeFactory.cancelRoute()
+                    }
                 };
             }
         };

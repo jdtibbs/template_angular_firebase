@@ -5,16 +5,15 @@
     angular.module('services.module')
         .service('baseControllerService', serviceFn);
 
-    serviceFn.$inject = ['$log'];
-
-    function serviceFn($log) {
+    function serviceFn() {
 
         var service = {
             init: function(props, constants) {
-                props.title = {
-                    text: constants.title
+                props.toolbar = {
+                    title: {
+                        text: constants.title
+                    }
                 };
-                props.toolbar.service.init();
             }
         };
 

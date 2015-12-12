@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular.module('components.module')
-		.directive('jdtListTitle', directiveDefinitionObject);
+		.directive('jdtToolbarTitle', directiveDefinitionObject);
 
 	function directiveDefinitionObject() {
 		var ddo = {
@@ -13,7 +13,7 @@
 			controller: controllerFn,
 			controllerAs: 'vm',
 			bindToController: true,
-			templateUrl: 'app/components/title/list/list.title.html'
+			templateUrl: 'app/components/toolbar/title/title.html'
 		};
 
 		return ddo;

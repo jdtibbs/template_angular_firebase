@@ -1,6 +1,8 @@
 (function() {
 	'use strict';
 
+	// TODO: deprecate
+
 	angular.module('components.module')
 		.directive('jdtTitle', directiveDefinitionObject);
 

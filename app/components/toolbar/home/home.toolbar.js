@@ -2,7 +2,8 @@
 	'use strict';
 
 	angular.module('components.module')
-		.directive('jdtHomeTitle', directiveDefinitionObject);
+		.directive('jdtHomeToolbar', directiveDefinitionObject);
+
 
 	function directiveDefinitionObject() {
 		var ddo = {
@@ -13,7 +14,7 @@
 			controller: controllerFn,
 			controllerAs: 'vm',
 			bindToController: true,
-			templateUrl: 'app/components/title/home/home.title.html'
+			templateUrl: 'app/components/toolbar/home/home.toolbar.html'
 		};
 
 		return ddo;
@@ -21,6 +22,5 @@
 		function controllerFn() {
 			var vm = this;
 		}
-
 	}
 })();

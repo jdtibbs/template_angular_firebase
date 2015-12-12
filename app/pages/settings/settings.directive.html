@@ -1,0 +1,46 @@
+<div layout="row">
+	<jdt-edit-toolbar flex props="vm.props"></jdt-edit-toolbar>
+</div>
+
+<div layout="row" flex>
+	<md-content layout-fill layout-padding>
+		<md-tabs md-dynamic-height="" md-border-bottom="">
+			<md-tab>
+				<md-tab-label>
+					Profile
+				</md-tab-label>
+				<md-tab-body>
+					<md-content>
+						<form name="profileForm" role="form" novalidate>
+							<jdt-settings-profile props="vm.props"></jdt-settings-profile>
+						</form>
+					</md-content>
+				</md-tab-body>
+			</md-tab>
+			<md-tab>
+				<md-tab-label>
+					Email
+				</md-tab-label>
+				<md-tab-body>
+					<md-content>
+						<form name="emailForm" role="form" novalidate>
+							<jdt-settings-email props="vm.props"></jdt-settings-email>
+						</form>
+					</md-content>
+				</md-tab-body>
+			</md-tab>
+			<md-tab>
+				<md-tab-label>
+					Password
+				</md-tab-label>
+				<md-tab-body>
+					<md-content>
+						<form name="passwordForm" role="form" novalidate>
+							<jdt-settings-password props="vm.props"></jdt-settings-password>
+						</form>
+					</md-content>
+				</md-tab-body>
+			</md-tab>
+		</md-tabs>
+	</md-content>
+</div>
