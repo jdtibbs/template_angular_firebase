@@ -1,12 +1,9 @@
 (function() {
 	'use strict';
 
-	// TODO: deprecate
-
 	angular.module('components.module')
-		.directive('jdtTitle', directiveDefinitionObject);
+		.directive('jdtHomeToolbar', directiveDefinitionObject);
 
-	directiveDefinitionObject.$inject = [];
 
 	function directiveDefinitionObject() {
 		var ddo = {
@@ -17,14 +14,13 @@
 			controller: controllerFn,
 			controllerAs: 'vm',
 			bindToController: true,
-			link: linkFn,
-			templateUrl: 'app/components/title/title.html'
+			templateUrl: 'app/components/toolbar/home/home.toolbar.html'
 		};
 
 		return ddo;
 
-		function controllerFn() {}
-
-		function linkFn(scope, elem, attrs) {}
+		function controllerFn() {
+			var vm = this;
+		}
 	}
 })();

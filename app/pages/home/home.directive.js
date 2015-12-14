@@ -4,9 +4,9 @@
 	angular.module('components.module')
 		.directive('jdtHome', directiveDefinitionObject);
 
-	directiveDefinitionObject.$inject = ['$log', 'baseControllerService', 'homeConstants'];
+	directiveDefinitionObject.$inject = ['baseControllerService', 'homeConstants', '$log'];
 
-	function directiveDefinitionObject($log, baseControllerService, homeConstants) {
+	function directiveDefinitionObject(baseControllerService, homeConstants, $log) {
 		var ddo = {
 			restrict: 'E',
 			scope: {
@@ -15,7 +15,6 @@
 			controller: controllerFn,
 			controllerAs: 'vm',
 			bindToController: true,
-			link: linkFn,
 			templateUrl: 'app/pages/home/home.directive.html'
 		};
 
@@ -27,6 +26,5 @@
 			baseControllerService.init(vm.props, homeConstants);
 		}
 
-		function linkFn(scope, elem, attrs) {}
 	}
 })();
