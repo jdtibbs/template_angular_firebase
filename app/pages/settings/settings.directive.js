@@ -24,6 +24,5 @@
 
 		// build up child component properties.
 		vm.props.components = baseToolbarFactory(settingsConstants);
-		$log.debug(vm.props.components);
 	}
 })();

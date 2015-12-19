@@ -30,7 +30,6 @@
 
 			// build up child component properties.
 			vm.props.components = listToolbarFactory(vendorConstants, vendorRouteFactory);
-			$log.debug(vm.props.components);
 
 			vm.remove = remove;
 			vm.edit = edit;

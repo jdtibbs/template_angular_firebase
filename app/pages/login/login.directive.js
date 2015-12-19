@@ -23,7 +23,6 @@
 
 			// build up child component properties.
 			vm.props.components = baseToolbarFactory(loginConstants);
-			$log.debug(vm.props.components);
 
 			vm.login = login;
 			vm.forgot = forgot;
