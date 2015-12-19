@@ -4,9 +4,9 @@
 	angular.module('vendor.module')
 		.directive('jdtVendorTab', directiveFn);
 
-	directiveFn.$inject = ['baseTabEditControllerService', 'baseTabListControllerService', 'catalogConstants', 'catalogRouteFactory', 'feedbackFactory', 'vendorConstants', 'vendorDaoFactory', '$location', '$log', 'rx', '$routeParams', '$timeout'];
+	directiveFn.$inject = ['editToolbarFactory', 'listTabToolbarFactory', 'catalogRouteFactory', 'feedbackFactory', 'vendorConstants', 'vendorRouteFactory', '$location', '$log'];
 
-	function directiveFn(baseTabEditControllerService, baseTabListControllerService, catalogConstants, catalogRouteFactory, feedbackFactory, vendorConstants, vendorDaoFactory, $location, $log, rx, $routeParams, $timeout) {
+	function directiveFn(editToolbarFactory, listTabToolbarFactory, catalogRouteFactory, feedbackFactory, vendorConstants, vendorRouteFactory, $location, $log) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -24,22 +24,26 @@
 			vm.tab = {
 				catalog: {
 					select: function() {
-						baseTabListControllerService.init(vm.props, catalogConstants, catalogRouteFactory);
 						// vm.tab.catalog.show = true; // do not load data until user hits this tab.
-						toggleTab();
+						vm.props.components = listTabToolbarFactory(vendorConstants, vendorRouteFactory, catalogRouteFactory);
+						// toggleTab();
+						vm.props.tab.active.catalog = true;
+						vm.props.tab.active.vendor = false;
 					}
 				},
 				vendor: {
 					select: function() {
-						baseTabEditControllerService.init(vm.props);
-						toggleTab();
+						vm.props.components = editToolbarFactory(vendorConstants, vendorRouteFactory);
+						// toggleTab();
+						vm.props.tab.active.catalog = false;
+						vm.props.tab.active.vendor = true;
 					}
 				}
 			};
 
 			function toggleTab() {
-				// $log.debug('before toggleTab');
-				// $log.debug(vm.props.tab.active);
+				// do not call this function:
+				// Causes Error: $rootScope:infdig
 				if (vm.props.tab.active.vendor) {
 					vm.props.tab.active.catalog = !vm.props.tab.active.catalog;
 					vm.props.tab.active.vendor = !vm.props.tab.active.vendor;
@@ -47,8 +51,6 @@
 					vm.props.tab.active.catalog = false;
 					vm.props.tab.active.vendor = true;
 				}
-				// $log.debug('after toggleTab');
-				// $log.debug(vm.props.tab.active);
 			}
 		}
 	}

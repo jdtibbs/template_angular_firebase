@@ -1,10 +1,12 @@
 <md-toolbar class="md-primary">
+
 	<div layout="row" class="md-toolbar-tools">
-		<div layout="row" ng-click="vm.button.cancel()" style="cursor: pointer;">
+		<div ng-click="vm.props.components.buttons.cancel()" style="cursor: pointer;">
 			<md-icon class="material-icons">arrow_back</md-icon>
-			<jdt-toolbar-title props="vm.props"></jdt-toolbar-title>
+			<jdt-toolbar-title props="vm.props" class="jdt-inline-block"></jdt-toolbar-title>
 		</div>
 	</div>
+
 </md-toolbar>
 
 <jdt-sidenav props="vm.props"></jdt-sidenav>

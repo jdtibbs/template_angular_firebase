@@ -8,7 +8,8 @@
 		var ddo = {
 			restrict: 'E',
 			scope: {
-				props: '='
+				props: '=',
+
 			},
 			controller: controllerFn,
 			controllerAs: 'vm',
@@ -18,9 +19,7 @@
 
 		return ddo;
 
-		function controllerFn() {
-			var vm = this;
-		}
+		function controllerFn() {}
 
 	}
 })();

@@ -9,7 +9,8 @@
 		var ddo = {
 			restrict: 'E',
 			scope: {
-				props: '='
+				props: '=',
+
 			},
 			controller: controllerFn,
 			controllerAs: 'vm',
@@ -23,12 +24,6 @@
 
 		function controllerFn($location) {
 			var vm = this;
-
-			vm.button = {
-				cancel: function() {
-					$location.path(vm.props.button.cancel.route);
-				}
-			};
 		}
 	}
 })();

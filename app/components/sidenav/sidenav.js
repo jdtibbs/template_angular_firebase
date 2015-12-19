@@ -4,13 +4,14 @@
 	angular.module('components.module')
 		.directive('jdtSidenav', directiveDefinitionObject);
 
-	directiveDefinitionObject.$inject = ['sidenavFactory'];
+	directiveDefinitionObject.$inject = ['sidenavFactory', '$log'];
 
-	function directiveDefinitionObject(sidenavFactory) {
+	function directiveDefinitionObject(sidenavFactory, $log) {
 		var ddo = {
 			restrict: 'E',
 			scope: {
-				props: '='
+				props: '=',
+				sidenav: '=components'
 			},
 			controller: controllerFn,
 			controllerAs: 'vm',
@@ -26,7 +27,9 @@
 		}
 
 		function linkFn(scope, element, attr) {
-			scope.vm.props.sidenav = sidenavFactory(element);
+			// scope.vm.sidenav = {
+			// factory: sidenavFactory(element)
+			// };
 		}
 	}
 })();

@@ -2,19 +2,19 @@
 	'use strict';
 
 	angular.module('components.module')
-		.directive('jdtHomeToolbar', directiveDefinitionObject);
-
+		.directive('jdtBaseToolbar', directiveDefinitionObject);
 
 	function directiveDefinitionObject() {
 		var ddo = {
 			restrict: 'E',
 			scope: {
-				props: '='
+				props: '=',
+
 			},
 			controller: controllerFn,
 			controllerAs: 'vm',
 			bindToController: true,
-			templateUrl: 'app/components/toolbar/home/home.toolbar.html'
+			templateUrl: 'app/components/toolbar/base/base.toolbar.html'
 		};
 
 		return ddo;

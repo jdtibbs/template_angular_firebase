@@ -5,14 +5,15 @@
     angular.module('services.module')
         .factory('firebaseDaoOneToManyFactory', factoryFn);
 
-    factoryFn.$inject = ['firebaseService', 'routeParamsFactory', '$log', '$timeout'];
+    factoryFn.$inject = ['$firebaseArray', '$firebaseObject', 'firebaseService', 'routeParamsFactory', '$log'];
 
-    function factoryFn(firebaseService, routeParamsFactory, $log, $timeout) {
+    function factoryFn($firebaseArray, $firebaseObject, firebaseService, routeParamsFactory, $log) {
 
         function factory(oneConstant, manyConstant, feedback) {
             var oneRef = firebaseService.ref().child(oneConstant.dao);
             var manyRef = firebaseService.ref().child(manyConstant.dao);
-
+            var keyRef;
+            var doOff = false;
 
             var service = {
                 add: function(object, callback) {
@@ -38,7 +39,6 @@
                 remove: function(key) {
                     var oneKey = routeParamsFactory.getParam(oneConstant.dao);
                     var ref = firebaseService.ref();
-                    var newRef = ref.child(manyConstant.dao).push();
                     var newData = {};
                     newData[oneConstant.dao + '/' + oneKey + '/' + manyConstant.dao + '/' + key] = null;
                     newData[manyConstant.dao + '/' + key] = null;
@@ -53,31 +53,31 @@
                         }
                     }
                 },
-                syncArray: function(key, onAdd, onChange, onRemove) {
-                    var keyRef = oneRef
+                syncArray: function(key, data) {
+                    keyRef = oneRef
                         .child(key)
                         .child(manyConstant.dao);
 
-                    keyRef
-                        .orderByKey()
-                        .on('child_added',
-                            function(snap) {
-                                manyRef
-                                    .child(snap.key())
-                                    .once('value', onAdd, onError);
-                            },
-                            onError);
+                    var manyKeys = $firebaseArray(keyRef);
 
-                    keyRef
-                        .on('child_removed', onRemove, onError);
-
-                    manyRef
-                        .on('child_changed', onChange, onError);
-
-                    function onError(error) {
-                        $log.error(error);
-                        feedback.error('Error reading ' + oneConstant.title + ' & ' + manyConstant.title + '.');
-                    }
+                    manyKeys.$watch(function(event) {
+                        if (event.event === 'child_added') {
+                            $firebaseObject(manyRef.child(event.key)).$loaded()
+                                .then(function(obj) {
+                                    data.push(obj);
+                                }).catch(function(error) {
+                                    $log.error(error);
+                                    feedback.error('Error reading ' + oneConstant.title + ' & ' + manyConstant.title + '.');
+                                });
+                        }
+                        if (event.event === 'child_removed') {
+                            data.findIndex(function(obj, index, array) {
+                                if (obj.$id === event.key) {
+                                    array.splice(index, 1);
+                                }
+                            });
+                        }
+                    });
                 }
             };
             return service;

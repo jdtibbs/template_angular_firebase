@@ -4,9 +4,9 @@
 	angular.module('catalog.module')
 		.directive('jdtCatalogEdit', directiveFn);
 
-	directiveFn.$inject = ['baseEditControllerService', 'feedbackFactory', 'catalogConstants', 'catalogDaoFactory', 'catalogRouteFactory', 'firebaseDaoOneToManyFactory', 'vendorConstants', '$location', '$log', 'rx'];
+	directiveFn.$inject = ['editToolbarFactory', 'feedbackFactory', 'catalogConstants', 'catalogDaoFactory', 'catalogRouteFactory', 'firebaseDaoOneToManyFactory', 'vendorConstants', '$location', '$log', 'rx'];
 
-	function directiveFn(baseEditControllerService, feedbackFactory, catalogConstants, catalogDaoFactory, catalogRouteFactory, firebaseDaoOneToManyFactory, vendorConstants, $location, $log, rx) {
+	function directiveFn(editToolbarFactory, feedbackFactory, catalogConstants, catalogDaoFactory, catalogRouteFactory, firebaseDaoOneToManyFactory, vendorConstants, $location, $log, rx) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -23,7 +23,7 @@
 		function controllerFn() {
 			var vm = this;
 
-			baseEditControllerService.init(vm.props, catalogConstants, cancel);
+			vm.props.components = editToolbarFactory(catalogConstants, catalogRouteFactory);
 
 			// TODO: make factory to build this for all edit directives.
 

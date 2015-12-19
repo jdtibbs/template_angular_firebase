@@ -4,9 +4,9 @@
 	angular.module('login.module')
 		.directive('jdtLogin', directiveFn);
 
-	directiveFn.$inject = ['baseControllerService', 'feedbackFactory', '$log', 'loginConstants', 'loginService'];
+	directiveFn.$inject = ['baseToolbarFactory', 'feedbackFactory', '$log', 'loginConstants', 'loginService'];
 
-	function directiveFn(baseControllerService, feedbackFactory, $log, loginConstants, loginService) {
+	function directiveFn(baseToolbarFactory, feedbackFactory, $log, loginConstants, loginService) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -22,7 +22,9 @@
 		function controllerFn() {
 			var vm = this;
 
-			baseControllerService.init(vm.props, loginConstants);
+			// build up child component properties.
+			vm.props.components = baseToolbarFactory(loginConstants);
+			$log.debug(vm.props.components);
 
 			vm.login = login;
 			vm.forgot = forgot;

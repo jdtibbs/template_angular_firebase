@@ -1,3 +1,11 @@
+<div layout="row" ng-if="vm.props.tab.active.vendor">
+	<jdt-edit-toolbar flex props="vm.props"></jdt-edit-toolbar>
+</div>
+
+<div layout="row" ng-if="vm.props.tab.active.catalog">
+	<jdt-list-tab-toolbar flex props="vm.props"></jdt-list-tab-toolbar>
+</div>
+
 <div layout="row" flex>
 	<md-content layout-fill layout-padding>
 		<md-tabs md-dynamic-height="" md-border-bottom="">
@@ -19,8 +27,9 @@
 				</md-tab-label>
 				<md-tab-body>
 					<!-- <md-content ng-if="vm.tab.catalog.show"> -->
-					<jdt-catalog-list props="vm.props"></jdt-catalog-list>
-					<!-- </md-content> -->
+					<md-content>
+						<jdt-catalog-list props="vm.props"></jdt-catalog-list>
+					</md-content>
 				</md-tab-body>
 			</md-tab>
 		</md-tabs>

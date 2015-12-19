@@ -10,7 +10,7 @@
 		return {
 			restrict: 'E',
 			scope: {
-				props: '='
+				props: '=',
 			},
 			controller: controllerFn,
 			controllerAs: 'vm',
@@ -31,12 +31,12 @@
 			vm.menu.items.push(new Menu('Vendors', vendorConstants.path));
 
 			function click(path) {
-				vm.props.sidenav.close();
+				vm.props.components.sidenav.service.close();
 				$location.path(path);
 			}
 
 			function logout(path) {
-				vm.props.sidenav.close();
+				vm.props.components.sidenav.service.close();
 				loginService.logout();
 			}
 
