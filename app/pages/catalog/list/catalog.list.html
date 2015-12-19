@@ -1,6 +1,6 @@
 <md-list>
 	<md-list-item ng-repeat="catalog in vm.data | filter: vm.props.toolbar.props.search.value | orderBy: 'name' track by catalog.$id" ng-click="vm.edit(catalog.$id)">
-		<div layout="row" flex>
+		<div layout="row" flex layout-align="center center">
 			<div flex ng-bind="catalog.name"></div>
 			<div flex hide-sm ng-bind="catalog.description"></div>
 			<div flex hide-sm hide-md ng-bind="catalog.price"></div>
