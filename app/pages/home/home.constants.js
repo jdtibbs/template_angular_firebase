@@ -12,7 +12,10 @@
 
 		return {
 			path: function() {
-				return CATALOG_PATH;
+				return HOME_PATH;
+			},
+			title: function() {
+				return HOME_TITLE;
 			},
 			$get: function() {
 				return {

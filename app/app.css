@@ -8,4 +8,7 @@
 	list-style-type: none;
 	padding: 0px;
 }
+.jdt-inline-block {
+	display: inline-block;
+}
 

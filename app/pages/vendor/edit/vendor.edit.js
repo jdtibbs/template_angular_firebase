@@ -4,9 +4,9 @@
 	angular.module('vendor.module')
 		.directive('jdtVendorEdit', directiveFn);
 
-	directiveFn.$inject = ['baseEditControllerService', 'feedbackFactory', 'vendorConstants', 'vendorDaoFactory', 'vendorRouteFactory', '$location', '$log', 'rx'];
+	directiveFn.$inject = ['feedbackFactory', 'vendorConstants', 'vendorDaoFactory', 'vendorRouteFactory', '$location', '$log', 'rx'];
 
-	function directiveFn(baseEditControllerService, feedbackFactory, vendorConstants, vendorDaoFactory, vendorRouteFactory, $location, $log, rx) {
+	function directiveFn(feedbackFactory, vendorConstants, vendorDaoFactory, vendorRouteFactory, $location, $log, rx) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -22,8 +22,6 @@
 
 		function controllerFn() {
 			var vm = this;
-
-			baseEditControllerService.init(vm.props, vendorConstants, cancel);
 
 			// TODO: make factory to build this for all edit directives.
 

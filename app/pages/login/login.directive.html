@@ -1,8 +1,12 @@
+<div layout="row">
+	<jdt-base-toolbar flex props="vm.props" components="vm.props.components"></jdt-base-toolbar>
+</div>
+
 <form name="form" role="form" novalidate>
 	<div layout="row">
-		<md-input-container flex="66" flex-sm="100">
+		<md-input-container flex="55" flex-sm="100">
 			<label>Email</label>
-			<input name="email" type="email" ng-model="vm.email" required>
+			<input auto-focus name="email" type="email" ng-model="vm.email" required>
 			<div ng-show="form.email.$touched" ng-messages="form.email.$error">
 				<div ng-message="required">Required.</div>
 				<div ng-message="email">Invalid email.</div>
@@ -11,7 +15,7 @@
 	</div>
 
 	<div layout="row">
-		<md-input-container flex="66" flex-sm="100">
+		<md-input-container flex="55" flex-sm="100">
 			<label>Password</label>
 			<input name="password" type="password" ng-model="vm.password" required>
 			<div ng-show="form.password.$touched" ng-messages="form.password.$error">

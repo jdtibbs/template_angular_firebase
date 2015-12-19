@@ -5,7 +5,7 @@
 		.directive('jdtSettings', directiveFn);
 
 	function directiveFn() {
-		var ddo = {
+		return {
 			restrict: 'E',
 			scope: {
 				props: '='
@@ -15,16 +15,15 @@
 			bindToController: true,
 			templateUrl: 'app/pages/settings/settings.directive.html'
 		};
+	}
 
-		controllerFn.$inject = ['baseEditControllerService', 'settingsConstants', 'settingsRouteFactory'];
+	controllerFn.$inject = ['baseToolbarFactory', 'settingsConstants', '$log'];
 
-		return ddo;
+	function controllerFn(baseToolbarFactory, settingsConstants, $log) {
+		var vm = this;
 
-		function controllerFn(baseEditControllerService, settingsConstants, settingsRouteFactory) {
-			var vm = this;
-
-			baseEditControllerService.init(vm.props, settingsConstants, settingsRouteFactory);
-
-		}
+		// build up child component properties.
+		vm.props.components = baseToolbarFactory(settingsConstants);
+		$log.debug(vm.props.components);
 	}
 })();

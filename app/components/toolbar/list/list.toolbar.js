@@ -2,23 +2,21 @@
 	'use strict';
 
 	angular.module('components.module')
-		.directive('jdtEditToolbar', directiveFn);
-
+		.directive('jdtListToolbar', directiveFn);
 
 	function directiveFn() {
-		var ddo = {
+		return {
 			restrict: 'E',
 			scope: {
-				props: '='
+				props: '=',
+
 			},
 			controller: controllerFn,
 			controllerAs: 'vm',
 			bindToController: true,
-			templateUrl: 'app/components/toolbar/edit/edit.toolbar.html'
+			templateUrl: 'app/components/toolbar/list/list.toolbar.html'
 		};
-
-		return ddo;
-
-		function controllerFn() {}
 	}
+
+	function controllerFn() {}
 })();

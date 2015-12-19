@@ -4,9 +4,9 @@
 	angular.module('login.module')
 		.directive('jdtVendorList', directiveFn);
 
-	directiveFn.$inject = ['baseListControllerService', 'feedbackFactory', 'vendorConstants', 'vendorDaoFactory', 'vendorRouteFactory', '$location', '$log', 'rx'];
+	directiveFn.$inject = ['listToolbarFactory', 'feedbackFactory', 'vendorConstants', 'vendorDaoFactory', 'vendorRouteFactory', '$location', '$log', 'rx'];
 
-	function directiveFn(baseListControllerService, feedbackFactory, vendorConstants, vendorDaoFactory, vendorRouteFactory, $location, $log, rx) {
+	function directiveFn(listToolbarFactory, feedbackFactory, vendorConstants, vendorDaoFactory, vendorRouteFactory, $location, $log, rx) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -15,17 +15,22 @@
 			controller: controllerFn,
 			controllerAs: 'vm',
 			bindToController: true,
-			link: linkFn,
 			templateUrl: 'app/pages/vendor/list/vendor.list.html'
 		};
 
 		function controllerFn() {
 			var vm = this;
 
-			delete vm.props.tab.active.catalog;
-			delete vm.props.tab.active.vendor;
+			vm.props.tab = {
+				active: {
+					catalog: false,
+					vendor: false
+				}
+			};
 
-			baseListControllerService.init(vm.props, vendorConstants, vendorRouteFactory);
+			// build up child component properties.
+			vm.props.components = listToolbarFactory(vendorConstants, vendorRouteFactory);
+			$log.debug(vm.props.components);
 
 			vm.remove = remove;
 			vm.edit = edit;
@@ -52,6 +57,7 @@
 			}
 
 			function remove(key, event) {
+				// TODO, remove this vendor's catalog data.
 				event.stopPropagation();
 				var fn = rx.Observable.fromCallback(vendorDaoFactory.remove);
 				fn(key, feedback).subscribe(onNextRemove, onErrorRemove);
@@ -64,7 +70,5 @@
 				}
 			}
 		}
-
-		function linkFn(scope, elem, attrs) {}
 	}
 })();

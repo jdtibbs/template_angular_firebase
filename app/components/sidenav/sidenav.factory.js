@@ -9,16 +9,14 @@
 
 	function factoryFn($mdSidenav) {
 
-		function factory(element) {
-
-			var sidenav = angular.element(element[0]).find('md-sidenav')[0].attributes.getNamedItem('md-component-id').value;
+		function factory() {
+			var sidenav = 'sidenav';
 			var service = {
-				id: sidenav,
 				toggle: function() {
-					$mdSidenav(this.id).toggle();
+					$mdSidenav(sidenav).toggle();
 				},
 				close: function() {
-					$mdSidenav(this.id).close();
+					$mdSidenav(sidenav).close();
 				}
 			};
 			return service;
