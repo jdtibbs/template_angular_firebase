@@ -4,18 +4,17 @@
 	angular.module('components.module')
 		.directive('jdtMenu', directiveFn);
 
-	directiveFn.$inject = ['vendorConstants', 'loginService', '$location', '$log', '$mdSidenav'];
+	directiveFn.$inject = ['vendorConstants', 'loginService', '$location', '$log'];
 
-	function directiveFn(vendorConstants, loginService, $location, $log, $mdSidenav) {
+	function directiveFn(vendorConstants, loginService, $location, $log) {
 		return {
 			restrict: 'E',
 			scope: {
-				props: '=',
+				props: '='
 			},
 			controller: controllerFn,
 			controllerAs: 'vm',
 			bindToController: true,
-			link: linkFn,
 			templateUrl: 'app/components/menu/menu.directive.html'
 		};
 
@@ -45,7 +44,5 @@
 				this.path = path;
 			}
 		}
-
-		function linkFn(scope, elem, attrs) {}
 	}
 })();

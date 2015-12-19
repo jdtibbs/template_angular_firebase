@@ -5,9 +5,9 @@
     angular.module('components.module')
         .factory('listToolbarFactory', factoryFn);
 
-    factoryFn.$inject = ['sidenavFactory', '$location', '$log'];
+    factoryFn.$inject = ['sidenavFactory', '$location'];
 
-    function factoryFn(sidenavFactory, $location, $log) {
+    function factoryFn(sidenavFactory, $location) {
 
         function factory(constants, routeFactory) {
             var components = {

@@ -2,11 +2,9 @@
 	'use strict';
 
 	angular.module('components.module')
-		.directive('jdtView', directiveDefinitionObject);
+		.directive('jdtView', directiveFn);
 
-	directiveDefinitionObject.$inject = [];
-
-	function directiveDefinitionObject() {
+	function directiveFn() {
 		var ddo = {
 			restrict: 'E',
 			scope: {
@@ -15,14 +13,11 @@
 			controller: controllerFn,
 			controllerAs: 'vm',
 			bindToController: true,
-			link: linkFn,
 			templateUrl: 'app/components/view/view.html'
 		};
 
 		return ddo;
 
 		function controllerFn() {}
-
-		function linkFn(scope, elem, attrs) {}
 	}
 })();

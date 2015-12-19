@@ -8,8 +8,7 @@
 		return {
 			restrict: 'E',
 			scope: {
-				props: '=',
-
+				props: '='
 			},
 			controller: controllerFn,
 			controllerAs: 'vm',
@@ -18,7 +17,5 @@
 		};
 	}
 
-	function controllerFn() {
-		var vm = this;
-	}
+	function controllerFn() {}
 })();

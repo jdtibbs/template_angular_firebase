@@ -2,14 +2,13 @@
 	'use strict';
 
 	angular.module('components.module')
-		.directive('jdtToolbarTitle', directiveDefinitionObject);
+		.directive('jdtToolbarTitle', directiveFn);
 
-	function directiveDefinitionObject() {
+	function directiveFn() {
 		var ddo = {
 			restrict: 'E',
 			scope: {
-				props: '=',
-
+				props: '='
 			},
 			controller: controllerFn,
 			controllerAs: 'vm',

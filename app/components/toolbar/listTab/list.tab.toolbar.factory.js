@@ -5,9 +5,9 @@
     angular.module('components.module')
         .factory('listTabToolbarFactory', factoryFn);
 
-    factoryFn.$inject = ['sidenavFactory', '$location', '$log'];
+    factoryFn.$inject = ['sidenavFactory', '$location'];
 
-    function factoryFn(sidenavFactory, $location, $log) {
+    function factoryFn(sidenavFactory, $location) {
 
         function factory(constants, editRouteFactory, listRouteFactory) {
             var components = {
@@ -19,9 +19,9 @@
                 sidenav: {
                     service: sidenavFactory()
                 },
-                // menu: {
-                // items: ['a', 'b']
-                // },
+                menu: {
+                    items: ['a', 'b']
+                },
                 buttons: {
                     add: function() {
                         $location.path(listRouteFactory.addRoute());

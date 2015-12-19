@@ -2,34 +2,22 @@
 	'use strict';
 
 	angular.module('components.module')
-		.directive('jdtSidenav', directiveDefinitionObject);
+		.directive('jdtSidenav', directiveFn);
 
-	directiveDefinitionObject.$inject = ['sidenavFactory', '$log'];
-
-	function directiveDefinitionObject(sidenavFactory, $log) {
+	function directiveFn() {
 		var ddo = {
 			restrict: 'E',
 			scope: {
-				props: '=',
-				sidenav: '=components'
+				props: '='
 			},
 			controller: controllerFn,
 			controllerAs: 'vm',
 			bindToController: true,
-			link: linkFn,
 			templateUrl: 'app/components/sidenav/sidenav.html'
 		};
 
 		return ddo;
 
-		function controllerFn() {
-			var vm = this;
-		}
-
-		function linkFn(scope, element, attr) {
-			// scope.vm.sidenav = {
-			// factory: sidenavFactory(element)
-			// };
-		}
+		function controllerFn() {}
 	}
 })();

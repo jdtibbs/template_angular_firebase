@@ -2,15 +2,14 @@
 	'use strict';
 
 	angular.module('components.module')
-		.directive('jdtEditToolbar', directiveDefinitionObject);
+		.directive('jdtEditToolbar', directiveFn);
 
 
-	function directiveDefinitionObject() {
+	function directiveFn() {
 		var ddo = {
 			restrict: 'E',
 			scope: {
-				props: '=',
-
+				props: '='
 			},
 			controller: controllerFn,
 			controllerAs: 'vm',
@@ -18,12 +17,8 @@
 			templateUrl: 'app/components/toolbar/edit/edit.toolbar.html'
 		};
 
-		controllerFn.$inject = ['$location'];
-
 		return ddo;
 
-		function controllerFn($location) {
-			var vm = this;
-		}
+		function controllerFn() {}
 	}
 })();

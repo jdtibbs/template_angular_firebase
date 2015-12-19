@@ -18,7 +18,5 @@
 		};
 	}
 
-	function controllerFn() {
-		var vm = this;
-	}
+	function controllerFn() {}
 })();

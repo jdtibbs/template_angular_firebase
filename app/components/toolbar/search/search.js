@@ -2,11 +2,9 @@
 	'use strict';
 
 	angular.module('components.module')
-		.directive('jdtToolbarSearch', directiveDefinitionObject);
+		.directive('jdtToolbarSearch', directiveFn);
 
-	directiveDefinitionObject.$inject = ['$log'];
-
-	function directiveDefinitionObject($log) {
+	function directiveFn() {
 		var ddo = {
 			restrict: 'E',
 			scope: {
@@ -15,7 +13,6 @@
 			controller: controllerFn,
 			controllerAs: 'vm',
 			bindToController: true,
-			link: linkFn,
 			templateUrl: 'app/components/toolbar/search/search.html'
 		};
 
@@ -36,7 +33,5 @@
 				vm.showClear = false;
 			};
 		}
-
-		function linkFn(scope, elem, attrs) {}
 	}
 })();

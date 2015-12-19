@@ -15,7 +15,6 @@
 			controller: controllerFn,
 			controllerAs: 'vm',
 			bindToController: true,
-			link: linkFn,
 			templateUrl: 'app/pages/vendor/list/vendor.list.html'
 		};
 
@@ -58,6 +57,7 @@
 			}
 
 			function remove(key, event) {
+				// TODO, remove this vendor's catalog data.
 				event.stopPropagation();
 				var fn = rx.Observable.fromCallback(vendorDaoFactory.remove);
 				fn(key, feedback).subscribe(onNextRemove, onErrorRemove);
@@ -70,7 +70,5 @@
 				}
 			}
 		}
-
-		function linkFn(scope, elem, attrs) {}
 	}
 })();

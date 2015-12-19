@@ -15,7 +15,6 @@
 			controller: controllerFn,
 			controllerAs: 'vm',
 			bindToController: true,
-			link: linkFn,
 			templateUrl: 'app/pages/login/login.directive.html'
 		};
 
@@ -43,7 +42,5 @@
 			}
 
 		}
-
-		function linkFn(scope, elem, attrs) {}
 	}
 })();

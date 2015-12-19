@@ -13,8 +13,7 @@
 			controller: controllerFn,
 			controllerAs: 'vm',
 			bindToController: {
-				props: '=',
-
+				props: '='
 			},
 			templateUrl: 'app/pages/home/home.directive.html'
 		};
@@ -27,7 +26,6 @@
 
 		// build up child component properties.
 		vm.props.components = baseToolbarFactory(homeConstants);
-		$log.debug(vm.props.components);
 	}
 
 })();

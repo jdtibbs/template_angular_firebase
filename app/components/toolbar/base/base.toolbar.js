@@ -2,9 +2,9 @@
 	'use strict';
 
 	angular.module('components.module')
-		.directive('jdtBaseToolbar', directiveDefinitionObject);
+		.directive('jdtBaseToolbar', directiveFn);
 
-	function directiveDefinitionObject() {
+	function directiveFn() {
 		var ddo = {
 			restrict: 'E',
 			scope: {
@@ -19,8 +19,6 @@
 
 		return ddo;
 
-		function controllerFn() {
-			var vm = this;
-		}
+		function controllerFn() {}
 	}
 })();

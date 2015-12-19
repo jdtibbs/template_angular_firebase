@@ -4,9 +4,9 @@
 	angular.module('login.module')
 		.directive('jdtCatalogList', directiveFn);
 
-	directiveFn.$inject = ['firebaseDaoOneToManyFactory', 'baseTabListControllerService', 'feedbackFactory', 'catalogConstants', 'catalogRouteFactory', 'vendorConstants', '$location', '$log', '$timeout', 'rx'];
+	directiveFn.$inject = ['firebaseDaoOneToManyFactory', 'feedbackFactory', 'catalogConstants', 'catalogRouteFactory', 'vendorConstants', '$location', '$log'];
 
-	function directiveFn(firebaseDaoOneToManyFactory, baseTabListControllerService, feedbackFactory, catalogConstants, catalogRouteFactory, vendorConstants, $location, $log, $timeout, rx) {
+	function directiveFn(firebaseDaoOneToManyFactory, feedbackFactory, catalogConstants, catalogRouteFactory, vendorConstants, $location, $log) {
 		return {
 			restrict: 'E',
 			scope: {

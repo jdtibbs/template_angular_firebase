@@ -5,9 +5,9 @@
     angular.module('components.module')
         .factory('baseToolbarFactory', factoryFn);
 
-    factoryFn.$inject = ['sidenavFactory', '$log'];
+    factoryFn.$inject = ['sidenavFactory'];
 
-    function factoryFn(sidenavFactory, $log) {
+    function factoryFn(sidenavFactory) {
 
         function factory(constants) {
             var components = {

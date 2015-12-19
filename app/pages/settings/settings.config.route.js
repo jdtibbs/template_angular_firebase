@@ -3,6 +3,7 @@
     'use strict';
     angular.module('settings.module')
         .config(config);
+
     config.$inject = ['$routeProvider'];
 
     function config($routeProvider) {
