@@ -17,7 +17,7 @@
                     var async = function() {
                         return $firebaseArray(ref).$add(object);
                     };
-                    var onNext = function() {
+                    var onNext = function(ref) {
                         if (callback !== undefined) {
                             callback(ref);
                         }

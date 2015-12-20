@@ -2,31 +2,30 @@
 	'use strict';
 
 	angular.module('components.module')
-		.directive('jdtHome', directiveDefinitionObject);
+		.directive('jdtHome', directiveFn);
 
-	directiveDefinitionObject.$inject = ['$log', 'baseControllerService', 'homeConstants'];
-
-	function directiveDefinitionObject($log, baseControllerService, homeConstants) {
-		var ddo = {
+	function directiveFn() {
+		return {
 			restrict: 'E',
 			scope: {
-				props: '='
+				// 	TODO move to bindToController.
 			},
 			controller: controllerFn,
 			controllerAs: 'vm',
-			bindToController: true,
-			link: linkFn,
+			bindToController: {
+				props: '='
+			},
 			templateUrl: 'app/pages/home/home.directive.html'
 		};
-
-		return ddo;
-
-		function controllerFn() {
-			var vm = this;
-
-			baseControllerService.init(vm.props, homeConstants);
-		}
-
-		function linkFn(scope, elem, attrs) {}
 	}
+
+	controllerFn.$inject = ['baseToolbarFactory', 'homeConstants', '$log'];
+
+	function controllerFn(baseToolbarFactory, homeConstants, $log) {
+		var vm = this;
+
+		// build up child component properties.
+		vm.props.components = baseToolbarFactory(homeConstants);
+	}
+
 })();

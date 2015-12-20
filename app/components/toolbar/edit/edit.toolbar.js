@@ -2,11 +2,10 @@
 	'use strict';
 
 	angular.module('components.module')
-		.directive('jdtTitle', directiveDefinitionObject);
+		.directive('jdtEditToolbar', directiveFn);
 
-	directiveDefinitionObject.$inject = [];
 
-	function directiveDefinitionObject() {
+	function directiveFn() {
 		var ddo = {
 			restrict: 'E',
 			scope: {
@@ -15,14 +14,11 @@
 			controller: controllerFn,
 			controllerAs: 'vm',
 			bindToController: true,
-			link: linkFn,
-			templateUrl: 'app/components/title/title.html'
+			templateUrl: 'app/components/toolbar/edit/edit.toolbar.html'
 		};
 
 		return ddo;
 
 		function controllerFn() {}
-
-		function linkFn(scope, elem, attrs) {}
 	}
 })();

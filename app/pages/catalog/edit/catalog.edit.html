@@ -1,7 +1,7 @@
 <div layout="row" layout-sm="column">
 	<md-input-container flex>
 		<label>Item Name</label>
-		<input name="itemName" type="text" ng-model="vm.model.name" required ng-maxlength="50">
+		<input auto-focus name="itemName" type="text" ng-model="vm.model.name" required ng-maxlength="50">
 		<div ng-show="vm.form.itemName.$touched" ng-messages="vm.form.itemName.$error">
 			<div ng-message="required">Required</div>
 			<div ng-message="maxlength">Must not exceed 50 characters.</div>

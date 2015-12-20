@@ -1,17 +1,16 @@
-<div ng-repeat="catalog in vm.data | filter: vm.props.toolbar.props.search.value | orderBy: 'name' track by catalog.$id">
-	<md-list-item aria-label="catalog" ng-click="vm.edit(catalog.$id)">
-		<div layout="row" layout-sm="column" flex>
+<md-list>
+	<md-list-item ng-repeat="catalog in vm.data | filter: vm.props.toolbar.props.search.value | orderBy: 'name' track by catalog.$id" ng-click="vm.edit(catalog.$id)">
+		<div layout="row" flex layout-align="center center">
 			<div flex ng-bind="catalog.name"></div>
-			<div flex ng-bind="catalog.description"></div>
-			<div flex ng-bind="catalog.price"></div>
-			<div flex ng-bind="catalog.units"></div>
-			<div flex></div>
+			<div flex hide-sm ng-bind="catalog.description"></div>
+			<div flex hide-sm hide-md ng-bind="catalog.price"></div>
+			<div flex hide-sm hide-md ng-bind="catalog.units"></div>
+			<md-button class="md-fab md-accent" ng-click="vm.remove(catalog.$id, $event)" aria-label="Remove">
+				<md-icon class="material-icons">remove</md-icon>
+			</md-button>
 		</div>
-		<md-button class="md-fab md-accent" ng-click="vm.remove(catalog.$id, $event)" aria-label="Remove">
-			<md-icon class="material-icons">remove</md-icon>
-		</md-button>
+		<md-divider ng-if="!$last"></md-divider>
 	</md-list-item>
-	<md-divider ng-if="!$last"></md-divider>
-</div>
+</md-list>
 
 <jdt-feedback feedback="vm.feedback"></jdt-feedback>

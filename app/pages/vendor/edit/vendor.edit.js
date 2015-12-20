@@ -4,9 +4,9 @@
 	angular.module('vendor.module')
 		.directive('jdtVendorEdit', directiveFn);
 
-	directiveFn.$inject = ['baseEditControllerService', 'feedbackFactory', 'vendorConstants', 'vendorDaoFactory', 'vendorRouteFactory', '$location', '$log', 'rx'];
+	directiveFn.$inject = ['feedbackFactory', 'vendorConstants', 'vendorDaoFactory', 'vendorRouteFactory', '$location', '$log', '$route', 'rx'];
 
-	function directiveFn(baseEditControllerService, feedbackFactory, vendorConstants, vendorDaoFactory, vendorRouteFactory, $location, $log, rx) {
+	function directiveFn(feedbackFactory, vendorConstants, vendorDaoFactory, vendorRouteFactory, $location, $log, $route, rx) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -22,8 +22,6 @@
 
 		function controllerFn() {
 			var vm = this;
-
-			baseEditControllerService.init(vm.props, vendorConstants, cancel);
 
 			// TODO: make factory to build this for all edit directives.
 
@@ -43,6 +41,9 @@
 					fn(vendorKey, feedback).subscribe(onNext, onError);
 				} else {
 					vm.add = true;
+					vm.props.tab.disable = {
+						catalog: true
+					};
 					vm.model = {};
 				}
 
@@ -58,7 +59,7 @@
 
 			function cancel() {
 				feedback.init();
-				$location.path(vendorConstants.path);
+				$location.path(vendorRouteFactory.listRoute());
 			}
 
 			function save() {
@@ -72,8 +73,17 @@
 				fn(vm.model, feedback).subscribe(onNext, onError);
 
 				function onNext(ref) {
-					// $log.debug('saved:');
-					// $log.debug(ref);
+					vm.props.tab.disable = {
+						catalog: false
+					};
+					// set parent key for use in routeParam in child view.
+					vm.props.parent = {
+						keys: {
+							vendor: ref.key()
+						}
+					};
+					// to cause vendor key into routeParam for use in adding child data.
+					// $location.path(vendorRouteFactory.editRoute(ref.key()));
 				}
 
 				function onError(error) {

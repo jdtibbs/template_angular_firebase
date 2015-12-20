@@ -1,0 +1,41 @@
+<md-toolbar class="md-primary">
+
+	<!-- medium and larger displays -->
+	<div layout="row" hide-sm class="md-toolbar-tools">
+
+		<div ng-click="vm.props.components.buttons.cancel()" style="cursor: pointer;">
+			<md-icon class="material-icons">arrow_back</md-icon>
+			<jdt-toolbar-title props="vm.props" class="jdt-inline-block"></jdt-toolbar-title>
+		</div>
+
+		<div flex></div>
+
+		<jdt-toolbar-search props="vm.props"></jdt-toolbar-search>
+
+		<jdt-toolbar-add props="vm.props"></jdt-toolbar-add>
+
+	</div>
+
+	<!-- small displays -->
+	<div layout="column" hide-gt-sm class="md-toolbar-tools">
+
+		<div ng-click="vm.props.components.buttons.cancel()" style="cursor: pointer;">
+			<md-icon class="material-icons">arrow_back</md-icon>
+			<jdt-toolbar-title props="vm.props" class="jdt-inline-block"></jdt-toolbar-title>
+		</div>
+
+	</div>
+
+	<div layout="column" hide-gt-sm class="md-toolbar-tools">
+
+		<div flex></div>
+
+		<jdt-toolbar-search props="vm.props"></jdt-toolbar-search>
+
+		<jdt-toolbar-add props="vm.props"></jdt-toolbar-add>
+
+	</div>
+</md-toolbar>
+
+
+<jdt-sidenav props="vm.props" </jdt-sidenav>
