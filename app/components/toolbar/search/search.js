@@ -20,17 +20,9 @@
 
 		function controllerFn() {
 			var vm = this;
-			vm.showClear = false;
-
-			vm.change = function() {
-				if (vm.props.toolbar.props.search.value) {
-					vm.showClear = true;
-				}
-			};
 
 			vm.clear = function() {
-				vm.props.toolbar.props.search.value = '';
-				vm.showClear = false;
+				vm.props.components.toolbar.search.value = '';
 			};
 		}
 	}

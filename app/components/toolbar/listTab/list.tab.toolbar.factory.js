@@ -14,6 +14,9 @@
                 toolbar: {
                     title: {
                         text: constants.title
+                    },
+                    search: {
+                        value: ''
                     }
                 },
                 sidenav: {

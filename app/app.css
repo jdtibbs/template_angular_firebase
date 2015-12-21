@@ -11,4 +11,17 @@
 .jdt-inline-block {
 	display: inline-block;
 }
+.jdt-search-container {
+	position: relative;
+}
+.jdt-search-input {
+	/*z-index: 1*/
+}
+.jdt-search-clear {
+	cursor: pointer;
+	position: absolute;
+	right: 3px;
+	top: 3px;
+	/*z-index: 9;*/
+}
 

@@ -1,6 +1,5 @@
-<md-button ng-show="vm.showClear" ng-click="vm.clear()" class="md-icon-button" aria-label="Add ">
-	<md-icon style="color:white;" class="material-icons">clear</md-icon>
-</md-button>
-
-<input ng-blur="vm.props.toolbar.service.search.blur()" ng-change="vm.change()" type="text " ng-model="vm.props.toolbar.props.search.value
- " ng-model-options="{debounce: 600}" placeholder="Search">
+<div class="jdt-search-container">
+	<input flex class="jdt-search-input" ng-change="vm.change()" type="search " ng-model="vm.props.components.toolbar.search.value
+ " ng-model-options="{debounce: 500}" placeholder="Search" />
+	<md-icon class="material-icons jdt-search-clear" style="color:black;" ng-click="vm.clear()" ng-show="vm.props.components.toolbar.search.value">clear</md-icon>
+</div>
