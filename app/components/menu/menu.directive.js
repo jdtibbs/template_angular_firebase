@@ -4,9 +4,9 @@
 	angular.module('components.module')
 		.directive('jdtMenu', directiveFn);
 
-	directiveFn.$inject = ['vendorConstants', 'loginService', '$location', '$log'];
+	directiveFn.$inject = ['loginService', 'restConstants', 'vendorConstants', '$location', '$log'];
 
-	function directiveFn(vendorConstants, loginService, $location, $log) {
+	function directiveFn(loginService, restConstants, vendorConstants, $location, $log) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -26,8 +26,9 @@
 				items: []
 			};
 
-			// TODO remove temp menu item.
+			// TODO move temp menu items to DB driven.
 			vm.menu.items.push(new Menu('Vendors', vendorConstants.path));
+			vm.menu.items.push(new Menu('RESTful', restConstants.path));
 
 			function click(path) {
 				vm.props.components.sidenav.service.close();

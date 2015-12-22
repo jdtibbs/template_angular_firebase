@@ -1,7 +1,7 @@
 (function() {
 	'use strict';
 
-	angular.module('components.module')
+	angular.module('home.module')
 		.directive('jdtHome', directiveFn);
 
 	function directiveFn() {
