@@ -19,18 +19,27 @@
 		};
 	}
 
-	controllerFn.$inject = ['baseToolbarFactory', 'restConstants', '$resource', '$log'];
+	controllerFn.$inject = ['baseToolbarFactory', 'feedbackFactory', 'restConstants', '$resource', '$log'];
 
-	function controllerFn(baseToolbarFactory, restConstants, $resource, $log) {
+	function controllerFn(baseToolbarFactory, feedbackFactory, restConstants, $resource, $log) {
 		var vm = this;
 
 		// build up child component properties.
 		vm.props.components = baseToolbarFactory(restConstants);
 
-		var rest = $resource('http://localhost:3000');
-		rest.get().$promise.then(function(result) {
-			$log.debug(result);
-		});
+		vm.feedback = {};
+		var feedback = feedbackFactory(vm.feedback);
+
+		var resource = $resource('http://localhost:3000');
+		resource.get()
+			.$promise
+			.then(function(result) {
+				$log.debug(result);
+				vm.model = result.payload;
+			}, function(error) {
+				$log.error(error);
+				feedback.error('Error executing RESTful service.');
+			});
 
 	}
 

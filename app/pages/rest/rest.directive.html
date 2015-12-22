@@ -2,6 +2,14 @@
 	<jdt-base-toolbar flex props="vm.props"></jdt-base-toolbar>
 </div>
 
-<div layout="row">
-	{{vm.value}}
+<div ng-repeat="user in vm.model | filter: vm.props.components.toolbar.search.value | orderBy: 'name' track by $index">
+	<md-list-item aria-label="user">
+		<div layout="row" flex layout-align="center center">
+			<div flex ng-bind="user.name"></div>
+			<div flex hide-sm ng-bind="user.role"></div>
+		</div>
+	</md-list-item>
+	<md-divider ng-if="!$last"></md-divider>
 </div>
+
+<jdt-feedback feedback="vm.feedback"></jdt-feedback>
