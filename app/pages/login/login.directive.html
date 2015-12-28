@@ -4,7 +4,7 @@
 
 <form name="form" role="form" novalidate>
 	<div layout="row">
-		<md-input-container flex="55" flex-sm="100">
+		<md-input-container flex="50" flex-sm="100">
 			<label>Email</label>
 			<input auto-focus name="email" type="email" ng-model="vm.email" required>
 			<div ng-show="form.email.$touched" ng-messages="form.email.$error">
@@ -15,7 +15,7 @@
 	</div>
 
 	<div layout="row">
-		<md-input-container flex="55" flex-sm="100">
+		<md-input-container flex="50" flex-sm="100">
 			<label>Password</label>
 			<input name="password" type="password" ng-model="vm.password" required>
 			<div ng-show="form.password.$touched" ng-messages="form.password.$error">

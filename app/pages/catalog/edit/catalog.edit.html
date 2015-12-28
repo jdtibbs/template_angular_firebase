@@ -1,5 +1,5 @@
 <div layout="row" layout-sm="column">
-	<md-input-container flex>
+	<md-input-container flex="50" flex-sm="100">
 		<label>Item Name</label>
 		<input auto-focus name="itemName" type="text" ng-model="vm.model.name" required ng-maxlength="50">
 		<div ng-show="vm.form.itemName.$touched" ng-messages="vm.form.itemName.$error">
@@ -11,7 +11,7 @@
 </div>
 
 <div layout="row" layout-sm="column">
-	<md-input-container flex>
+	<md-input-container flex="50" flex-sm="100">
 		<label>Description</label>
 		<input name="description" type="text" ng-model="vm.model.description" required ng-maxlength="50">
 		<div ng-show="vm.form.description.$touched" ng-messages="vm.form.description.$error">
@@ -23,7 +23,7 @@
 </div>
 
 <div layout="row" layout-sm="column">
-	<md-input-container flex>
+	<md-input-container flex="25" flex-sm="50">
 		<label>Price</label>
 		<input name="price" type="number" ng-model="vm.model.price" required>
 		<div ng-show="vm.form.price.$touched" ng-messages="vm.form.price.$error">
@@ -31,7 +31,7 @@
 		</div>
 	</md-input-container>
 
-	<md-input-container flex>
+	<md-input-container flex="25" flex-sm="50">
 		<label>Price per</label>
 		<input name="units" type="text" ng-model="vm.model.units" required ng-maxlength="25">
 		<div ng-show="vm.form.units.$touched" ng-messages="vm.form.units.$error">
