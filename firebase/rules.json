@@ -1,5 +1,31 @@
 {
   "rules": {
+    "catalog": {
+      ".read": "auth.uid !== null",
+      ".write": "auth.uid !== null",
+      "$catalog_id": {
+        ".validate": "newData.hasChildren(['description','name','price','units'])",
+        "name": {
+          ".validate": "newData.isString() && newData.val().length <= 50"
+        },
+        "description": {
+          ".validate": "newData.isString() && newData.val().length <= 50"
+        },
+        "price": {
+          ".validate": "newData.isNumber()"
+        },
+        "units": {
+          ".validate": "newData.isString() && newData.val().length <= 25"
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    },
+    "menu": {
+      ".read": "auth.uid !== null",
+      ".write": "auth.uid !== null"
+    },
     "profile": {
       ".read": "auth.uid !== null",
       "$profile_id": {
@@ -10,6 +36,28 @@
         },
         "lastName": {
           ".validate": "newData.isString() && newData.val().length <= 50"
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    },
+    "vendor": {
+      ".read": "auth.uid !== null",
+      ".write": "auth.uid !== null",
+      "$vendor_id": {
+        ".validate": "newData.hasChildren(['contactName','contactPhone','vendorName'])",
+        "contactName": {
+          ".validate": "newData.isString() && newData.val().length <= 50"
+        },
+        "contactPhone": {
+          ".validate": "newData.isString() && newData.val().length <= 16"
+        },
+        "vendorName": {
+          ".validate": "newData.isString() && newData.val().length <= 50"
+        },
+        "catalog": {
+          ".validate": true
         },
         "$other": {
           ".validate": false
