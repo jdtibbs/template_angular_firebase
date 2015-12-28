@@ -30,7 +30,8 @@
 		vm.feedback = {};
 		var feedback = feedbackFactory(vm.feedback);
 
-		var resource = $resource('http://localhost:3000');
+		// TODO do not hard code $resource url.
+		var resource = $resource('https://template-restful.herokuapp.com');
 		resource.get()
 			.$promise
 			.then(function(result) {
