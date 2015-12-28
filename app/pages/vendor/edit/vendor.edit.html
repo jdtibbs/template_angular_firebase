@@ -1,5 +1,5 @@
 <div layout="row" layout-sm="column">
-	<md-input-container flex>
+	<md-input-container flex="50" flex-sm="100">
 		<label>Vendor Name</label>
 		<input auto-focus name="vendorName" type="text" ng-model="vm.model.vendorName" required ng-maxlength="50">
 		<div ng-show="vm.form.vendorName.$touched" ng-messages="vm.form.vendorName.$error">
@@ -11,7 +11,7 @@
 </div>
 
 <div layout="row" layout-sm="column">
-	<md-input-container flex>
+	<md-input-container flex="25" flex-sm="50">
 		<label>Contact Name</label>
 		<input name="contactName" type="text" ng-model="vm.model.contactName" required ng-maxlength="50">
 		<div ng-show="vm.form.contactName.$touched" ng-messages="vm.form.contactName.$error">
@@ -20,7 +20,7 @@
 		</div>
 	</md-input-container>
 
-	<md-input-container flex>
+	<md-input-container flex="25" flex-sm="50">
 		<label>Contact Phone</label>
 		<input name="contactPhone" type="tel" ng-model="vm.model.contactPhone" required ng-maxlength="14">
 		<div ng-show="vm.form.contactPhone.$touched" ng-messages="vm.form.contactPhone.$error">

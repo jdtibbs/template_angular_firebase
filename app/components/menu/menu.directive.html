@@ -6,7 +6,7 @@
 	</md-menu-item>
 
 	<span ng-show="vm.props.authData">
-		<md-menu-item ng-repeat="menu in vm.menu.items">
+		<md-menu-item ng-repeat="menu in vm.menu.items track by $index">
 			<md-button ng-click="vm.click(menu.path)" class="md-primary">
 				{{menu.title}}
 			</md-button>
