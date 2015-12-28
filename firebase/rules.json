@@ -15,6 +15,18 @@
           ".validate": false
         }
       }
+    },
+    "menu": {
+      ".read": "auth.uid !== null",
+      ".write": "auth.uid !== null"
+    },
+    "vendor": {
+      ".read": "auth.uid !== null",
+      ".write": "auth.uid !== null"
+    },
+    "catalog": {
+      ".read": "auth.uid !== null",
+      ".write": "auth.uid !== null"
     }
   }
 }
