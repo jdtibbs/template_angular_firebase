@@ -5,31 +5,57 @@
     angular.module('services.module')
         .factory('firebaseDaoFactory', factoryFn);
 
-    factoryFn.$inject = ['$firebaseArray', '$firebaseObject', 'firebaseService', '$log', 'rx'];
+    factoryFn.$inject = ['$firebaseArray', '$firebaseObject', 'firebaseRulesFactory', 'firebaseService', '$log', 'rx'];
 
-    function factoryFn($firebaseArray, $firebaseObject, firebaseService, $log, rx) {
+    function factoryFn($firebaseArray, $firebaseObject, firebaseRulesFactory, firebaseService, $log, rx) {
 
         function factory(constant) {
             var ref = firebaseService.ref().child(constant.dao);
 
             var service = {
                 add: function(object, feedback, callback) {
-                    var async = function() {
-                        return $firebaseArray(ref).$add(object);
-                    };
-                    var onNext = function(ref) {
-                        if (callback !== undefined) {
-                            callback(ref);
-                        }
-                        feedback.success(constant.titleEdit + ' added successfully.');
-                    };
-                    var onError = function(error) {
-                        $log.error(error);
-                        feedback.error('Error adding ' + constant.titleEdit + '.');
-                    };
-                    var onComplete = function() {};
+                    var rulesFactory = firebaseRulesFactory(constant, ref);
 
-                    rx.Observable.startAsync(async).subscribe(onNext, onError, onComplete);
+                    function add() {
+                        var async = function() {
+                            return $firebaseArray(ref).$add(object);
+                        };
+                        var onNext = function(ref) {
+                            if (callback !== undefined) {
+                                callback(ref);
+                            }
+                            feedback.success(constant.titleEdit + ' added successfully.');
+                        };
+                        var onError = function(error) {
+                            $log.error(error);
+                            feedback.error('Error adding ' + constant.titleEdit + '.');
+                        };
+                        var onComplete = function() {};
+
+                        rx.Observable.startAsync(async).subscribe(onNext, onError, onComplete);
+                    }
+
+                    function isWithinAddLimitCallback(isWithinAddLimit) {
+                        if (isWithinAddLimit) {
+                            add();
+                        }
+                    }
+
+                    function isAddLimitCallback(isAddLimit) {
+                        if (isAddLimit) {
+                            rulesFactory.isWithinAddLimit(feedback, isWithinAddLimitCallback);
+                        } else {
+                            add();
+                        }
+                    }
+
+                    function canAddCallback(canAdd) {
+                        if (canAdd) {
+                            rulesFactory.isAddLimit(feedback, isAddLimitCallback);
+                        }
+                    }
+
+                    rulesFactory.canAdd(feedback, canAddCallback);
                 },
 
                 remove: function(key, feedback, callback) {

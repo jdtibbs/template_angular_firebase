@@ -5,9 +5,9 @@
     angular.module('services.module')
         .factory('firebaseDaoOneToManyFactory', factoryFn);
 
-    factoryFn.$inject = ['$firebaseArray', '$firebaseObject', 'firebaseService', 'routeParamsFactory', '$log'];
+    factoryFn.$inject = ['$firebaseArray', '$firebaseObject', 'firebaseRulesFactory', 'firebaseService', 'routeParamsFactory', '$log'];
 
-    function factoryFn($firebaseArray, $firebaseObject, firebaseService, routeParamsFactory, $log) {
+    function factoryFn($firebaseArray, $firebaseObject, firebaseRulesFactory, firebaseService, routeParamsFactory, $log) {
 
         function factory(oneConstant, manyConstant, feedback) {
             var oneRef = firebaseService.ref().child(oneConstant.dao);
@@ -18,23 +18,50 @@
             var service = {
                 add: function(object, callback) {
                     var oneKey = routeParamsFactory.getParam(oneConstant.dao);
-                    var ref = firebaseService.ref();
-                    var newRef = ref.child(manyConstant.dao).push();
-                    var newKey = newRef.key();
-                    var newData = {};
-                    newData[oneConstant.dao + '/' + oneKey + '/' + manyConstant.dao + '/' + newKey] = true;
-                    newData[manyConstant.dao + '/' + newKey] = object;
-                    ref.update(newData, onComplete);
+                    var oneRefChild = oneRef.child(oneKey).child(manyConstant.dao);
+                    var rulesFactory = firebaseRulesFactory(manyConstant, oneRefChild);
 
-                    function onComplete(error) {
-                        if (error) {
-                            $log.error(error);
-                            feedback.error('Error writing ' + manyConstant.title + '.');
-                        } else {
-                            feedback.success(manyConstant.title + ' saved successfully.');
-                            callback(newKey);
+                    function add() {
+                        var ref = firebaseService.ref();
+                        var newRef = ref.child(manyConstant.dao).push();
+                        var newKey = newRef.key();
+                        var newData = {};
+                        newData[oneConstant.dao + '/' + oneKey + '/' + manyConstant.dao + '/' + newKey] = true;
+                        newData[manyConstant.dao + '/' + newKey] = object;
+                        ref.update(newData, onComplete);
+
+                        function onComplete(error) {
+                            if (error) {
+                                $log.error(error);
+                                feedback.error('Error writing ' + manyConstant.title + '.');
+                            } else {
+                                feedback.success(manyConstant.title + ' saved successfully.');
+                                callback(newKey);
+                            }
                         }
                     }
+
+                    function isWithinAddLimitCallback(isWithinAddLimit) {
+                        if (isWithinAddLimit) {
+                            add();
+                        }
+                    }
+
+                    function isAddLimitCallback(isAddLimit) {
+                        if (isAddLimit) {
+                            rulesFactory.isWithinAddLimit(feedback, isWithinAddLimitCallback);
+                        } else {
+                            add();
+                        }
+                    }
+
+                    function canAddCallback(canAdd) {
+                        if (canAdd) {
+                            rulesFactory.isAddLimit(feedback, isAddLimitCallback);
+                        }
+                    }
+
+                    rulesFactory.canAdd(feedback, canAddCallback);
                 },
                 remove: function(key) {
                     var oneKey = routeParamsFactory.getParam(oneConstant.dao);
