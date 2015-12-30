@@ -1,8 +1,12 @@
 {
   "rules": {
+    "appRules": {
+      ".read": true,
+      ".write": false
+    },
     "catalog": {
       ".read": "auth.uid !== null",
-      ".write": "auth.uid !== null && root.child('rules/add').val() === true",
+      ".write": "auth.uid !== null && root.child('appRules/add').val() === true",
       "$catalog_id": {
         ".validate": "newData.hasChildren(['description','name','price','units'])",
         "name": {
@@ -44,7 +48,7 @@
     },
     "vendor": {
       ".read": "auth.uid !== null",
-      ".write": "auth.uid !== null && root.child('rules/add').val() === true",
+      ".write": "auth.uid !== null && root.child('appRules/add').val() === true",
       "$vendor_id": {
         ".validate": "newData.hasChildren(['contactName','contactPhone','vendorName'])",
         "contactName": {
