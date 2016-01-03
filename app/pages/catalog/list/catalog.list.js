@@ -32,7 +32,7 @@
 			(function() {
 				var vendorKey = catalogRouteFactory.getParam(vendorConstants.dao);
 				if (vendorKey) {
-					firebaseDaoManyToOneFactory(vendorConstants, catalogConstants)
+					firebaseDaoManyToOneFactory(catalogConstants, vendorConstants)
 						.syncArray(vendorKey, vm.data, feedback);
 				}
 			})();
@@ -43,7 +43,7 @@
 
 			function remove(key, event) {
 				event.stopPropagation();
-				firebaseDaoManyToOneFactory(vendorConstants, catalogConstants)
+				firebaseDaoManyToOneFactory(catalogConstants, vendorConstants)
 					.remove(key, feedback);
 			}
 		}

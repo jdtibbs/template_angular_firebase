@@ -10,9 +10,12 @@
     function factoryFn(firebaseDao) {
 
         function factory(constant) {
-            var dao = Object.create(firebaseDao);
-            dao.constant = constant;
-            return dao;
+            var objectDescriptor = {
+                constant: {
+                    value: constant
+                }
+            };
+            return Object.create(firebaseDao, objectDescriptor);
         }
         return factory;
     }

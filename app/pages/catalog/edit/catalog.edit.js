@@ -67,7 +67,7 @@
 			function save() {
 				feedback.init();
 				if (vm.add) {
-					firebaseDaoManyToOneFactory(vendorConstants, catalogConstants).add(vm.model, onAdd, feedback);
+					firebaseDaoManyToOneFactory(catalogConstants, vendorConstants).add(vm.model, onAdd, feedback);
 				} else {
 					var fn = rx.Observable.fromCallback(catalogDaoFactory.save.bind(catalogDaoFactory));
 					fn(vm.model, feedback).subscribe(onNext, onError);

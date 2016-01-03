@@ -5,30 +5,30 @@
     angular.module('services.module')
         .factory('firebaseDaoManyToOne', factoryFn);
 
-    factoryFn.$inject = ['$firebaseArray', '$firebaseObject', 'firebaseDaoFactory', 'firebaseRulesFactory', 'firebaseService', 'routeParamsFactory', '$log'];
+    factoryFn.$inject = ['$firebaseArray', '$firebaseObject', 'firebaseDao', 'firebaseRulesFactory', 'firebaseService', 'routeParamsFactory', '$log'];
 
-    function factoryFn($firebaseArray, $firebaseObject, firebaseDaoFactory, firebaseRulesFactory, firebaseService, routeParamsFactory, $log) {
+    function factoryFn($firebaseArray, $firebaseObject, firebaseDao, firebaseRulesFactory, firebaseService, routeParamsFactory, $log) {
 
         var add = function(object, callback, feedback) {
             var oneKey = routeParamsFactory.getParam(this.oneConstant.dao);
-            var oneRefChild = this.oneRef().child(oneKey).child(this.manyConstant.dao);
-            var rulesFactory = firebaseRulesFactory(this.manyConstant, oneRefChild);
+            var oneRefChild = this.oneRef().child(oneKey).child(this.constant.dao);
+            var rulesFactory = firebaseRulesFactory(this.constant, oneRefChild);
 
             var add = function() {
                 var ref = firebaseService.ref();
-                var newRef = ref.child(this.manyConstant.dao).push();
+                var newRef = ref.child(this.constant.dao).push();
                 var newKey = newRef.key();
                 var newData = {};
 
-                newData[this.oneConstant.dao + '/' + oneKey + '/' + this.manyConstant.dao + '/' + newKey] = true;
-                newData[this.manyConstant.dao + '/' + newKey] = object;
+                newData[this.oneConstant.dao + '/' + oneKey + '/' + this.constant.dao + '/' + newKey] = true;
+                newData[this.constant.dao + '/' + newKey] = object;
 
                 var onComplete = function(error) {
                     if (error) {
                         $log.error(error);
-                        feedback.error('Error writing ' + this.manyConstant.title + '.');
+                        feedback.error('Error writing ' + this.constant.title + '.');
                     } else {
-                        feedback.success(this.manyConstant.title + ' saved successfully.');
+                        feedback.success(this.constant.title + ' saved successfully.');
                         callback(newKey);
                     }
                 }.bind(this);
@@ -60,7 +60,7 @@
         };
 
         var manyRef = function() {
-            return firebaseService.ref().child(this.manyConstant.dao);
+            return firebaseService.ref().child(this.constant.dao);
         };
 
         var oneRef = function() {
@@ -72,15 +72,15 @@
             var ref = firebaseService.ref();
             var newData = {};
 
-            newData[this.oneConstant.dao + '/' + oneKey + '/' + this.manyConstant.dao + '/' + key] = null;
-            newData[this.manyConstant.dao + '/' + key] = null;
+            newData[this.oneConstant.dao + '/' + oneKey + '/' + this.constant.dao + '/' + key] = null;
+            newData[this.constant.dao + '/' + key] = null;
 
             var onComplete = function(error) {
                 if (error) {
                     $log.error(error);
-                    feedback.error('Error deleting ' + this.manyConstant.title + '.');
+                    feedback.error('Error deleting ' + this.constant.title + '.');
                 } else {
-                    feedback.success(this.manyConstant.title + ' deleted successfully.');
+                    feedback.success(this.constant.title + ' deleted successfully.');
                 }
             }.bind(this);
 
@@ -90,7 +90,7 @@
         var syncArray = function(key, data, feedback) {
             var keyRef = this.oneRef()
                 .child(key)
-                .child(this.manyConstant.dao);
+                .child(this.constant.dao);
 
             var manyKeys = $firebaseArray(keyRef);
 
@@ -101,7 +101,7 @@
                             data.push(obj);
                         }).catch(function(error) {
                             $log.error(error);
-                            feedback.error('Error reading ' + this.oneConstant.title + ' & ' + this.manyConstant.title + '.');
+                            feedback.error('Error reading ' + this.oneConstant.title + ' & ' + this.constant.title + '.');
                         });
                 }
                 if (event.event === 'child_removed') {
@@ -116,12 +116,24 @@
             manyKeys.$watch(watchFn);
         };
 
-        var obj = firebaseDaoFactory(this.manyConstant);
-        obj.add = add;
-        obj.manyRef = manyRef;
-        obj.oneRef = oneRef;
-        obj.remove = remove;
-        obj.syncArray = syncArray;
-        return obj;
+        // create the prototype.
+        var objectDescriptor = {
+            add: {
+                value: add
+            },
+            manyRef: {
+                value: manyRef
+            },
+            oneRef: {
+                value: oneRef
+            },
+            remove: {
+                value: remove
+            },
+            syncArray: {
+                value: syncArray
+            }
+        };
+        return Object.create(firebaseDao, objectDescriptor);
     }
 })();

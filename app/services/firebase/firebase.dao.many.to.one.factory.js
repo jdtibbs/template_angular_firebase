@@ -9,11 +9,17 @@
 
     function factoryFn(firebaseDaoManyToOne) {
 
-        function factory(oneConstant, manyConstant) {
-            var obj = Object.create(firebaseDaoManyToOne);
-            obj.oneConstant = oneConstant;
-            obj.manyConstant = manyConstant;
-            return obj;
+        function factory(constant, oneConstant) {
+            var objectDescriptor = {
+                constant: {
+                    value: constant
+                },
+                oneConstant: {
+                    value: oneConstant
+                }
+            };
+
+            return Object.create(firebaseDaoManyToOne, objectDescriptor);
         }
         return factory;
     }
