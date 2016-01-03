@@ -37,7 +37,7 @@
 			function initModel() {
 				var vendorKey = vendorRouteFactory.getParam(vendorConstants.dao);
 				if (vendorKey) {
-					var fn = rx.Observable.fromCallback(vendorDaoFactory.syncObject);
+					var fn = rx.Observable.fromCallback(vendorDaoFactory.syncObject.bind(vendorDaoFactory));
 					fn(vendorKey, feedback).subscribe(onNext, onError);
 				} else {
 					vm.add = true;
@@ -66,9 +66,9 @@
 				feedback.init();
 				var fn;
 				if (vm.add) {
-					fn = rx.Observable.fromCallback(vendorDaoFactory.add);
+					fn = rx.Observable.fromCallback(vendorDaoFactory.add.bind(vendorDaoFactory));
 				} else {
-					fn = rx.Observable.fromCallback(vendorDaoFactory.save);
+					fn = rx.Observable.fromCallback(vendorDaoFactory.save.bind(vendorDaoFactory));
 				}
 				fn(vm.model, feedback).subscribe(onNext, onError);
 

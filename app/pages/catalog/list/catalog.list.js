@@ -4,9 +4,9 @@
 	angular.module('login.module')
 		.directive('jdtCatalogList', directiveFn);
 
-	directiveFn.$inject = ['firebaseDaoOneToManyFactory', 'feedbackFactory', 'catalogConstants', 'catalogRouteFactory', 'vendorConstants', '$location', '$log'];
+	directiveFn.$inject = ['firebaseDaoManyToOneFactory', 'feedbackFactory', 'catalogConstants', 'catalogRouteFactory', 'vendorConstants', '$location', '$log'];
 
-	function directiveFn(firebaseDaoOneToManyFactory, feedbackFactory, catalogConstants, catalogRouteFactory, vendorConstants, $location, $log) {
+	function directiveFn(firebaseDaoManyToOneFactory, feedbackFactory, catalogConstants, catalogRouteFactory, vendorConstants, $location, $log) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -32,8 +32,8 @@
 			(function() {
 				var vendorKey = catalogRouteFactory.getParam(vendorConstants.dao);
 				if (vendorKey) {
-					firebaseDaoOneToManyFactory(vendorConstants, catalogConstants, feedback)
-						.syncArray(vendorKey, vm.data);
+					firebaseDaoManyToOneFactory(vendorConstants, catalogConstants)
+						.syncArray(vendorKey, vm.data, feedback);
 				}
 			})();
 
@@ -43,8 +43,8 @@
 
 			function remove(key, event) {
 				event.stopPropagation();
-				firebaseDaoOneToManyFactory(vendorConstants, catalogConstants, feedback)
-					.remove(key);
+				firebaseDaoManyToOneFactory(vendorConstants, catalogConstants)
+					.remove(key, feedback);
 			}
 		}
 

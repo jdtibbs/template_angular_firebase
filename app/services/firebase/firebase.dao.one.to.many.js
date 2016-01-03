@@ -3,7 +3,7 @@
     'use strict';
 
     angular.module('services.module')
-        .factory('firebaseDaoOneToManyFactory', factoryFn);
+        .factory('firebaseDaoOneToMany', factoryFn);
 
     factoryFn.$inject = ['$firebaseArray', '$firebaseObject', 'firebaseRulesFactory', 'firebaseService', 'routeParamsFactory', '$log'];
 

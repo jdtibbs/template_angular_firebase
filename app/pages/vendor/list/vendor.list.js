@@ -38,8 +38,7 @@
 			var feedback = feedbackFactory(vm.feedback);
 
 			// TODO: make a service to build this for all list controllers.
-
-			var fn = rx.Observable.fromCallback(vendorDaoFactory.syncArray);
+			var fn = rx.Observable.fromCallback(vendorDaoFactory.syncArray.bind(vendorDaoFactory));
 			var observer = rx.Observer.create(
 				function onNext(data) {
 					vm.data = data;
@@ -58,7 +57,7 @@
 			function remove(key, event) {
 				// TODO, remove this vendor's catalog data.
 				event.stopPropagation();
-				var fn = rx.Observable.fromCallback(vendorDaoFactory.remove);
+				var fn = rx.Observable.fromCallback(vendorDaoFactory.remove.bind(vendorDaoFactory));
 				fn(key, feedback).subscribe(onNextRemove, onErrorRemove);
 
 				function onNextRemove(ref) {}

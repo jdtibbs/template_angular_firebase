@@ -4,9 +4,9 @@
 	angular.module('catalog.module')
 		.directive('jdtCatalogEdit', directiveFn);
 
-	directiveFn.$inject = ['editToolbarFactory', 'feedbackFactory', 'catalogConstants', 'catalogDaoFactory', 'catalogRouteFactory', 'firebaseDaoOneToManyFactory', 'vendorConstants', '$location', '$log', 'rx'];
+	directiveFn.$inject = ['editToolbarFactory', 'feedbackFactory', 'catalogConstants', 'catalogDaoFactory', 'catalogRouteFactory', 'firebaseDaoManyToOneFactory', 'vendorConstants', '$location', '$log', 'rx'];
 
-	function directiveFn(editToolbarFactory, feedbackFactory, catalogConstants, catalogDaoFactory, catalogRouteFactory, firebaseDaoOneToManyFactory, vendorConstants, $location, $log, rx) {
+	function directiveFn(editToolbarFactory, feedbackFactory, catalogConstants, catalogDaoFactory, catalogRouteFactory, firebaseDaoManyToOneFactory, vendorConstants, $location, $log, rx) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -45,7 +45,7 @@
 			})();
 
 			function initModel(catalogKey) {
-				var fn = rx.Observable.fromCallback(catalogDaoFactory.syncObject);
+				var fn = rx.Observable.fromCallback(catalogDaoFactory.syncObject.bind(catalogDaoFactory));
 				fn(catalogKey, feedback).subscribe(onNext, onError);
 
 				function onNext(data) {
@@ -67,9 +67,9 @@
 			function save() {
 				feedback.init();
 				if (vm.add) {
-					firebaseDaoOneToManyFactory(vendorConstants, catalogConstants, feedback).add(vm.model, onAdd);
+					firebaseDaoManyToOneFactory(vendorConstants, catalogConstants).add(vm.model, onAdd, feedback);
 				} else {
-					var fn = rx.Observable.fromCallback(catalogDaoFactory.save);
+					var fn = rx.Observable.fromCallback(catalogDaoFactory.save.bind(catalogDaoFactory));
 					fn(vm.model, feedback).subscribe(onNext, onError);
 				}
 
