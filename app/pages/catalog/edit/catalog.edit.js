@@ -34,6 +34,8 @@
 			vm.feedback = {};
 			var feedback = feedbackFactory(vm.feedback);
 
+			var dao = firebaseDaoManyToOneFactory(catalogConstants, vendorConstants);
+
 			(function() {
 				var catalogKey = catalogRouteFactory.getParam(catalogConstants.dao);
 				if (catalogKey) {
@@ -67,7 +69,7 @@
 			function save() {
 				feedback.init();
 				if (vm.add) {
-					firebaseDaoManyToOneFactory(catalogConstants, vendorConstants).add(vm.model, onAdd, feedback);
+					dao.add(vm.model, onAdd, feedback);
 				} else {
 					var fn = rx.Observable.fromCallback(catalogDaoFactory.save.bind(catalogDaoFactory));
 					fn(vm.model, feedback).subscribe(onNext, onError);

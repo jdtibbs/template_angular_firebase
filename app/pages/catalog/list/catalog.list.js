@@ -28,12 +28,13 @@
 			vm.feedback = {};
 			var feedback = feedbackFactory(vm.feedback);
 
+			var dao = firebaseDaoManyToOneFactory(catalogConstants, vendorConstants);
+
 			// TODO: make a service to build this for all list controllers.
 			(function() {
 				var vendorKey = catalogRouteFactory.getParam(vendorConstants.dao);
 				if (vendorKey) {
-					firebaseDaoManyToOneFactory(catalogConstants, vendorConstants)
-						.syncArray(vendorKey, vm.data, feedback);
+					dao.syncArray(vendorKey, vm.data, feedback);
 				}
 			})();
 
@@ -43,8 +44,7 @@
 
 			function remove(key, event) {
 				event.stopPropagation();
-				firebaseDaoManyToOneFactory(catalogConstants, vendorConstants)
-					.remove(key, feedback);
+				dao.remove(key, feedback);
 			}
 		}
 
