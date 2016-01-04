@@ -4,9 +4,9 @@
 	angular.module('catalog.module')
 		.directive('jdtCatalogEdit', directiveFn);
 
-	directiveFn.$inject = ['editToolbarFactory', 'feedbackFactory', 'catalogConstants', 'catalogRouteFactory', 'firebaseDaoManyToOneFactory', 'vendorConstants', '$location', '$log', 'rx'];
+	directiveFn.$inject = ['editToolbarFactory', 'feedbackFactory', 'catalogConstants', 'catalogRouteFactory', 'firebaseDaoManyToOneFactory', 'vendorConstants', '$location', '$log'];
 
-	function directiveFn(editToolbarFactory, feedbackFactory, catalogConstants, catalogRouteFactory, firebaseDaoManyToOneFactory, vendorConstants, $location, $log, rx) {
+	function directiveFn(editToolbarFactory, feedbackFactory, catalogConstants, catalogRouteFactory, firebaseDaoManyToOneFactory, vendorConstants, $location, $log) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -47,17 +47,11 @@
 			})();
 
 			function initModel(catalogKey) {
-				var fn = rx.Observable.fromCallback(dao.syncObject.bind(dao));
-				fn(catalogKey, feedback).subscribe(onNext, onError);
+				dao.syncObject(catalogKey, feedback, onNext);
 
 				function onNext(data) {
 					vm.model = data;
 					vm.add = false;
-				}
-
-				function onError(error) {
-					$log.error(error);
-					feedback.error(error);
 				}
 			}
 
@@ -71,21 +65,11 @@
 				if (vm.add) {
 					dao.add(vm.model, onAdd, feedback);
 				} else {
-					var fn = rx.Observable.fromCallback(dao.save.bind(dao));
-					fn(vm.model, feedback).subscribe(onNext, onError);
+					dao.save(vm.model, feedback);
 				}
 
 				function onAdd(catalogKey) {
 					initModel(catalogKey);
-				}
-
-				function onNext(ref) {
-					// $log.debug(ref);
-				}
-
-				function onError(error) {
-					$log.error(error);
-					feedback.error(error);
 				}
 			}
 		}
