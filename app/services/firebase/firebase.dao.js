@@ -5,9 +5,9 @@
     angular.module('services.module')
         .factory('firebaseDao', factoryFn);
 
-    factoryFn.$inject = ['$firebaseArray', '$firebaseObject', 'firebaseRulesFactory', 'firebaseService', '$log', 'rx'];
+    factoryFn.$inject = ['$firebaseArray', '$firebaseObject', 'firebaseRulesFactory', 'firebaseService', '$log'];
 
-    function factoryFn($firebaseArray, $firebaseObject, firebaseRulesFactory, firebaseService, $log, rx) {
+    function factoryFn($firebaseArray, $firebaseObject, firebaseRulesFactory, firebaseService, $log) {
 
         return {
             add: function(object, feedback, callback) {
@@ -16,9 +16,6 @@
                 // using a function expression vs. function declaration because coding for 'this' is cleaner, IMO.
                 // caveat: function expression must preceed the code that will call it.
                 var add = function() {
-                    var async = function() {
-                        return $firebaseArray(this.ref()).$add(object);
-                    }.bind(this);
                     var onNext = function(ref) {
                         if (callback !== undefined) {
                             callback(ref);
@@ -30,7 +27,10 @@
                         feedback.error('Error adding ' + this.constant.titleEdit + '.');
                     }.bind(this);
 
-                    rx.Observable.startAsync(async).subscribe(onNext, onError);
+                    $firebaseArray(this.ref())
+                        .$add(object)
+                        .then(onNext)
+                        .catch(onError);
                 }.bind(this);
 
                 function isWithinAddLimitCallback(isWithinAddLimit) {
@@ -61,9 +61,6 @@
             },
 
             remove: function(key, feedback, callback) {
-                var async = function() {
-                    return $firebaseObject(this.ref().child(key)).$remove();
-                }.bind(this);
                 var onNext = function(ref) {
                     if (callback !== undefined) {
                         callback(ref);
@@ -74,13 +71,14 @@
                     $log.error(error);
                     feedback.error('Error removing ' + this.constant.titleEdit + '.');
                 }.bind(this);
-                rx.Observable.startAsync(async).subscribe(onNext, onError);
+
+                $firebaseObject(this.ref().child(key))
+                    .$remove()
+                    .then(onNext)
+                    .catch(onError);
             },
 
             save: function(object, feedback, callback) {
-                var async = function() {
-                    return object.$save();
-                }.bind(this);
                 var onNext = function(ref) {
                     if (callback !== undefined) {
                         callback(ref);
@@ -91,14 +89,13 @@
                     $log.error(error);
                     feedback.error('Error saving ' + this.constant.titleEdit + '.');
                 }.bind(this);
-                rx.Observable.startAsync(async).subscribe(onNext, onError);
+
+                object.$save()
+                    .then(onNext)
+                    .catch(onError);
             },
 
             syncArray: function(path, feedback, callback) {
-                var async = function() {
-                    var _ref = path ? this.ref().child(path) : this.ref();
-                    return $firebaseArray(_ref).$loaded();
-                }.bind(this);
                 var onNext = function(data) {
                     callback(data);
                 };
@@ -106,13 +103,14 @@
                     $log.error(error);
                     feedback.error('Error reading ' + this.constant.titleEdit + '.');
                 }.bind(this);
-                rx.Observable.startAsync(async).subscribe(onNext, onError);
+
+                $firebaseArray(path ? this.ref().child(path) : this.ref())
+                    .$loaded()
+                    .then(onNext)
+                    .catch(onError);
             },
 
             syncObject: function(path, feedback, callback) {
-                var async = function() {
-                    return $firebaseObject(this.ref().child(path)).$loaded();
-                }.bind(this);
                 var onNext = function(data) {
                     callback(data);
                 };
@@ -120,7 +118,11 @@
                     $log.error(error);
                     feedback.error('Error reading ' + this.constant.titleEdit + '.');
                 }.bind(this);
-                rx.Observable.startAsync(async).subscribe(onNext, onError);
+
+                $firebaseObject(this.ref().child(path))
+                    .$loaded()
+                    .then(onNext)
+                    .catch(onError);
             }
         };
     }
