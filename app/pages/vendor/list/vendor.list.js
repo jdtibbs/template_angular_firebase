@@ -38,11 +38,14 @@
 			var feedback = feedbackFactory(vm.feedback);
 
 			var dao = firebaseDaoFactory(vendorConstants);
-			dao.syncArray(null, feedback, onNext);
 
-			function onNext(data) {
-				vm.data = data;
-			}
+			(function() {
+				dao.syncArray(null, feedback, onNext);
+
+				function onNext(data) {
+					vm.data = data;
+				}
+			})();
 
 			function edit(key) {
 				$location.path(vendorRouteFactory.editRoute(key));
