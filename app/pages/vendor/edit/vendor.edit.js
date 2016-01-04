@@ -32,9 +32,7 @@
 
 			var dao = firebaseDaoFactory(vendorConstants);
 
-			initModel();
-
-			function initModel() {
+			(function() {
 				var vendorKey = vendorRouteFactory.getParam(vendorConstants.dao);
 				if (vendorKey) {
 					dao.syncObject(vendorKey, feedback, onNext);
@@ -50,7 +48,7 @@
 					vm.model = data;
 				}
 
-			}
+			})();
 
 			function cancel() {
 				feedback.init();
