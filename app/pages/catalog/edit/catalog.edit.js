@@ -63,12 +63,12 @@
 			function save() {
 				feedback.init();
 				if (vm.add) {
-					dao.add(vm.model, onAdd, feedback);
+					dao.add(vm.model, feedback, onNext);
 				} else {
 					dao.save(vm.model, feedback);
 				}
 
-				function onAdd(catalogKey) {
+				function onNext(catalogKey) {
 					initModel(catalogKey);
 				}
 			}

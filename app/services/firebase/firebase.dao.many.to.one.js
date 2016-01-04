@@ -10,7 +10,7 @@
     function factoryFn($firebaseArray, $firebaseObject, firebaseDao, firebaseRulesFactory, routeParamsFactory, $log) {
 
         var dao = {
-            add: function(object, callback, feedback) {
+            add: function(object, feedback, callback) {
                 var oneKey = routeParamsFactory.getParam(this.oneConstant.dao);
                 var oneRefChild = this.ref().child(this.oneConstant.dao).child(oneKey).child(this.constant.dao);
                 var rulesFactory = firebaseRulesFactory(this.constant, oneRefChild);
