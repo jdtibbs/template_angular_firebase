@@ -11,7 +11,7 @@
 
         return {
             add: function(object, feedback, callback) {
-                var rulesFactory = firebaseRulesFactory(this.constant, this.ref());
+                var rulesFactory = firebaseRulesFactory(this.constant, this.ref().child(this.constant.dao));
 
                 // using a function expression vs. function declaration because coding for 'this' is cleaner, IMO.
                 // caveat: function expression must preceed the code that will call it.
@@ -27,7 +27,7 @@
                         feedback.error('Error adding ' + this.constant.titleEdit + '.');
                     }.bind(this);
 
-                    $firebaseArray(this.ref())
+                    $firebaseArray(this.ref().child(this.constant.dao))
                         .$add(object)
                         .then(onNext)
                         .catch(onError);
@@ -57,7 +57,7 @@
             },
 
             ref: function() {
-                return firebaseService.ref().child(this.constant.dao);
+                return firebaseService.ref();
             },
 
             remove: function(key, feedback, callback) {
@@ -72,7 +72,7 @@
                     feedback.error('Error removing ' + this.constant.titleEdit + '.');
                 }.bind(this);
 
-                $firebaseObject(this.ref().child(key))
+                $firebaseObject(this.ref().child(this.constant.dao).child(key))
                     .$remove()
                     .then(onNext)
                     .catch(onError);
@@ -104,7 +104,7 @@
                     feedback.error('Error reading ' + this.constant.titleEdit + '.');
                 }.bind(this);
 
-                $firebaseArray(path ? this.ref().child(path) : this.ref())
+                $firebaseArray(path ? this.ref().child(this.constant.dao).child(path) : this.ref().child(this.constant.dao))
                     .$loaded()
                     .then(onNext)
                     .catch(onError);
@@ -119,7 +119,7 @@
                     feedback.error('Error reading ' + this.constant.titleEdit + '.');
                 }.bind(this);
 
-                $firebaseObject(this.ref().child(path))
+                $firebaseObject(this.ref().child(this.constant.dao).child(path))
                     .$loaded()
                     .then(onNext)
                     .catch(onError);
