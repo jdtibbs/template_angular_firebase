@@ -35,7 +35,7 @@
 			(function() {
 				var vendorKey = vendorRouteFactory.getParam(vendorConstants.dao);
 				if (vendorKey) {
-					dao.syncObject(vendorKey, feedback, onNext);
+					initModel(vendorKey);
 				} else {
 					vm.add = true;
 					vm.props.tab.disable = {
@@ -43,12 +43,16 @@
 					};
 					vm.model = {};
 				}
+			})();
+
+			function initModel(key) {
+				dao.syncObject(key, feedback, onNext);
 
 				function onNext(data) {
 					vm.model = data;
+					vm.add = false;
 				}
-
-			})();
+			}
 
 			function cancel() {
 				feedback.init();
@@ -62,10 +66,12 @@
 				if (vm.add) {
 					dao.add(vm.model, feedback, onNext);
 				} else {
-					dao.save(vm.model, feedback, onNext);
+					dao.save(vm.model, feedback);
 				}
 
 				function onNext(ref) {
+					initModel(ref.key());
+
 					vm.props.tab.disable = {
 						catalog: false
 					};
