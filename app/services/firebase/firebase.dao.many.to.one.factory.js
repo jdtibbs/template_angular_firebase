@@ -19,10 +19,7 @@
                 }
             };
 
-            // return Object.create(firebaseDaoManyToOne, objectDescriptor);
-            var obj = Object.create(firebaseDaoManyToOne, objectDescriptor);
-            console.log(obj);
-            return obj;
+            return Object.create(firebaseDaoManyToOne, objectDescriptor);
         }
         return factory;
     }
