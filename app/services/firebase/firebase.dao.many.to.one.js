@@ -5,18 +5,17 @@
     angular.module('services.module')
         .factory('firebaseDaoManyToOne', factoryFn);
 
-    factoryFn.$inject = ['$firebaseArray', '$firebaseObject', 'firebaseDao', 'firebaseRulesFactory', 'firebaseService', 'routeParamsFactory', '$log'];
+    factoryFn.$inject = ['$firebaseArray', '$firebaseObject', 'firebaseDao', 'firebaseRulesFactory', 'routeParamsFactory', '$log'];
 
-    function factoryFn($firebaseArray, $firebaseObject, firebaseDao, firebaseRulesFactory, firebaseService, routeParamsFactory, $log) {
+    function factoryFn($firebaseArray, $firebaseObject, firebaseDao, firebaseRulesFactory, routeParamsFactory, $log) {
 
         var add = function(object, callback, feedback) {
             var oneKey = routeParamsFactory.getParam(this.oneConstant.dao);
-            var oneRefChild = this.oneRef().child(oneKey).child(this.constant.dao);
+            var oneRefChild = this.ref().child(this.oneConstant.dao).child(oneKey).child(this.constant.dao);
             var rulesFactory = firebaseRulesFactory(this.constant, oneRefChild);
 
             var add = function() {
-                var ref = firebaseService.ref();
-                var newRef = ref.child(this.constant.dao).push();
+                var newRef = this.ref().child(this.constant.dao).push();
                 var newKey = newRef.key();
                 var newData = {};
 
@@ -33,7 +32,7 @@
                     }
                 }.bind(this);
 
-                ref.update(newData, onComplete);
+                this.ref().update(newData, onComplete);
             }.bind(this);
 
             function isWithinAddLimitCallback(isWithinAddLimit) {
@@ -59,17 +58,8 @@
             rulesFactory.canAdd(feedback, canAddCallback);
         };
 
-        var manyRef = function() {
-            return firebaseService.ref().child(this.constant.dao);
-        };
-
-        var oneRef = function() {
-            return firebaseService.ref().child(this.oneConstant.dao);
-        };
-
         var remove = function(key, feedback) {
             var oneKey = routeParamsFactory.getParam(this.oneConstant.dao);
-            var ref = firebaseService.ref();
             var newData = {};
 
             newData[this.oneConstant.dao + '/' + oneKey + '/' + this.constant.dao + '/' + key] = null;
@@ -84,11 +74,11 @@
                 }
             }.bind(this);
 
-            ref.update(newData, onComplete);
+            this.ref().update(newData, onComplete);
         };
 
         var syncArray = function(key, data, feedback) {
-            var keyRef = this.oneRef()
+            var keyRef = this.ref().child(this.oneConstant.dao)
                 .child(key)
                 .child(this.constant.dao);
 
@@ -96,7 +86,7 @@
 
             var watchFn = function(event) {
                 if (event.event === 'child_added') {
-                    $firebaseObject(this.manyRef().child(event.key)).$loaded()
+                    $firebaseObject(this.ref().child(this.constant.dao).child(event.key)).$loaded()
                         .then(function(obj) {
                             data.push(obj);
                         }).catch(function(error) {
@@ -120,12 +110,6 @@
         var objectDescriptor = {
             add: {
                 value: add
-            },
-            manyRef: {
-                value: manyRef
-            },
-            oneRef: {
-                value: oneRef
             },
             remove: {
                 value: remove
