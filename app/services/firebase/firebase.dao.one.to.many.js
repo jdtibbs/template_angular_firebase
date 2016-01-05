@@ -18,13 +18,13 @@
 
                 var onNext = function(data) {
                     // add child path to remove.
-                    var onObj = function(obj) {
-                        newData[this.manyConstant.dao + '/' + obj.$id] = null;
+                    var onChild = function(child) {
+                        newData[this.manyConstant.dao + '/' + child.$id] = null;
                     }.bind(this);
 
                     // for each child path.
-                    data.forEach(function(obj) {
-                        onObj(obj);
+                    data.forEach(function(child) {
+                        onChild(child);
                     });
 
                     // add parent path to remove.
