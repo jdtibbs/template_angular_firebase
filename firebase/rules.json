@@ -8,7 +8,7 @@
       ".read": "auth.uid !== null",
       ".write": "auth.uid !== null && root.child('appRules/add').val() === true",
       "$catalog_id": {
-        ".validate": "newData.hasChildren(['description','name','price','units'])",
+        ".validate": "newData.hasChildren(['description','name','price','units','lastUpdate'])",
         "name": {
           ".validate": "newData.isString() && newData.val().length <= 50"
         },
@@ -20,6 +20,18 @@
         },
         "units": {
           ".validate": "newData.isString() && newData.val().length <= 25"
+        },
+        "lastUpdate": {
+          ".validate": "newData.hasChildren(['uid','time'])",
+          "uid": {
+            ".validate": "newData.isString() && newData.val().length <= 50"
+          },
+          "time": {
+            ".validate": "newData.isString() && newData.val().length <= 50"
+          },
+          "$other": {
+            ".validate": false
+          }
         },
         "$other": {
           ".validate": false
@@ -50,7 +62,7 @@
       ".read": "auth.uid !== null",
       ".write": "auth.uid !== null && root.child('appRules/add').val() === true",
       "$vendor_id": {
-        ".validate": "newData.hasChildren(['contactName','contactPhone','vendorName'])",
+        ".validate": "newData.hasChildren(['contactName','contactPhone','vendorName','lastUpdate'])",
         "contactName": {
           ".validate": "newData.isString() && newData.val().length <= 50"
         },
@@ -61,7 +73,21 @@
           ".validate": "newData.isString() && newData.val().length <= 50"
         },
         "catalog": {
-          ".validate": true
+          "$catalog_id": {
+            ".validate": "newData.val() === true"
+          }
+        },
+        "lastUpdate": {
+          ".validate": "newData.hasChildren(['uid','time'])",
+          "uid": {
+            ".validate": "newData.isString() && newData.val().length <= 50"
+          },
+          "time": {
+            ".validate": "newData.isString() && newData.val().length <= 50"
+          },
+          "$other": {
+            ".validate": false
+          }
         },
         "$other": {
           ".validate": false
