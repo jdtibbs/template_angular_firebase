@@ -5,9 +5,9 @@
 	angular.module('login.module')
 		.service('loginService', serviceFn);
 
-	serviceFn.$inject = ['firebaseAuthService', '$log', 'passwordService', 'rx'];
+	serviceFn.$inject = ['firebaseAuthService', 'firebaseService', '$log', 'passwordService', 'rx'];
 
-	function serviceFn(firebaseAuthService, $log, passwordService, rx) {
+	function serviceFn(firebaseAuthService, firebaseService, $log, passwordService, rx) {
 
 		var service = {
 
@@ -30,6 +30,15 @@
 				var subscription = source.subscribe(
 					function(authData) {
 						// see onAuth()
+						var data = {};
+						data['login/' + authData.uid] = {
+							time: new Date().toUTCString()
+						};
+						firebaseService.ref().update(data, function(error) {
+							if (error) {
+								$log.error(error);
+							}
+						});
 					},
 					function(error) {
 						feedback.error('Email or password is invalid.');
