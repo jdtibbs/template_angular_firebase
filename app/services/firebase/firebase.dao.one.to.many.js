@@ -5,109 +5,55 @@
     angular.module('services.module')
         .factory('firebaseDaoOneToMany', factoryFn);
 
-    factoryFn.$inject = ['$firebaseArray', '$firebaseObject', 'firebaseRulesFactory', 'firebaseService', 'routeParamsFactory', '$log'];
+    factoryFn.$inject = ['firebaseDao', '$log'];
 
-    function factoryFn($firebaseArray, $firebaseObject, firebaseRulesFactory, firebaseService, routeParamsFactory, $log) {
+    function factoryFn(firebaseDao, $log) {
 
-        function factory(oneConstant, manyConstant, feedback) {
-            var oneRef = firebaseService.ref().child(oneConstant.dao);
-            var manyRef = firebaseService.ref().child(manyConstant.dao);
-            var keyRef;
+        var dao = {
+            remove: function(key, feedback) {
+                var newData = {};
 
-            var service = {
-                add: function(object, callback) {
-                    var oneKey = routeParamsFactory.getParam(oneConstant.dao);
-                    var oneRefChild = oneRef.child(oneKey).child(manyConstant.dao);
-                    var rulesFactory = firebaseRulesFactory(manyConstant, oneRefChild);
+                // path to child keys in the parent object.
+                var path = '/' + key + '/' + this.manyConstant.dao;
 
-                    function add() {
-                        var ref = firebaseService.ref();
-                        var newRef = ref.child(manyConstant.dao).push();
-                        var newKey = newRef.key();
-                        var newData = {};
-                        newData[oneConstant.dao + '/' + oneKey + '/' + manyConstant.dao + '/' + newKey] = true;
-                        newData[manyConstant.dao + '/' + newKey] = object;
-                        ref.update(newData, onComplete);
+                var onNext = function(data) {
+                    // add child path to remove.
+                    var onObj = function(obj) {
+                        newData[this.manyConstant.dao + '/' + obj.$id] = null;
+                    }.bind(this);
 
-                        function onComplete(error) {
-                            if (error) {
-                                $log.error(error);
-                                feedback.error('Error writing ' + manyConstant.title + '.');
-                            } else {
-                                feedback.success(manyConstant.title + ' saved successfully.');
-                                callback(newKey);
-                            }
-                        }
-                    }
+                    // for each child path.
+                    data.forEach(function(obj) {
+                        onObj(obj);
+                    });
 
-                    function isWithinAddLimitCallback(isWithinAddLimit) {
-                        if (isWithinAddLimit) {
-                            add();
-                        }
-                    }
+                    // add parent path to remove.
+                    newData[this.constant.dao + '/' + key] = null;
 
-                    function isAddLimitCallback(isAddLimit) {
-                        if (isAddLimit) {
-                            rulesFactory.isWithinAddLimit(feedback, isWithinAddLimitCallback);
-                        } else {
-                            add();
-                        }
-                    }
-
-                    function canAddCallback(canAdd) {
-                        if (canAdd) {
-                            rulesFactory.isAddLimit(feedback, isAddLimitCallback);
-                        }
-                    }
-
-                    rulesFactory.canAdd(feedback, canAddCallback);
-                },
-                remove: function(key) {
-                    var oneKey = routeParamsFactory.getParam(oneConstant.dao);
-                    var ref = firebaseService.ref();
-                    var newData = {};
-                    newData[oneConstant.dao + '/' + oneKey + '/' + manyConstant.dao + '/' + key] = null;
-                    newData[manyConstant.dao + '/' + key] = null;
-                    ref.update(newData, onComplete);
-
-                    function onComplete(error) {
+                    var onComplete = function(error) {
                         if (error) {
                             $log.error(error);
-                            feedback.error('Error deleting ' + manyConstant.title + '.');
+                            feedback.error('Error deleting ' + this.constant.title + '.');
                         } else {
-                            feedback.success(manyConstant.title + ' deleted successfully.');
+                            feedback.success(this.constant.title + ' deleted successfully.');
                         }
-                    }
-                },
-                syncArray: function(key, data) {
-                    keyRef = oneRef
-                        .child(key)
-                        .child(manyConstant.dao);
+                    }.bind(this);
 
-                    var manyKeys = $firebaseArray(keyRef);
+                    // remove all objects in paths set.
+                    this.ref().update(newData, onComplete);
+                }.bind(this);
 
-                    manyKeys.$watch(function(event) {
-                        if (event.event === 'child_added') {
-                            $firebaseObject(manyRef.child(event.key)).$loaded()
-                                .then(function(obj) {
-                                    data.push(obj);
-                                }).catch(function(error) {
-                                    $log.error(error);
-                                    feedback.error('Error reading ' + oneConstant.title + ' & ' + manyConstant.title + '.');
-                                });
-                        }
-                        if (event.event === 'child_removed') {
-                            data.findIndex(function(obj, index, array) {
-                                if (obj.$id === event.key) {
-                                    array.splice(index, 1);
-                                }
-                            });
-                        }
-                    });
-                }
-            };
-            return service;
-        }
-        return factory;
+                // get all child objects to be removed.
+                this.syncArray(path, feedback, onNext);
+            }
+        };
+
+        // create the prototype.
+        var objectDescriptor = {
+            remove: {
+                value: dao.remove
+            }
+        };
+        return Object.create(firebaseDao, objectDescriptor);
     }
 })();

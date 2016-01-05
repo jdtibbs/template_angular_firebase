@@ -4,9 +4,9 @@
 	angular.module('login.module')
 		.directive('jdtVendorList', directiveFn);
 
-	directiveFn.$inject = ['feedbackFactory', 'firebaseDaoFactory', 'listToolbarFactory', 'vendorConstants', 'vendorRouteFactory', '$location', '$log'];
+	directiveFn.$inject = ['catalogConstants', 'feedbackFactory', 'firebaseDaoOneToManyFactory', 'listToolbarFactory', 'vendorConstants', 'vendorRouteFactory', '$location', '$log'];
 
-	function directiveFn(feedbackFactory, firebaseDaoFactory, listToolbarFactory, vendorConstants, vendorRouteFactory, $location, $log) {
+	function directiveFn(catalogConstants, feedbackFactory, firebaseDaoOneToManyFactory, listToolbarFactory, vendorConstants, vendorRouteFactory, $location, $log) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -37,7 +37,7 @@
 			vm.feedback = {};
 			var feedback = feedbackFactory(vm.feedback);
 
-			var dao = firebaseDaoFactory(vendorConstants);
+			var dao = firebaseDaoOneToManyFactory(vendorConstants, catalogConstants);
 
 			(function() {
 				dao.syncArray(null, feedback, onNext);
