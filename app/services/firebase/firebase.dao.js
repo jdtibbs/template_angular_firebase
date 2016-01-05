@@ -5,12 +5,16 @@
     angular.module('services.module')
         .factory('firebaseDao', factoryFn);
 
-    factoryFn.$inject = ['$firebaseArray', '$firebaseObject', 'firebaseRulesFactory', 'firebaseService', '$log'];
+    factoryFn.$inject = ['$firebaseArray', '$firebaseObject', 'firebaseRulesFactory', 'firebaseAuthService', 'firebaseService', '$log'];
 
-    function factoryFn($firebaseArray, $firebaseObject, firebaseRulesFactory, firebaseService, $log) {
+    function factoryFn($firebaseArray, $firebaseObject, firebaseRulesFactory, firebaseAuthService, firebaseService, $log) {
+
+        var uid = firebaseAuthService.authData().uid;
 
         return {
             add: function(object, feedback, callback) {
+                this.setLastUpdate(object);
+
                 var rulesFactory = firebaseRulesFactory(this.constant, this.ref().child(this.constant.dao));
 
                 // using a function expression vs. function declaration because coding for 'this' is cleaner, IMO.
@@ -79,6 +83,8 @@
             },
 
             save: function(object, feedback, callback) {
+                this.setLastUpdate(object);
+
                 var onNext = function(ref) {
                     if (callback !== undefined) {
                         callback(ref);
@@ -93,6 +99,14 @@
                 object.$save()
                     .then(onNext)
                     .catch(onError);
+            },
+
+            setLastUpdate: function(object) {
+                var now = new Date().toUTCString();
+                object.lastUpdate = {
+                    uid: uid,
+                    time: now
+                };
             },
 
             syncArray: function(path, feedback, callback) {
