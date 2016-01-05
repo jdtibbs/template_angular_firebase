@@ -30,7 +30,6 @@
 
 			var dao = firebaseDaoManyToOneFactory(catalogConstants, vendorConstants);
 
-			// TODO: make a service to build this for all list controllers.
 			(function() {
 				var vendorKey = catalogRouteFactory.getParam(vendorConstants.dao);
 				if (vendorKey) {

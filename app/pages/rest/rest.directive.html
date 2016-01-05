@@ -3,7 +3,7 @@
 </div>
 
 <div layout="row" layout-margin>
-	<div flex>Note: The RESTful service used on this page is hosted on a free <a href="https://www.heroku.com/home">Heroku</a> account. The code can be viewed <a href="https://github.com/jdtibbs/template_restful">here</a>.</div>
+	<div flex>The RESTful service used on this page is hosted on a free <a href="https://www.heroku.com/home">Heroku</a> account. It might be asleep and take a few seconds to wake up on the first call. The service code can be viewed <a href="https://github.com/jdtibbs/template_restful">here</a>.</div>
 </div>
 
 <div ng-repeat="user in vm.model | filter: vm.props.components.toolbar.search.value | orderBy: 'name' track by $index">

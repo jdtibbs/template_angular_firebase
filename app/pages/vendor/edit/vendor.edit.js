@@ -23,7 +23,6 @@
 		function controllerFn() {
 			var vm = this;
 
-			vm.add = false;
 			vm.cancel = cancel;
 			vm.save = save;
 
@@ -32,10 +31,11 @@
 
 			var dao = firebaseDaoFactory(vendorConstants);
 
-			(function() {
-				var vendorKey = vendorRouteFactory.getParam(vendorConstants.dao);
-				if (vendorKey) {
-					initModel(vendorKey);
+			initModel(vendorRouteFactory.getParam(vendorConstants.dao));
+
+			function initModel(key) {
+				if (key) {
+					dao.syncObject(key, feedback, onNext);
 				} else {
 					vm.add = true;
 					vm.props.tab.disable = {
@@ -43,10 +43,6 @@
 					};
 					vm.model = {};
 				}
-			})();
-
-			function initModel(key) {
-				dao.syncObject(key, feedback, onNext);
 
 				function onNext(data) {
 					vm.model = data;
@@ -62,14 +58,13 @@
 			function save() {
 				feedback.init();
 
-				var fn;
 				if (vm.add) {
-					dao.add(vm.model, feedback, onNext);
+					dao.add(vm.model, feedback, onAdd);
 				} else {
 					dao.save(vm.model, feedback);
 				}
 
-				function onNext(ref) {
+				function onAdd(ref) {
 					initModel(ref.key());
 
 					vm.props.tab.disable = {

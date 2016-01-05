@@ -21,16 +21,12 @@
 		function controllerFn() {
 			var vm = this;
 
-			// TODO when in vendor add mode disable Catalog tab.
 			vm.tab = {
 				catalog: {
 					select: function() {
-						// vm.tab.catalog.show = true; // do not load data until user hits this tab.
 						vm.props.components = listTabToolbarFactory(vendorConstants, vendorRouteFactory, catalogRouteFactory);
-						// $log.debug(vm.props.components);
 						vm.props.tab.active.catalog = true;
 						vm.props.tab.active.vendor = false;
-						// TODO make generic and place in factory.
 						vm.props.components.buttons.add = function() {
 							var vendorKey = routeParamsFactory.getParam(vendorConstants.dao);
 							if (vendorKey) {

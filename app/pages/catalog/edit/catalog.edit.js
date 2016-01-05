@@ -25,9 +25,6 @@
 
 			vm.props.components = editToolbarFactory(catalogConstants, catalogRouteFactory);
 
-			// TODO: make factory to build this for all edit directives.
-
-			vm.add = false;
 			vm.cancel = cancel;
 			vm.save = save;
 
@@ -36,18 +33,15 @@
 
 			var dao = firebaseDaoManyToOneFactory(catalogConstants, vendorConstants);
 
-			(function() {
-				var catalogKey = catalogRouteFactory.getParam(catalogConstants.dao);
-				if (catalogKey) {
-					initModel(catalogKey);
+			initModel(catalogRouteFactory.getParam(catalogConstants.dao));
+
+			function initModel(key) {
+				if (key) {
+					dao.syncObject(key, feedback, onNext);
 				} else {
 					vm.add = true;
 					vm.model = {};
 				}
-			})();
-
-			function initModel(catalogKey) {
-				dao.syncObject(catalogKey, feedback, onNext);
 
 				function onNext(data) {
 					vm.model = data;
@@ -62,14 +56,15 @@
 
 			function save() {
 				feedback.init();
+
 				if (vm.add) {
-					dao.add(vm.model, feedback, onNext);
+					dao.add(vm.model, feedback, onAdd);
 				} else {
 					dao.save(vm.model, feedback);
 				}
 
-				function onNext(catalogKey) {
-					initModel(catalogKey);
+				function onAdd(key) {
+					initModel(key);
 				}
 			}
 		}
