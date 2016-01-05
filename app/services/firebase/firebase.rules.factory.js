@@ -35,7 +35,6 @@
                 isWithinAddLimit: function(feedback, callback) {
                     rulesRef.child('addLimit').once('value', function(ruleSnap) {
                         ref.once('value', function(snap) {
-                            $log.debug(snap.numChildren());
                             if (snap.numChildren() > ruleSnap.val()) {
                                 feedback.error('Cannot add new rows to ' + constant.titleEdit + '. Row limit has been exceeded.');
                             }

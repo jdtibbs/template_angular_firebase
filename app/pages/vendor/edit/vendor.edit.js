@@ -4,9 +4,9 @@
 	angular.module('vendor.module')
 		.directive('jdtVendorEdit', directiveFn);
 
-	directiveFn.$inject = ['feedbackFactory', 'vendorConstants', 'vendorDaoFactory', 'vendorRouteFactory', '$location', '$log', '$route', 'rx'];
+	directiveFn.$inject = ['feedbackFactory', 'firebaseDaoFactory', 'vendorConstants', 'vendorRouteFactory', '$location', '$log', '$route'];
 
-	function directiveFn(feedbackFactory, vendorConstants, vendorDaoFactory, vendorRouteFactory, $location, $log, $route, rx) {
+	function directiveFn(feedbackFactory, firebaseDaoFactory, vendorConstants, vendorRouteFactory, $location, $log, $route) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -23,8 +23,6 @@
 		function controllerFn() {
 			var vm = this;
 
-			// TODO: make factory to build this for all edit directives.
-
 			vm.add = false;
 			vm.cancel = cancel;
 			vm.save = save;
@@ -32,13 +30,12 @@
 			vm.feedback = {};
 			var feedback = feedbackFactory(vm.feedback);
 
-			initModel();
+			var dao = firebaseDaoFactory(vendorConstants);
 
-			function initModel() {
+			(function() {
 				var vendorKey = vendorRouteFactory.getParam(vendorConstants.dao);
 				if (vendorKey) {
-					var fn = rx.Observable.fromCallback(vendorDaoFactory.syncObject);
-					fn(vendorKey, feedback).subscribe(onNext, onError);
+					initModel(vendorKey);
 				} else {
 					vm.add = true;
 					vm.props.tab.disable = {
@@ -46,14 +43,14 @@
 					};
 					vm.model = {};
 				}
+			})();
+
+			function initModel(key) {
+				dao.syncObject(key, feedback, onNext);
 
 				function onNext(data) {
 					vm.model = data;
-				}
-
-				function onError(error) {
-					$log.error(error);
-					feedback.error(error);
+					vm.add = false;
 				}
 			}
 
@@ -64,15 +61,17 @@
 
 			function save() {
 				feedback.init();
+
 				var fn;
 				if (vm.add) {
-					fn = rx.Observable.fromCallback(vendorDaoFactory.add);
+					dao.add(vm.model, feedback, onNext);
 				} else {
-					fn = rx.Observable.fromCallback(vendorDaoFactory.save);
+					dao.save(vm.model, feedback);
 				}
-				fn(vm.model, feedback).subscribe(onNext, onError);
 
 				function onNext(ref) {
+					initModel(ref.key());
+
 					vm.props.tab.disable = {
 						catalog: false
 					};
@@ -82,13 +81,6 @@
 							vendor: ref.key()
 						}
 					};
-					// to cause vendor key into routeParam for use in adding child data.
-					// $location.path(vendorRouteFactory.editRoute(ref.key()));
-				}
-
-				function onError(error) {
-					$log.error(error);
-					feedback.error(error);
 				}
 			}
 		}

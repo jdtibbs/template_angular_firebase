@@ -4,9 +4,9 @@
 	angular.module('catalog.module')
 		.directive('jdtCatalogEdit', directiveFn);
 
-	directiveFn.$inject = ['editToolbarFactory', 'feedbackFactory', 'catalogConstants', 'catalogDaoFactory', 'catalogRouteFactory', 'firebaseDaoOneToManyFactory', 'vendorConstants', '$location', '$log', 'rx'];
+	directiveFn.$inject = ['editToolbarFactory', 'feedbackFactory', 'catalogConstants', 'catalogRouteFactory', 'firebaseDaoManyToOneFactory', 'vendorConstants', '$location', '$log'];
 
-	function directiveFn(editToolbarFactory, feedbackFactory, catalogConstants, catalogDaoFactory, catalogRouteFactory, firebaseDaoOneToManyFactory, vendorConstants, $location, $log, rx) {
+	function directiveFn(editToolbarFactory, feedbackFactory, catalogConstants, catalogRouteFactory, firebaseDaoManyToOneFactory, vendorConstants, $location, $log) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -34,6 +34,8 @@
 			vm.feedback = {};
 			var feedback = feedbackFactory(vm.feedback);
 
+			var dao = firebaseDaoManyToOneFactory(catalogConstants, vendorConstants);
+
 			(function() {
 				var catalogKey = catalogRouteFactory.getParam(catalogConstants.dao);
 				if (catalogKey) {
@@ -45,17 +47,11 @@
 			})();
 
 			function initModel(catalogKey) {
-				var fn = rx.Observable.fromCallback(catalogDaoFactory.syncObject);
-				fn(catalogKey, feedback).subscribe(onNext, onError);
+				dao.syncObject(catalogKey, feedback, onNext);
 
 				function onNext(data) {
 					vm.model = data;
 					vm.add = false;
-				}
-
-				function onError(error) {
-					$log.error(error);
-					feedback.error(error);
 				}
 			}
 
@@ -67,23 +63,13 @@
 			function save() {
 				feedback.init();
 				if (vm.add) {
-					firebaseDaoOneToManyFactory(vendorConstants, catalogConstants, feedback).add(vm.model, onAdd);
+					dao.add(vm.model, feedback, onNext);
 				} else {
-					var fn = rx.Observable.fromCallback(catalogDaoFactory.save);
-					fn(vm.model, feedback).subscribe(onNext, onError);
+					dao.save(vm.model, feedback);
 				}
 
-				function onAdd(catalogKey) {
+				function onNext(catalogKey) {
 					initModel(catalogKey);
-				}
-
-				function onNext(ref) {
-					// $log.debug(ref);
-				}
-
-				function onError(error) {
-					$log.error(error);
-					feedback.error(error);
 				}
 			}
 		}

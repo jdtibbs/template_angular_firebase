@@ -4,9 +4,9 @@
 	angular.module('login.module')
 		.directive('jdtCatalogList', directiveFn);
 
-	directiveFn.$inject = ['firebaseDaoOneToManyFactory', 'feedbackFactory', 'catalogConstants', 'catalogRouteFactory', 'vendorConstants', '$location', '$log'];
+	directiveFn.$inject = ['firebaseDaoManyToOneFactory', 'feedbackFactory', 'catalogConstants', 'catalogRouteFactory', 'vendorConstants', '$location', '$log'];
 
-	function directiveFn(firebaseDaoOneToManyFactory, feedbackFactory, catalogConstants, catalogRouteFactory, vendorConstants, $location, $log) {
+	function directiveFn(firebaseDaoManyToOneFactory, feedbackFactory, catalogConstants, catalogRouteFactory, vendorConstants, $location, $log) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -28,12 +28,13 @@
 			vm.feedback = {};
 			var feedback = feedbackFactory(vm.feedback);
 
+			var dao = firebaseDaoManyToOneFactory(catalogConstants, vendorConstants);
+
 			// TODO: make a service to build this for all list controllers.
 			(function() {
 				var vendorKey = catalogRouteFactory.getParam(vendorConstants.dao);
 				if (vendorKey) {
-					firebaseDaoOneToManyFactory(vendorConstants, catalogConstants, feedback)
-						.syncArray(vendorKey, vm.data);
+					dao.syncArray(vendorKey, vm.data, feedback);
 				}
 			})();
 
@@ -43,8 +44,7 @@
 
 			function remove(key, event) {
 				event.stopPropagation();
-				firebaseDaoOneToManyFactory(vendorConstants, catalogConstants, feedback)
-					.remove(key);
+				dao.remove(key, feedback);
 			}
 		}
 

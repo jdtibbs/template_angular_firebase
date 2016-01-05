@@ -4,9 +4,9 @@
 	angular.module('login.module')
 		.directive('jdtVendorList', directiveFn);
 
-	directiveFn.$inject = ['listToolbarFactory', 'feedbackFactory', 'vendorConstants', 'vendorDaoFactory', 'vendorRouteFactory', '$location', '$log', 'rx'];
+	directiveFn.$inject = ['catalogConstants', 'feedbackFactory', 'firebaseDaoOneToManyFactory', 'listToolbarFactory', 'vendorConstants', 'vendorRouteFactory', '$location', '$log'];
 
-	function directiveFn(listToolbarFactory, feedbackFactory, vendorConstants, vendorDaoFactory, vendorRouteFactory, $location, $log, rx) {
+	function directiveFn(catalogConstants, feedbackFactory, firebaseDaoOneToManyFactory, listToolbarFactory, vendorConstants, vendorRouteFactory, $location, $log) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -37,19 +37,15 @@
 			vm.feedback = {};
 			var feedback = feedbackFactory(vm.feedback);
 
-			// TODO: make a service to build this for all list controllers.
+			var dao = firebaseDaoOneToManyFactory(vendorConstants, catalogConstants);
 
-			var fn = rx.Observable.fromCallback(vendorDaoFactory.syncArray);
-			var observer = rx.Observer.create(
+			(function() {
+				dao.syncArray(null, feedback, onNext);
+
 				function onNext(data) {
 					vm.data = data;
-				},
-				function onError(error) {
-					$log.error(error);
-					feedback.error(error);
-				});
-			fn(null, feedback).subscribe(observer);
-
+				}
+			})();
 
 			function edit(key) {
 				$location.path(vendorRouteFactory.editRoute(key));
@@ -58,15 +54,7 @@
 			function remove(key, event) {
 				// TODO, remove this vendor's catalog data.
 				event.stopPropagation();
-				var fn = rx.Observable.fromCallback(vendorDaoFactory.remove);
-				fn(key, feedback).subscribe(onNextRemove, onErrorRemove);
-
-				function onNextRemove(ref) {}
-
-				function onErrorRemove(error) {
-					$log.error(error);
-					feedback.error(error);
-				}
+				dao.remove(key, feedback);
 			}
 		}
 	}
