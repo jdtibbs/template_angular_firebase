@@ -40,7 +40,16 @@
     },
     "login": {
       ".read": "auth.uid !== null",
-      ".write": "auth.uid !== null"
+      ".write": "auth.uid !== null",
+      "$login_id": {
+        ".validate": "newData.hasChildren(['time'])",
+        "time": {
+          ".validate": "newData.isString() && newData.val().length <= 50"
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
     },
     "menu": {
       ".read": "auth.uid !== null",

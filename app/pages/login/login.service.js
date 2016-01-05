@@ -30,11 +30,10 @@
 				var subscription = source.subscribe(
 					function(authData) {
 						// see onAuth()
-						var data = {};
-						data['login/' + authData.uid] = {
+						var data = {
 							time: new Date().toUTCString()
 						};
-						firebaseService.ref().update(data, function(error) {
+						firebaseService.ref().child('login').child(authData.uid).set(data, function(error) {
 							if (error) {
 								$log.error(error);
 							}
