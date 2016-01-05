@@ -31,6 +31,7 @@
 			// build up child component properties.
 			vm.props.components = listToolbarFactory(vendorConstants, vendorRouteFactory);
 
+			vm.data = [];
 			vm.remove = remove;
 			vm.edit = edit;
 
@@ -52,7 +53,6 @@
 			}
 
 			function remove(key, event) {
-				// TODO, remove this vendor's catalog data.
 				event.stopPropagation();
 				dao.remove(key, feedback);
 			}
