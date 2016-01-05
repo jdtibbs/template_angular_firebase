@@ -11,6 +11,8 @@
 
         var dao = {
             add: function(object, feedback, callback) {
+                this.setLastUpdate(object);
+
                 var oneKey = routeParamsFactory.getParam(this.oneConstant.dao);
                 var oneRefChild = this.ref().child(this.oneConstant.dao).child(oneKey).child(this.constant.dao);
                 var rulesFactory = firebaseRulesFactory(this.constant, oneRefChild);
