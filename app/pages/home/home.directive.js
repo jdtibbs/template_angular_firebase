@@ -19,13 +19,13 @@
 		};
 	}
 
-	controllerFn.$inject = ['baseToolbarFactory', 'homeConstants', '$log'];
+	controllerFn.$inject = ['toolbarFactory', 'homeConstants', '$log'];
 
-	function controllerFn(baseToolbarFactory, homeConstants, $log) {
+	function controllerFn(toolbarFactory, homeConstants, $log) {
 		var vm = this;
 
 		// build up child component properties.
-		vm.props.components = baseToolbarFactory(homeConstants);
+		vm.props.components = toolbarFactory(homeConstants);
 	}
 
 })();
