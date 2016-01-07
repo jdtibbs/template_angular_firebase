@@ -6,7 +6,7 @@
 	<md-list-item aria-label="user">
 		<div layout="row" flex layout-align="center center">
 			<div flex ng-bind="user.name"></div>
-			<div flex hide-sm ng-bind="user.role"></div>
+			<div flex hide show-gt-sm ng-bind="user.role"></div>
 		</div>
 	</md-list-item>
 	<md-divider ng-if="!$last"></md-divider>
