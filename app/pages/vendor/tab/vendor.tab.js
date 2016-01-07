@@ -4,9 +4,9 @@
 	angular.module('vendor.module')
 		.directive('jdtVendorTab', directiveFn);
 
-	directiveFn.$inject = ['editToolbarFactory', 'listTabToolbarFactory', 'catalogConstants', 'catalogRouteFactory', 'feedbackFactory', 'routeParamsFactory', 'vendorConstants', 'vendorRouteFactory', '$location', '$log'];
+	directiveFn.$inject = ['toolbarEditFactory', 'toolbarEditListFactory', 'catalogConstants', 'catalogRouteFactory', 'feedbackFactory', 'routeParamsFactory', 'vendorConstants', 'vendorRouteFactory', '$location', '$log'];
 
-	function directiveFn(editToolbarFactory, listTabToolbarFactory, catalogConstants, catalogRouteFactory, feedbackFactory, routeParamsFactory, vendorConstants, vendorRouteFactory, $location, $log) {
+	function directiveFn(toolbarEditFactory, toolbarEditListFactory, catalogConstants, catalogRouteFactory, feedbackFactory, routeParamsFactory, vendorConstants, vendorRouteFactory, $location, $log) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -24,7 +24,7 @@
 			vm.tab = {
 				catalog: {
 					select: function() {
-						vm.props.components = listTabToolbarFactory(vendorConstants, vendorRouteFactory, catalogRouteFactory);
+						vm.props.components = toolbarEditListFactory(vendorConstants, vendorRouteFactory, catalogRouteFactory);
 						vm.props.tab.active.catalog = true;
 						vm.props.tab.active.vendor = false;
 						vm.props.components.buttons.add = function() {
@@ -39,7 +39,7 @@
 				},
 				vendor: {
 					select: function() {
-						vm.props.components = editToolbarFactory(vendorConstants, vendorRouteFactory);
+						vm.props.components = toolbarEditFactory(vendorConstants, vendorRouteFactory);
 						vm.props.tab.active.catalog = false;
 						vm.props.tab.active.vendor = true;
 					}

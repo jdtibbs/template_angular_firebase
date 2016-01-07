@@ -1,0 +1,49 @@
+<md-toolbar class="md-primary">
+
+	<div layout-gt-sm="row" hide show-gt-sm class="md-toolbar-tools">
+
+		<md-button ng-click="vm.props.components.sidenav.service.toggle()" class="md-icon-button">
+			<md-icon aria-label="Menu" md-svg-icon="https://s3-us-west-2.amazonaws.com/s.cdpn.io/68133/menu.svg"></md-icon>
+		</md-button>
+
+		<jdt-toolbar-title ng-show="!vm.props.components.toolbar.isEdit" props="vm.props"></jdt-toolbar-title>
+
+		<div ng-show="vm.props.components.toolbar.isEdit" ng-click="vm.props.components.buttons.cancel()" style="cursor: pointer;">
+			<md-icon class="material-icons">arrow_back</md-icon>
+			<jdt-toolbar-title props="vm.props" class="jdt-inline-block"></jdt-toolbar-title>
+		</div>
+
+		<div ng-show="vm.props.components.toolbar.isList" flex></div>
+
+		<jdt-toolbar-search ng-show="vm.props.components.toolbar.isList" props="vm.props"></jdt-toolbar-search>
+
+		<jdt-toolbar-add ng-show="vm.props.components.toolbar.isList" props="vm.props"></jdt-toolbar-add>
+
+	</div>
+
+	<!-- small displays -->
+	<div layout-sm="column" hide show-xs show-sm class="md-toolbar-tools">
+
+		<md-button ng-click="vm.props.components.sidenav.service.toggle()" class="md-icon-button">
+			<md-icon aria-label="Menu" md-svg-icon="https://s3-us-west-2.amazonaws.com/s.cdpn.io/68133/menu.svg"></md-icon>
+		</md-button>
+
+		<jdt-toolbar-title ng-show="!vm.props.components.toolbar.isEdit" props="vm.props"></jdt-toolbar-title>
+
+		<div ng-show="vm.props.components.toolbar.isEdit" ng-click="vm.props.components.buttons.cancel()" style="cursor: pointer;">
+			<md-icon class="material-icons">arrow_back</md-icon>
+			<jdt-toolbar-title props="vm.props" class="jdt-inline-block"></jdt-toolbar-title>
+		</div>
+	</div>
+
+	<div layout-sm="column" hide show-xs show-sm ng-show="vm.props.components.toolbar.isList" class="md-toolbar-tools">
+		<div ng-show="vm.props.components.toolbar.isList" flex></div>
+
+		<jdt-toolbar-search ng-show="vm.props.components.toolbar.isList" props="vm.props"></jdt-toolbar-search>
+
+		<jdt-toolbar-add ng-show="vm.props.components.toolbar.isList" props="vm.props"></jdt-toolbar-add>
+	</div>
+
+</md-toolbar>
+
+<jdt-sidenav props="vm.props"></jdt-sidenav>

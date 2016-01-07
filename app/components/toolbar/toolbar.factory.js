@@ -3,7 +3,7 @@
     'use strict';
 
     angular.module('components.module')
-        .factory('baseToolbarFactory', factoryFn);
+        .factory('toolbarFactory', factoryFn);
 
     factoryFn.$inject = ['sidenavFactory'];
 
@@ -11,16 +11,19 @@
 
         function factory(constants) {
             var components = {
-                toolbar: {
-                    title: {
-                        text: constants.title
-                    }
+                menu: {
+                    items: ['a', 'b']
                 },
                 sidenav: {
                     service: sidenavFactory()
                 },
-                menu: {
-                    items: ['a', 'b']
+                toolbar: {
+                    isBase: true,
+                    isEdit: false,
+                    isList: false,
+                    title: {
+                        text: constants.title
+                    }
                 }
             };
             return components;

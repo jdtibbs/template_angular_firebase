@@ -4,9 +4,9 @@
 	angular.module('catalog.module')
 		.directive('jdtCatalogEdit', directiveFn);
 
-	directiveFn.$inject = ['editToolbarFactory', 'feedbackFactory', 'catalogConstants', 'catalogRouteFactory', 'firebaseDaoManyToOneFactory', 'vendorConstants', '$location', '$log'];
+	directiveFn.$inject = ['toolbarEditFactory', 'feedbackFactory', 'catalogConstants', 'catalogRouteFactory', 'firebaseDaoManyToOneFactory', 'vendorConstants', '$location', '$log'];
 
-	function directiveFn(editToolbarFactory, feedbackFactory, catalogConstants, catalogRouteFactory, firebaseDaoManyToOneFactory, vendorConstants, $location, $log) {
+	function directiveFn(toolbarEditFactory, feedbackFactory, catalogConstants, catalogRouteFactory, firebaseDaoManyToOneFactory, vendorConstants, $location, $log) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -23,7 +23,7 @@
 		function controllerFn() {
 			var vm = this;
 
-			vm.props.components = editToolbarFactory(catalogConstants, catalogRouteFactory);
+			vm.props.components = toolbarEditFactory(catalogConstants, catalogRouteFactory);
 
 			vm.cancel = cancel;
 			vm.save = save;

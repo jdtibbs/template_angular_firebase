@@ -1,20 +1,15 @@
-<div layout="row">
-	<jdt-list-toolbar flex props="vm.props"></jdt-list-toolbar>
-</div>
-
-<div ng-repeat="vendor in vm.data | filter: vm.props.components.toolbar.search.value | orderBy: 'vendorName' track by vendor.$id">
-	<md-list-item aria-label="vendor" ng-click="vm.edit(vendor.$id)">
+<md-list>
+	<md-list-item ng-repeat="vendor in vm.data | filter: vm.props.components.toolbar.search.value | orderBy: 'vendorName' track by vendor.$id" ng-click="vm.edit(vendor.$id)">
 		<div layout="row" flex layout-align="center center">
 			<div flex ng-bind="vendor.vendorName"></div>
 			<div flex hide-sm ng-bind="vendor.contactName"></div>
 			<div flex hide-sm hide-md ng-bind="vendor.contactPhone"></div>
-			<md-button class="md-fab md-accent" ng-click="vm.remove(vendor.$id, $event)" aria-label="Remove">
-				<!-- <md-icon md-svg-icon="icons/ic_remove_black_24px.svg"></md-icon> -->
+			<md-button class="md-fab md-mini flmd-accent" ng-click="vm.remove(vendor.$id, $event)" aria-label="Remove">
 				<md-icon class="material-icons">remove</md-icon>
 			</md-button>
 		</div>
+		<md-divider ng-if="!$last"></md-divider>
 	</md-list-item>
-	<md-divider ng-if="!$last"></md-divider>
-</div>
+</md-list>
 
 <jdt-feedback feedback="vm.feedback"></jdt-feedback>
