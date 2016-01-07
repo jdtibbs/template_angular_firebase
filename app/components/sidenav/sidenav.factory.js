@@ -5,18 +5,17 @@
 	angular.module('components.module')
 		.factory('sidenavFactory', factoryFn);
 
-	factoryFn.$inject = ['$mdSidenav'];
 
-	function factoryFn($mdSidenav) {
+	function factoryFn() {
 
 		function factory() {
 			var sidenav = 'sidenav';
 			var service = {
 				toggle: function() {
-					$mdSidenav(sidenav).toggle();
+					// $mdSidenav(sidenav).toggle();
 				},
 				close: function() {
-					$mdSidenav(sidenav).close();
+					// $mdSidenav(sidenav).close();
 				}
 			};
 			return service;

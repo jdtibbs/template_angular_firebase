@@ -3,7 +3,6 @@
 
 	angular
 		.module('app', [
-			'ngMaterial',
 			'ngResource',
 			'templates',
 			'rx',

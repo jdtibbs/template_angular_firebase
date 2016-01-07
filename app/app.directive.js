@@ -4,9 +4,9 @@
 	angular.module('app')
 		.directive('jdtApp', directiveFn);
 
-	directiveFn.$inject = ['$location', '$log', 'loginService', '$mdSidenav'];
+	directiveFn.$inject = ['$location', '$log', 'loginService'];
 
-	function directiveFn($location, $log, loginService, $mdSidenav) {
+	function directiveFn($location, $log, loginService) {
 		return {
 			restrict: 'E',
 			scope: {},
