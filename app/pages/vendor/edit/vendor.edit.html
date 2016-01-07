@@ -1,7 +1,7 @@
-<div layout="row" layout-sm="column">
-	<md-input-container flex="50" flex-sm="100">
+<div layout="row">
+	<md-input-container flex-xs="100" flex-gt-xs="85" flex-gt-sm="50">
 		<label>Vendor Name</label>
-		<input auto-focus name="vendorName" type="text" ng-model="vm.model.vendorName" required ng-maxlength="50">
+		<input name="vendorName" type="text" ng-model="vm.model.vendorName" required ng-maxlength="50">
 		<div ng-show="vm.form.vendorName.$touched" ng-messages="vm.form.vendorName.$error">
 			<div ng-message="required">Required</div>
 			<div ng-message="maxlength">Must not exceed 50 characters.</div>
@@ -10,8 +10,8 @@
 	<div flex></div>
 </div>
 
-<div layout="row" layout-sm="column">
-	<md-input-container flex="25" flex-sm="50">
+<div layout="row">
+	<md-input-container flex-xs="100" flex-gt-xs="85" flex-gt-sm="50">
 		<label>Contact Name</label>
 		<input name="contactName" type="text" ng-model="vm.model.contactName" required ng-maxlength="50">
 		<div ng-show="vm.form.contactName.$touched" ng-messages="vm.form.contactName.$error">
@@ -19,8 +19,10 @@
 			<div ng-message="maxlength">Must not exceed 50 characters.</div>
 		</div>
 	</md-input-container>
+</div>
 
-	<md-input-container flex="25" flex-sm="50">
+<div layout="row">
+	<md-input-container flex-xs="50" flex-gt-xs="50" flex-gt-sm="25">
 		<label>Contact Phone</label>
 		<input name="contactPhone" type="tel" ng-model="vm.model.contactPhone" required ng-maxlength="14">
 		<div ng-show="vm.form.contactPhone.$touched" ng-messages="vm.form.contactPhone.$error">

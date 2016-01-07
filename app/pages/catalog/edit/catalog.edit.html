@@ -1,7 +1,7 @@
 <div layout="row" layout-sm="column">
-	<md-input-container flex="50" flex-sm="100">
+	<md-input-container flex-xs="100" flex-gt-xs="85" flex-gt-sm="50">
 		<label>Item Name</label>
-		<input auto-focus name="itemName" type="text" ng-model="vm.model.name" required ng-maxlength="50">
+		<input name="itemName" type="text" ng-model="vm.model.name" required ng-maxlength="50">
 		<div ng-show="vm.form.itemName.$touched" ng-messages="vm.form.itemName.$error">
 			<div ng-message="required">Required</div>
 			<div ng-message="maxlength">Must not exceed 50 characters.</div>
@@ -11,7 +11,7 @@
 </div>
 
 <div layout="row" layout-sm="column">
-	<md-input-container flex="50" flex-sm="100">
+	<md-input-container flex-xs="100" flex-gt-xs="85" flex-gt-sm="50">
 		<label>Description</label>
 		<input name="description" type="text" ng-model="vm.model.description" required ng-maxlength="50">
 		<div ng-show="vm.form.description.$touched" ng-messages="vm.form.description.$error">
@@ -22,8 +22,8 @@
 	<div flex></div>
 </div>
 
-<div layout="row" layout-sm="column">
-	<md-input-container flex="25" flex-sm="50">
+<div layout="row" layout-xs="column">
+	<md-input-container flex-gt-xs="40" flex-gt-sm="25">
 		<label>Price</label>
 		<input name="price" type="number" ng-model="vm.model.price" required>
 		<div ng-show="vm.form.price.$touched" ng-messages="vm.form.price.$error">
@@ -31,7 +31,7 @@
 		</div>
 	</md-input-container>
 
-	<md-input-container flex="25" flex-sm="50">
+	<md-input-container flex-gt-xs="40" flex-gt-sm="25">
 		<label>Price per</label>
 		<input name="units" type="text" ng-model="vm.model.units" required ng-maxlength="25">
 		<div ng-show="vm.form.units.$touched" ng-messages="vm.form.units.$error">

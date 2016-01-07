@@ -3,7 +3,7 @@
 </div>
 
 <div layout="row">
-	<md-input-container flex="50" flex-sm="100">
+	<md-input-container flex-xs="100" flex-gt-xs="85" flex-gt-sm="50">
 		<label>Password</label>
 		<input name="password" type="password" ng-model="vm.password" required>
 		<div ng-show="vm.form.password.$touched" ng-messages="vm.form.password.$error">
@@ -13,7 +13,7 @@
 </div>
 
 <div layout="row">
-	<md-input-container flex="50" flex-sm="100">
+	<md-input-container flex-xs="100" flex-gt-xs="85" flex-gt-sm="50">
 		<label>New Email</label>
 		<input name="email" type="email" ng-model="vm.email" required>
 		<div ng-show="vm.form.email.$touched" ng-messages="vm.form.email.$error">
@@ -24,7 +24,7 @@
 </div>
 
 <div layout="row">
-	<md-input-container flex="50" flex-sm="100">
+	<md-input-container flex-xs="100" flex-gt-xs="85" flex-gt-sm="50">
 		<label>Confirm New Email</label>
 		<input name="confirm" type="email" ng-model="vm.confirm" jdt-email-validate required>
 		<div ng-show="vm.form.confirm.$touched" ng-messages="vm.form.confirm.$error">
