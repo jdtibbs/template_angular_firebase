@@ -3,14 +3,19 @@
     'use strict';
 
     angular.module('components.module')
-        .factory('toolbarFactory', factoryFn);
+        .factory('toolbarListFactory', factoryFn);
 
-    factoryFn.$inject = ['sidenavFactory'];
+    factoryFn.$inject = ['$location', 'sidenavFactory'];
 
-    function factoryFn(sidenavFactory) {
+    function factoryFn($location, sidenavFactory) {
 
-        function factory(constants) {
+        function factory(constants, routeFactory) {
             var components = {
+                buttons: {
+                    add: function() {
+                        $location.path(routeFactory.addRoute());
+                    }
+                },
                 menu: {
                     items: ['a', 'b']
                 },
@@ -18,9 +23,12 @@
                     service: sidenavFactory()
                 },
                 toolbar: {
-                    isBase: true,
+                    isBase: false,
                     isEdit: false,
-                    isList: false,
+                    isList: true,
+                    search: {
+                        value: ''
+                    },
                     title: {
                         text: constants.title
                     }

@@ -1,7 +1,3 @@
-<div layout="row">
-	<jdt-list-toolbar flex props="vm.props"></jdt-list-toolbar>
-</div>
-
 <div ng-repeat="vendor in vm.data | filter: vm.props.components.toolbar.search.value | orderBy: 'vendorName' track by vendor.$id">
 	<md-list-item aria-label="vendor" ng-click="vm.edit(vendor.$id)">
 		<div layout="row" flex layout-align="center center">

@@ -4,9 +4,9 @@
 	angular.module('login.module')
 		.directive('jdtVendorList', directiveFn);
 
-	directiveFn.$inject = ['catalogConstants', 'feedbackFactory', 'firebaseDaoOneToManyFactory', 'listToolbarFactory', 'vendorConstants', 'vendorRouteFactory', '$location', '$log'];
+	directiveFn.$inject = ['catalogConstants', 'feedbackFactory', 'firebaseDaoOneToManyFactory', 'toolbarListFactory', 'vendorConstants', 'vendorRouteFactory', '$location', '$log'];
 
-	function directiveFn(catalogConstants, feedbackFactory, firebaseDaoOneToManyFactory, listToolbarFactory, vendorConstants, vendorRouteFactory, $location, $log) {
+	function directiveFn(catalogConstants, feedbackFactory, firebaseDaoOneToManyFactory, toolbarListFactory, vendorConstants, vendorRouteFactory, $location, $log) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -29,7 +29,7 @@
 			};
 
 			// build up child component properties.
-			vm.props.components = listToolbarFactory(vendorConstants, vendorRouteFactory);
+			vm.props.components = toolbarListFactory(vendorConstants, vendorRouteFactory);
 
 			vm.data = [];
 			vm.remove = remove;
