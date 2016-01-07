@@ -19,13 +19,13 @@
 		};
 	}
 
-	controllerFn.$inject = ['baseToolbarFactory', 'feedbackFactory', 'restConstants', '$resource', '$log'];
+	controllerFn.$inject = ['toolbarFactory', 'feedbackFactory', 'restConstants', '$resource', '$log'];
 
-	function controllerFn(baseToolbarFactory, feedbackFactory, restConstants, $resource, $log) {
+	function controllerFn(toolbarFactory, feedbackFactory, restConstants, $resource, $log) {
 		var vm = this;
 
 		// build up child component properties.
-		vm.props.components = baseToolbarFactory(restConstants);
+		vm.props.components = toolbarFactory(restConstants);
 
 		vm.feedback = {};
 		var feedback = feedbackFactory(vm.feedback);
