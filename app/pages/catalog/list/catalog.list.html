@@ -1,10 +1,10 @@
 <md-list>
 	<md-list-item ng-repeat="catalog in vm.data | filter: vm.props.components.toolbar.search.value | orderBy: 'name' track by catalog.$id" ng-click="vm.edit(catalog.$id)">
 		<div layout="row" flex layout-align="center center">
-			<div flex ng-bind="catalog.name"></div>
-			<div flex hide-sm ng-bind="catalog.description"></div>
-			<div flex hide-sm hide-md ng-bind="catalog.price"></div>
-			<div flex hide-sm hide-md ng-bind="catalog.units"></div>
+			<div flex flex="30" ng-bind="catalog.name"></div>
+			<div flex flex="30" hide show-gt-sm ng-bind="catalog.description"></div>
+			<div flex="10" hide show-gt-md ng-bind="catalog.price"></div>
+			<div flex="10" hide show-gt-md ng-bind="catalog.units"></div>
 			<md-button class="md-fab md-mini md-accent" ng-click="vm.remove(catalog.$id, $event)" aria-label="Remove">
 				<md-icon class="material-icons">remove</md-icon>
 			</md-button>
