@@ -2,7 +2,7 @@
 
     'use strict';
 
-    angular.module('services.firebase.module')
+    angular.module('services.module')
         .service('firebaseAuthService', serviceFn);
 
     serviceFn.$inject = ['firebaseService', '$firebaseAuth', '$log'];

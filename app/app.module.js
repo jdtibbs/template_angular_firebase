@@ -8,7 +8,6 @@
 			'components.module',
 			'home.module',
 			'login.module',
-			'services.firebase.module',
-			'services.util.module',
+			'services.module'
 		]);
 })();

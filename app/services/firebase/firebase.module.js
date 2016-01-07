@@ -1,6 +1,6 @@
 (function() {
 	'use strict';
 
-	angular.module('services.firebase.module', ['firebase']);
+	angular.module('services.module', ['firebase']);
 
 })();
