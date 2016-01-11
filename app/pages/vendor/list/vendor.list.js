@@ -48,6 +48,10 @@
 				}
 			})();
 
+			// TODO make a factory for button functions, 
+			// listButtonFactory(routeFactory, daoFactory).
+			// editButtonFactory(routeFactory, daoFactory).
+
 			function edit(key) {
 				$location.path(vendorRouteFactory.editRoute(key));
 			}
