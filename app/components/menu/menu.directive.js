@@ -26,7 +26,7 @@
 				items: []
 			};
 
-			// TODO move temp menu items to DB driven.
+			// TODO move temp menu items to de DB driven via menuDaoFactory.
 			vm.menu.items.push(new Menu('Vendors', vendorConstants.path));
 			vm.menu.items.push(new Menu('RESTful', restConstants.path));
 
