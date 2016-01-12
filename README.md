@@ -1,19 +1,17 @@
 # template_angular_firebase
 
-An Angular and Firebase application sandbox for experimentation. 
+An Angular and Firebase application for demonstration.
 
-####To run:
+#####Functional limitations by page:
 
-cd template_angular_firebase
+1. Settings: Changing email and password is disabled.
 
-brunch w -s
+2. Vendors: Maximum number of objects that can be added to Firebase is 50. 
 
-http://localhost:3333
+#####To run:
 
-####To enable menu option RESTful:
+1. cd template_angular_firebase
 
-fork: https://github.com/jdtibbs/helloApp
+2. brunch w -s
 
-cd helloApp
-
-node app.js
+3. http://localhost:3333
