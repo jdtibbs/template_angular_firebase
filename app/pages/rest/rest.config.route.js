@@ -8,7 +8,16 @@
 
 	function config(restConstantsProvider, $routeProvider) {
 		$routeProvider.when(restConstantsProvider.path(), {
-			templateUrl: 'app/pages/rest/rest.html'
+			templateUrl: 'app/pages/rest/rest.html',
+			resolve: {
+				requireAuth: requireAuth
+			}
 		});
+	}
+
+	requireAuth.$inject = ['loginService'];
+
+	function requireAuth(loginService) {
+		return loginService.requireAuth();
 	}
 })();
