@@ -2,7 +2,7 @@
 	<div layout="row">
 		<md-input-container flex-xs="100" flex-gt-xs="85" flex-gt-sm="50">
 			<label>Email</label>
-			<input auto-focus name="email" type="email" ng-model="vm.email" required>
+			<input name="email" type="email" ng-model="vm.email" required>
 			<div ng-show="form.email.$touched" ng-messages="form.email.$error">
 				<div ng-message="required">Required.</div>
 				<div ng-message="email">Invalid email.</div>
