@@ -2,6 +2,8 @@
 
 An Angular and Firebase application for demonstration.
 
+Live [here](https://jdt-sandbox.firebaseapp.com)
+
 #####Functional limitations by page:
 
 1. Settings: Changing email and password is disabled.
